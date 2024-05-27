@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@mantine/charts": "^7.10.0",
     "@mantine/core": "^7.10.0",
     "@tabler/icons-react": "^3.5.0"
   }

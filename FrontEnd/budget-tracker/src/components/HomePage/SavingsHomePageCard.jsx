@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Text, Card, RingProgress, Button, List, ThemeIcon, rem, Progress } from '@mantine/core';
 import { IconPigMoney, IconChevronRight, IconPlane, IconHome } from '@tabler/icons-react';
 import './HomePageCardStyle.css';
@@ -15,7 +16,7 @@ function StatText({ label, value, color, highlight }) {
   );
 }
 
-function SavingPotItem({ icon, color, title, amount, progress }) {
+function SavingPotItem({ icon, color, title, amount, goal, progress }) {
   return (
     <List.Item
       icon={
@@ -29,18 +30,25 @@ function SavingPotItem({ icon, color, title, amount, progress }) {
           <Text size='13px'>{title}</Text>
         </div>
         <div className="textItem">
-          <Text className="textItem" c="dimmed" size='13px'>{amount}</Text>
+          <Text className="textItem" c="dimmed" size='13px'>{amount} / {goal}</Text>
         </div>
         <div className="progressContainer">
           <div className="progressLabel"><Text size='13px'>{progress}%</Text></div>
-          <Progress value={progress} mt="s" color="#4333A1" style={{ width: "300px" }} />
+          <Progress value={progress} mt="s" color="#4333A1" style={{ width: "425px" }} />
         </div>
       </div>
     </List.Item>
   );
 }
 
-export function HomePageCard() {
+export function SavingsHomePageCard() {
+
+  const navigate = useNavigate();
+
+  const handleRedirect = () => {
+    navigate('/savingpots');
+  };
+
   return (
     <Card withBorder radius="20" className="card">
       <div className="topRightText">
@@ -67,11 +75,11 @@ export function HomePageCard() {
             roundCaps
             thickness={6}
             size={150}
-            sections={[{ value: 20, color: "#4333A1" }]}
+            sections={[{ value: 58, color: "#4333A1" }]}
             label={
               <div>
-                <Text ta="center" fz="lg">20%</Text>
-                <Text ta="center" fz="xs" c="dimmed">Completed</Text>
+                <Text ta="center" fz="lg">58%</Text>
+                <Text ta="center" fz="xs" c="dimmed">Goal Reached</Text>
               </div>
             }
           />
@@ -79,12 +87,13 @@ export function HomePageCard() {
       </div>
       <div className="savingPotsList">
         <div className='savingPotsListTitle'><Text>Saving Pots:</Text></div>
-        <List spacing="xs" size="m" center>
+        <List spacing="lg" size="m" center>
           <SavingPotItem
             icon={<IconPlane style={{ width: rem(16), height: rem(16) }} />}
             color="orange"
             title="Holiday"
             amount="£495.34"
+            goal="£1,000.00"
             progress={50}
           />
           <SavingPotItem
@@ -92,14 +101,10 @@ export function HomePageCard() {
             color="red"
             title="New Home"
             amount="£9,509.34"
+            goal="£11,000.00"
             progress={78}
           />
         </List>
-      </div>
-      <div className="bottomRightButton">
-        <Button variant="subtle" compact>
-          <IconChevronRight color='#4333A1' size={16} />
-        </Button>
       </div>
     </Card>
   );

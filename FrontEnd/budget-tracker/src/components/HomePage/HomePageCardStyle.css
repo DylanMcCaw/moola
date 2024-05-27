@@ -44,7 +44,7 @@
   flex-direction: column;
 }
 
-.ringProgress {
+.ringProgress, .pieChart {
   margin-left: 20px;
   padding-left: 50px;
 }
@@ -86,4 +86,61 @@
   position: absolute;
   top: -20px;
   right: 0;
+}
+
+/* Add faint lines between rows */
+.expenseTableContainer table tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.expenseTableContainer table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.expenseTableContainer table th:first-child,
+.expenseTableContainer table td:first-child {
+  width: 1%;  /* Adjust this value as needed */
+}
+
+.expenseTableContainer table th:nth-child(2),
+.expenseTableContainer table td:nth-child(2) {
+  width: 1%;  /* Adjust this value as needed */
+}
+
+/* Reduce padding to minimize spacing */
+.expenseTableContainer table th,
+.expenseTableContainer table td {
+  padding: 5px 5px;  /* Adjust padding as needed */
+}
+
+/* Align Name column to the left */
+.name-column {
+  text-align: left;
+  padding-right: 10px;  /* Adjust this value as needed */
+}
+
+/* Align Amount column to the right */
+.amount-column {
+  text-align: right;
+}
+
+/* Apply text alignment to header cells */
+.expenseTableContainer table thead th.name-column {
+  text-align: left;
+}
+
+.expenseTableContainer table thead th.amount-column {
+  text-align: right;
+}
+
+.category-text {
+  color: grey;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+.table-header{
+  padding-bottom: 5px;
 }

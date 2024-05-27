@@ -15,8 +15,8 @@ import classes from './NavbarSimpleColored.module.css';
 const data = [
   { link: '/', label: 'Home', icon: IconHome },
   { link: '/savingpots', label: 'Saving Pots', icon: IconPigMoney },
-  { link: '/expenses', label: 'Expenses', icon: IconWallet },
   { link: '/income', label: 'Income', icon: IconMoneybag },
+  { link: '/expenses', label: 'Expenses', icon: IconWallet },
   { link: '/reminders', label: 'Reminders', icon: IconNotification },
   { link: '/accountsettings', label: 'Account Settings', icon: IconSettings },
 ];
