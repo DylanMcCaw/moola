@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|c:\\users\\dylan\\desktop\\software development\\budget-tracker\\budgetappapi\\budgettracker\\expenses\\controllers\\expensescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|solutionrelative:expenses\\controllers\\expensescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|c:\\users\\dylan\\desktop\\software development\\budget-tracker\\budgetappapi\\budgettracker\\savings\\controllers\\savingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|solutionrelative:savings\\controllers\\savingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|c:\\users\\dylan\\desktop\\software development\\budget-tracker\\budgetappapi\\budgettracker\\common\\models\\frequency.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|solutionrelative:common\\models\\frequency.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|c:\\users\\dylan\\desktop\\software development\\budget-tracker\\budgetappapi\\budgettracker\\common\\models\\budgettrackerdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|solutionrelative:common\\models\\budgettrackerdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -13,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|c:\\users\\dylan\\desktop\\software development\\budget-tracker\\budgetappapi\\budgettracker\\savings\\services\\savingsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|solutionrelative:savings\\services\\savingsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|c:\\users\\dylan\\desktop\\software development\\budget-tracker\\budgetappapi\\budgettracker\\expenses\\controllers\\expensescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|solutionrelative:expenses\\controllers\\expensescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|c:\\users\\dylan\\desktop\\software development\\budget-tracker\\budgetappapi\\budgettracker\\expenses\\models\\expense.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -39,20 +47,12 @@
       "RelativeMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|solutionrelative:migrations\\20240501204427_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|c:\\users\\dylan\\desktop\\software development\\budget-tracker\\budgetappapi\\budgettracker\\savings\\controllers\\savingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|solutionrelative:savings\\controllers\\savingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|c:\\users\\dylan\\desktop\\software development\\budget-tracker\\budgetappapi\\budgettracker\\savings\\services\\isavingsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|solutionrelative:savings\\services\\isavingsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|c:\\users\\dylan\\desktop\\software development\\budget-tracker\\budgetappapi\\budgettracker\\common\\models\\ibudgettrackerdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|solutionrelative:common\\models\\ibudgettrackerdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|c:\\users\\dylan\\desktop\\software development\\budget-tracker\\budgetappapi\\budgettracker\\common\\models\\frequency.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|solutionrelative:common\\models\\frequency.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F8C2940C-2427-429B-BD43-145B75DD3731}|BudgetTracker.csproj|c:\\users\\dylan\\desktop\\software development\\budget-tracker\\budgetappapi\\budgettracker\\savings\\models\\savingspot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -78,24 +78,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "20240501204427_InitialCreate.cs",
-              "DocumentMoniker": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Migrations\\20240501204427_InitialCreate.cs",
-              "RelativeDocumentMoniker": "Migrations\\20240501204427_InitialCreate.cs",
-              "ToolTip": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Migrations\\20240501204427_InitialCreate.cs",
-              "RelativeToolTip": "Migrations\\20240501204427_InitialCreate.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAQwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-01T20:44:27.373Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "ExpensesService.cs",
               "DocumentMoniker": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Expenses\\Services\\ExpensesService.cs",
               "RelativeDocumentMoniker": "Expenses\\Services\\ExpensesService.cs",
@@ -103,12 +90,11 @@
               "RelativeToolTip": "Expenses\\Services\\ExpensesService.cs",
               "ViewState": "AQIAAD0AAAAAAAAAAAAkwAoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-01T20:30:10.398Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-01T20:30:10.398Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "IExpenseService.cs",
               "DocumentMoniker": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Expenses\\Services\\IExpenseService.cs",
               "RelativeDocumentMoniker": "Expenses\\Services\\IExpenseService.cs",
@@ -116,12 +102,11 @@
               "RelativeToolTip": "Expenses\\Services\\IExpenseService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-01T20:27:27.686Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-01T20:27:27.686Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "ExpenseCategory.cs",
               "DocumentMoniker": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Expenses\\Models\\ExpenseCategory.cs",
               "RelativeDocumentMoniker": "Expenses\\Models\\ExpenseCategory.cs",
@@ -129,12 +114,11 @@
               "RelativeToolTip": "Expenses\\Models\\ExpenseCategory.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-01T20:23:45.078Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-01T20:23:45.078Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "Expense.cs",
               "DocumentMoniker": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Expenses\\Models\\Expense.cs",
               "RelativeDocumentMoniker": "Expenses\\Models\\Expense.cs",
@@ -142,25 +126,24 @@
               "RelativeToolTip": "Expenses\\Models\\Expense.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-01T20:21:43.172Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-01T20:21:43.172Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "ExpensesController.cs",
               "DocumentMoniker": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Expenses\\Controllers\\ExpensesController.cs",
               "RelativeDocumentMoniker": "Expenses\\Controllers\\ExpensesController.cs",
-              "ToolTip": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Expenses\\Controllers\\ExpensesController.cs",
-              "RelativeToolTip": "Expenses\\Controllers\\ExpensesController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwA0AAABGAAAA",
+              "ToolTip": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Expenses\\Controllers\\ExpensesController.cs*",
+              "RelativeToolTip": "Expenses\\Controllers\\ExpensesController.cs*",
+              "ViewState": "AQIAACEAAAAAAAAAAAAYwD0AAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-01T20:18:06.952Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "SavingsService.cs",
               "DocumentMoniker": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Savings\\Services\\SavingsService.cs",
               "RelativeDocumentMoniker": "Savings\\Services\\SavingsService.cs",
@@ -168,12 +151,11 @@
               "RelativeToolTip": "Savings\\Services\\SavingsService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-30T20:05:54.184Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-30T20:05:54.184Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -186,7 +168,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "BudgetTrackerDbContext.cs",
               "DocumentMoniker": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Common\\Models\\BudgetTrackerDbContext.cs",
               "RelativeDocumentMoniker": "Common\\Models\\BudgetTrackerDbContext.cs",
@@ -199,7 +181,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "ISavingsService.cs",
               "DocumentMoniker": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Savings\\Services\\ISavingsService.cs",
               "RelativeDocumentMoniker": "Savings\\Services\\ISavingsService.cs",
@@ -207,17 +189,16 @@
               "RelativeToolTip": "Savings\\Services\\ISavingsService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-30T20:14:21.207Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-30T20:14:21.207Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 1,
               "Title": "SavingsController.cs",
               "DocumentMoniker": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Savings\\Controllers\\SavingsController.cs",
               "RelativeDocumentMoniker": "Savings\\Controllers\\SavingsController.cs",
-              "ToolTip": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Savings\\Controllers\\SavingsController.cs",
-              "RelativeToolTip": "Savings\\Controllers\\SavingsController.cs",
+              "ToolTip": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Savings\\Controllers\\SavingsController.cs*",
+              "RelativeToolTip": "Savings\\Controllers\\SavingsController.cs*",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-30T18:51:59.116Z",
@@ -225,20 +206,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "IBudgetTrackerDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Common\\Models\\IBudgetTrackerDbContext.cs",
-              "RelativeDocumentMoniker": "Common\\Models\\IBudgetTrackerDbContext.cs",
-              "ToolTip": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Common\\Models\\IBudgetTrackerDbContext.cs",
-              "RelativeToolTip": "Common\\Models\\IBudgetTrackerDbContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAeAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-01T20:40:18.295Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 2,
               "Title": "Frequency.cs",
               "DocumentMoniker": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Common\\Models\\Frequency.cs",
               "RelativeDocumentMoniker": "Common\\Models\\Frequency.cs",
@@ -251,6 +219,30 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "20240501204427_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Migrations\\20240501204427_InitialCreate.cs",
+              "RelativeDocumentMoniker": "Migrations\\20240501204427_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Migrations\\20240501204427_InitialCreate.cs",
+              "RelativeToolTip": "Migrations\\20240501204427_InitialCreate.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAQwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-01T20:44:27.373Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "IBudgetTrackerDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Common\\Models\\IBudgetTrackerDbContext.cs",
+              "RelativeDocumentMoniker": "Common\\Models\\IBudgetTrackerDbContext.cs",
+              "ToolTip": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Common\\Models\\IBudgetTrackerDbContext.cs",
+              "RelativeToolTip": "Common\\Models\\IBudgetTrackerDbContext.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-01T20:40:18.295Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 13,
               "Title": "SavingsPot.cs",
               "DocumentMoniker": "C:\\Users\\Dylan\\Desktop\\Software Development\\Budget-Tracker\\BudgetAppAPI\\BudgetTracker\\Savings\\Models\\SavingsPot.cs",
@@ -259,8 +251,7 @@
               "RelativeToolTip": "Savings\\Models\\SavingsPot.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-30T18:57:27.575Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-30T18:57:27.575Z"
             },
             {
               "$type": "Document",
@@ -272,8 +263,7 @@
               "RelativeToolTip": "Savings\\Models\\SavingsPotStatus.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-30T19:07:23.992Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-30T19:07:23.992Z"
             },
             {
               "$type": "Document",

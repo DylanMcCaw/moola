@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #FAFAFE;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: row; /* Arrange header and content side by side */
+}
+
+header {
+  flex: 0 0 auto; /* Prevent header from growing or shrinking */
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Allow content to expand to fill remaining space */
+  padding-top: 60px; /* Adjust this value according to your Navbar's height */
+}
+
+.main-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto; /* Center the content horizontally */
+  padding: 20px;
+}

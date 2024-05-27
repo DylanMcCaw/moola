@@ -1,0 +1,85 @@
+/* HomePageCardStyle.css */
+
+.card {
+    width: 500px;
+  }
+  
+  .icon {
+    border-radius: 50px;
+    background-color: #4333A1;
+    color: white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+  }
+  
+  .stats {
+    flex: 1;
+  }
+  
+  .amountText {
+    padding-top: 20px;
+  }
+  
+  .depositedWithdrawnContainer {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px; /* Add gap for spacing */
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  
+  .depositedText, .withdrawnText {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .ringProgress {
+    margin-left: 20px; /* Optional: Add some spacing between text and RingProgress */
+    padding-left: 50px;
+  }
+  
+  .topRightText {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  .bottomRightButton {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .savingPotsListTitle{
+    padding-bottom: 15px;
+  }
+
+  .listItemContent {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .textItem {
+    padding-bottom: 5px; /* Adjust as needed */
+  }
+
+  .progressContainer {
+    position: relative;
+  }
+
+.progressLabel {
+  position: absolute;
+  top: -20px; /* Adjust as needed */
+  right: 0;
+}

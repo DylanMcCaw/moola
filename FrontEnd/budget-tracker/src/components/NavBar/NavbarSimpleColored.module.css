@@ -1,0 +1,96 @@
+.navbar {
+  height: 100vh; /* Ensure the navbar spans the entire viewport height */
+  width: 18.75rem; /* Convert 300px to rem assuming the root font size is 16px (300 / 16 = 18.75) */
+  padding: var(--mantine-spacing-md);
+  display: flex;
+  flex-direction: column;
+  background-color: #4333A1;
+  border-top-right-radius: 40px; /* Rounded corners on the top right */
+  border-bottom-right-radius: 40px; /* Rounded corners on the bottom right */
+  overflow: hidden; /* Ensure content doesn't overflow the rounded corners */
+}
+
+.navbarMain {
+  flex: 1;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--mantine-spacing-sm) 0;
+  margin-bottom: var(--mantine-spacing-md);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--mantine-spacing-sm);
+  color: white;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.icon {
+  color: white;
+}
+
+.footer {
+  padding-top: var(--mantine-spacing-md);
+  margin-top: var(--mantine-spacing-md);
+  border-top: 1px solid #4333A1;
+}
+
+.version {
+  background-color: #4333A1;
+  color: var(--mantine-color-white);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: var(--mantine-font-size-sm);
+  color: var(--mantine-color-white);
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm);
+  border-radius: 20px;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+  margin-bottom: 8px;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--mantine-color-white);
+  }
+
+  .linkIcon {
+    color: #8680C3;
+    margin-right: var(--mantine-spacing-sm);
+    width: 1.5625rem; /* Convert 25px to rem (25 / 16 = 1.5625) */
+    height: 1.5625rem; /* Convert 25px to rem (25 / 16 = 1.5625) */
+  }
+
+  &[data-active='true'] {
+    box-shadow: var(--mantine-shadow-sm);
+    background-color: var(--mantine-color-white);
+    color: #4333A1;
+
+    .linkIcon {
+      color: #4333A1;
+    }
+
+    &:hover {
+      background-color: var(--mantine-color-white);
+      color: #4333A1;
+
+      .linkIcon {
+        color: #4333A1;
+      }
+    }
+  }
+}
+
+.activeLink {
+  background-color: rgba(255, 255, 255, 0.2); /* Active link background color */
+  color: white; /* Active link text color */
+}
