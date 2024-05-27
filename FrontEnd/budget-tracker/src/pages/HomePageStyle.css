@@ -1,0 +1,20 @@
+.home-page {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap to the next line if necessary */
+    justify-content: center;
+    gap: 20px; /* Adjust the gap between cards as needed */
+    max-width: 1200px; /* Limit the maximum width of the container */
+    width: 100%;
+  }
+  
+  /* Adjust card styles if necessary */
+  .cards-container > * {
+    flex: 1 1 400px; /* Adjust the width of individual cards as needed */
+    max-width: 900px; /* Ensure cards don't exceed a certain width */
+  }
