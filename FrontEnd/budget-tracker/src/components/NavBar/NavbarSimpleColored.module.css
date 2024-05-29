@@ -94,3 +94,9 @@
   background-color: rgba(255, 255, 255, 0.2); /* Active link background color */
   color: white; /* Active link text color */
 }
+
+.chevron {
+  color: white;
+  margin-left: auto;
+}
+

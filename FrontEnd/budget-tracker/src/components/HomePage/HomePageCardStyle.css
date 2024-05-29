@@ -1,7 +1,11 @@
-/* HomePageCardStyle.css */
-
 .card {
-  width: 600px;
+  width: 800px;
+}
+
+.large-card {
+  width: 1700px;
+  padding-top: 0px; /* Adjust the top padding */
+  position: relative; /* Ensure absolute positioning works correctly */
 }
 
 .icon {
@@ -13,17 +17,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 10px;
 }
 
 .inner {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  padding-top: 10px;
+  padding-top: 5px; /* Adjust the top padding */
+}
+
+.left-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align items at the start of the cross axis */
+  flex: 1; /* Take up available space */
+  padding-right: 20px; /* Add padding to the right */
 }
 
 .stats {
-  flex: 1;
+  padding-bottom: 20px; /* Add padding to separate stats from savingPotsList */
 }
 
 .amountText {
@@ -32,10 +45,8 @@
 
 .depositedWithdrawnContainer {
   display: flex;
-  justify-content: flex-start;
   gap: 20px;
-  width: 100%;
-  padding: 20px 0;
+  padding-top: 43px;
 }
 
 .depositedText, .withdrawnText {
@@ -43,7 +54,13 @@
   flex-direction: column;
 }
 
-.ringProgress, .pieChart {
+.ringProgress {
+  margin-top: 25x; /* Adjust the top margin to lower the RingProgress */
+  padding-left: 100px;
+  flex: 1; /* Take up available space */
+}
+
+.pieChart {
   margin-left: 20px;
   padding-left: 50px;
 }
@@ -66,6 +83,10 @@
 
 .savingPotsListTitle {
   padding-bottom: 15px;
+}
+
+.savingPotsList {
+  flex: 1; /* Take up available space */
 }
 
 .listItemContent {

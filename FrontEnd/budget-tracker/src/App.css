@@ -25,4 +25,12 @@ header {
   max-width: 1200px;
   margin: 0 auto; /* Center the content horizontally */
   padding: 20px;
+  padding-top: 100px;
+}
+
+
+.user-menu-container {
+  position: absolute;
+  top: var(--mantine-spacing-md);
+  right: var(--mantine-spacing-md);
 }

@@ -1,11 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { MantineProvider } from '@mantine/core';
 import { Home, SavingPots } from './pages';
 import { Navbar } from './components/NavBar/NavBar';
+import UserMenu from './components/UserMenu'; // Import the UserMenu component
 import '@mantine/core/styles.css';
-
-import { MantineProvider } from '@mantine/core';
-
 import './App.css';
 
 function App() {
@@ -35,6 +34,9 @@ function App() {
             <footer>
               <div className="container"></div>
             </footer>
+          </div>
+          <div className="user-menu-container">
+            <UserMenu />
           </div>
         </div>
       </Router>
