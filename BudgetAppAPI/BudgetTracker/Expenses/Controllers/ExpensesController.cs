@@ -67,5 +67,20 @@ namespace BudgetTracker.Expenses.Controllers
 
             return CreatedAtAction(nameof(GetExpense), new { id = createdExpense.Id }, createdExpense);
         }
+
+        // PUT: api/Expense/{id}
+        // Updates an existing Expense by its ID
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateExpense(int id, Expense updatedExpense)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var success = await _ExpenseService.UpdateExpenseAsync(id, updatedExpense);
+            if (!success)
+                return NotFound();
+
+            return NoContent();
+        }
     }
 }

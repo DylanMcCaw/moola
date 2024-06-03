@@ -25,6 +25,8 @@
   align-items: flex-start;
   justify-content: space-between;
   padding-top: 5px; /* Adjust the top padding */
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .left-section {
@@ -55,7 +57,7 @@
 }
 
 .ringProgress {
-  margin-top: 25x; /* Adjust the top margin to lower the RingProgress */
+  margin-top: 25px; /* Adjust the top margin to lower the RingProgress */
   padding-left: 100px;
   flex: 1; /* Take up available space */
 }
@@ -151,6 +153,11 @@
 
 .expenseTableContainer table thead th.amount-column {
   text-align: right;
+}
+
+.paginationContainer {
+  float: right;
+  padding-top: 20px;
 }
 
 .category-text {

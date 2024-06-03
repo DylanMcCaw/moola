@@ -1,84 +1,98 @@
-import { useNavigate } from 'react-router-dom';
-import { Text, Card, Button, Table, ThemeIcon } from '@mantine/core';
+import React, { useState } from 'react';
+import { Text, Card, Table, ThemeIcon, Button } from '@mantine/core';
 import { PieChart } from '@mantine/charts';
-import { IconWallet, IconCar, IconBrandNetflix, IconBrandSpotify, IconRouter } from '@tabler/icons-react';
+import { IconWallet } from '@tabler/icons-react';
+import IconComponents from '../IconComponents';
+import ExpenseCategory from '../expense/ExpenseCategory';
 import './HomePageCardStyle.css';
+import { Pagination } from '@mantine/core';
+
+// Function to format amount as currency
+const formatCurrency = (amount) => {
+  return new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP'
+  }).format(amount);
+};
+
+// Function to format date to dd/mm/yyyy
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat('en-GB').format(date);
+};
 
 function ExpenseTable({ expenses }) {
-  const rows = expenses.map((expense) => (
-    <tr key={expense.name}>
-      <td>
-        <ThemeIcon color={expense.color} size="md" radius="xl">
-          {expense.icon}
-        </ThemeIcon>
-      </td>
-      <td className="name-column">{expense.name} <span className='category-text'>{expense.category}</span></td>
-      <td className="amount-column">{expense.amount} <span className='category-text'>{expense.due}</span></td>
-    </tr>
-  ));
+  const [currentPage, setCurrentPage] = useState(1);
+  const expensesPerPage = 5;
+
+  // Calculate total number of pages
+  const totalPages = Math.ceil(expenses.length / expensesPerPage);
+
+  // Calculate index of the first and last expense for the current page
+  const indexOfLastExpense = currentPage * expensesPerPage;
+  const indexOfFirstExpense = indexOfLastExpense - expensesPerPage;
+  const currentExpenses = expenses.slice(indexOfFirstExpense, indexOfLastExpense);
+
+  const rows = currentExpenses.map((expense) => {
+    // Check if the icon exists in IconComponents, default to IconWallet if not found
+    const IconComponent = IconComponents[expense.icon] || IconWallet;
+    return (
+      <tr key={expense.id}>
+        <td>
+          <ThemeIcon color={expense.iconColour} size="md" radius="xl">
+            <IconComponent />
+          </ThemeIcon>
+        </td>
+        <td className="name-column">
+          {expense.description} <span className='category-text'>{ExpenseCategory[expense.category]}</span>
+        </td>
+        <td className="amount-column">
+          {formatCurrency(expense.amount)} <span className='category-text'>{formatDate(expense.startDate)}</span>
+        </td>
+      </tr>
+    );
+  });
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
-    <Table>
-      <thead className='table-header'>
-        <tr>
-          <th className="name-column"><span style={{ color: "grey", fontSize: "12px" }}>Expense</span></th>
-          <th></th>
-          <th className="amount-column"><span style={{ color: "grey", fontSize: "12px" }}>Amount</span></th>
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </Table>
+    <div>
+      <Table>
+        <thead className='table-header'>
+          <tr>
+            <th className="name-column"><span style={{ color: "grey", fontSize: "12px" }}>Expense</span></th>
+            <th></th>
+            <th className="amount-column"><span style={{ color: "grey", fontSize: "12px" }}>Amount</span></th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </Table>
+ <div className="paginationContainer">
+        <Pagination
+          total={totalPages}
+          value={currentPage}
+          onChange={handlePageChange}
+          color='#4333A1'
+          size="sm"
+        />
+      </div>
+    </div>
   );
 }
 
-export function ExpensesHomePageCard() {
-  const navigate = useNavigate();
+export function ExpensesHomePageCard({ expenses }) {
 
-  const handleRedirect = () => {
-    navigate('/expenses');
-  };
+  // Calculate the total amount of expenses
+  const totalExpenses = expenses.reduce((acc, expense) => acc + expense.amount, 0);
 
-  const data = [
-    { name: 'USA', value: 400, color: 'indigo.6' },
-    { name: 'India', value: 300, color: 'yellow.6' },
-    { name: 'Japan', value: 300, color: 'teal.6' },
-    { name: 'Other', value: 200, color: 'gray.6' },
-  ];
-
-  const expenseItems = [
-    {
-      icon: <IconBrandNetflix style={{ width: '16px', height: '16px' }} />,
-      color: "red",
-      name: "Netflix",
-      category: "Entertainment",
-      amount: "£15.99",
-      due: "12/06/2024"
-    },
-    {
-      icon: <IconBrandSpotify style={{ width: '16px', height: '16px' }} />,
-      color: "green",
-      name: "Spotify",
-      category: "Entertainment",
-      amount: "£13.99",
-      due: "26/06/2024"
-    },
-    {
-      icon: <IconCar style={{ width: '16px', height: '16px' }} />,
-      color: "blue",
-      name: "Car",
-      category: "Transport",
-      amount: "£249.00",
-      due: "12/06/2024"
-    },
-    {
-      icon: <IconRouter style={{ width: '16px', height: '16px' }} />,
-      color: "yellow",
-      name: "Internet",
-      category: "Utilites",
-      amount: "£35.99",
-      due: "26/06/2024"
-    },
-  ];
+  // Format data for PieChart
+  const data = expenses.map((expense) => ({
+    name: expense.description,
+    value: expense.amount,
+    color: expense.iconColour // Use expense.iconColour for color
+  }));
 
   return (
     <Card withBorder radius="20" className="card">
@@ -94,21 +108,24 @@ export function ExpensesHomePageCard() {
         <div className="stats">
           <Text size="xl">Total Expenses</Text>
           <div className="amountText">
-            <Text size="30px" fw={700}>£1,189.00</Text> <span style={{ color: "grey", fontSize: "12px" }}>per month</span>
+            <Text size="30px" fw={700}>{formatCurrency(totalExpenses)}</Text> <span style={{ color: "grey", fontSize: "12px" }}>per month</span>
           </div>
         </div>
         <div className="pieChart">
-          <PieChart 
-            withTooltip
-            tooltipDataSource="segment" 
-            mx="auto"  
-            data={data} 
-            style={{ height: '220px', width: '220px' }} 
-          />
+        <PieChart 
+          withTooltip
+          tooltipDataSource="description" // Set tooltipDataSource to "name"
+          mx="auto"  
+          data={data} 
+          style={{ height: '220px', width: '220px' }}
+          label={true}
+          labelPosition="inside"
+          labelOffset={-40}
+        />
         </div>
       </div>
       <div className="expenseTableContainer">
-        <ExpenseTable expenses={expenseItems} />
+        <ExpenseTable expenses={expenses} />
       </div>
     </Card>
   );

@@ -67,15 +67,15 @@ namespace BudgetTracker.Expenses.Services
             return true;
         }
 
-        public async Task<Expense> CreateExpenseAsync(Expense Expense)
+        public async Task<Expense> CreateExpenseAsync(Expense expense)
         {
-            if (Expense == null)
+            if (expense == null)
             {
                 _logger.LogError("Expense object is null.");
                 throw new ArgumentNullException(nameof(Expense));
             }
 
-            _context.Expenses.Add(Expense);
+            _context.Expenses.Add(expense);
 
             try
             {
@@ -88,7 +88,43 @@ namespace BudgetTracker.Expenses.Services
                 throw;
             }
 
-            return Expense;
+            return expense;
+        }
+
+        public async Task<bool> UpdateExpenseAsync(int id, Expense updatedExpense)
+        {
+            _logger.LogInformation($"PUT: UpdateExpense called for Expense ID {id}");
+
+            var existingExpense = await _context.Expenses.FindAsync(id);
+
+            if (existingExpense == null)
+            {
+                _logger.LogWarning($"Expense with ID {id} not found.");
+                return false;
+            }
+
+            // Update the existing expense with the values from updatedExpense
+            existingExpense.UserID = updatedExpense.UserID;
+            existingExpense.Description = updatedExpense.Description;
+            existingExpense.Amount = updatedExpense.Amount;
+            existingExpense.Frequency = updatedExpense.Frequency;
+            existingExpense.Category = updatedExpense.Category;
+            existingExpense.StartDate = updatedExpense.StartDate;
+            existingExpense.Icon = updatedExpense.Icon;
+            existingExpense.IconColour = updatedExpense.IconColour;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError(ex, $"Error occurred while updating Expense with ID {id}.");
+                // Handle or log the exception accordingly
+                throw;
+            }
+
+            return true;
         }
     }
 }

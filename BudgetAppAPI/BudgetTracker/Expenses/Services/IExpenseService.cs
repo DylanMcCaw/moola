@@ -31,8 +31,17 @@ namespace BudgetTracker.Expenses.Services
         /// <summary>
         /// Creates a new Expense.
         /// </summary>
-        /// <param name="Expense">The Expense to create.</param>
+        /// <param name="expense">The Expense to create.</param>
         /// <returns>The newly created Expense.</returns>
-        Task<Expense> CreateExpenseAsync(Expense Expense);
+        Task<Expense> CreateExpenseAsync(Expense expense);
+
+
+        /// <summary>
+        /// Updates an existing Expense.
+        /// </summary>
+        /// <param name="id">The ID of the Expense to update.</param>
+        /// <param name="updatedExpense">The updated expense.</param>
+        /// <returns>True if the Expense was successfully updated, otherwise false.</returns>
+        Task<bool> UpdateExpenseAsync(int id, Expense updatedExpense);
     }
 }
