@@ -9,12 +9,12 @@ namespace BudgetTracker.Expenses.Controllers
     public class ExpensesController : ControllerBase
     {
         private readonly ILogger<ExpensesController> _logger;
-        private readonly IExpensesService _ExpenseService;
+        private readonly IExpensesService _expenseService;
 
         public ExpensesController(ILogger<ExpensesController> logger, IExpensesService ExpenseService)
         {
             _logger = logger;
-            _ExpenseService = ExpenseService;
+            _expenseService = ExpenseService;
         }
 
         // GET: api/Expense/{id}
@@ -22,7 +22,7 @@ namespace BudgetTracker.Expenses.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Expense>> GetExpense(int id)
         {
-            var Expense = await _ExpenseService.GetExpenseAsync(id);
+            var Expense = await _expenseService.GetExpenseAsync(id);
             if (Expense == null)
                 return NotFound();
 
@@ -34,7 +34,7 @@ namespace BudgetTracker.Expenses.Controllers
         [HttpGet("User/{id}")]
         public async Task<ActionResult<IEnumerable<Expense>>> GetUsersExpenses(int id)
         {
-            var Expenses = await _ExpenseService.GetUsersExpensesAsync(id);
+            var Expenses = await _expenseService.GetUsersExpensesAsync(id);
             if (Expenses == null || !Expenses.Any())
                 return NotFound();
 
@@ -46,7 +46,7 @@ namespace BudgetTracker.Expenses.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExpense(int id)
         {
-            var success = await _ExpenseService.DeleteExpenseAsync(id);
+            var success = await _expenseService.DeleteExpenseAsync(id);
             if (!success)
                 return NotFound();
 
@@ -61,7 +61,7 @@ namespace BudgetTracker.Expenses.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var createdExpense = await _ExpenseService.CreateExpenseAsync(Expense);
+            var createdExpense = await _expenseService.CreateExpenseAsync(Expense);
             if (createdExpense == null)
                 return BadRequest();
 
@@ -76,7 +76,7 @@ namespace BudgetTracker.Expenses.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var success = await _ExpenseService.UpdateExpenseAsync(id, updatedExpense);
+            var success = await _expenseService.UpdateExpenseAsync(id, updatedExpense);
             if (!success)
                 return NotFound();
 

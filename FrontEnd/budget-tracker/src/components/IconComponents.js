@@ -4,7 +4,8 @@ import {
     IconBrandNetflix,
     IconBrandSpotify,
     IconRouter,
-    IconHome
+    IconHome,
+    IconBriefcase
   } from '@tabler/icons-react';
   
   const IconComponents = {
@@ -13,7 +14,8 @@ import {
     IconBrandNetflix,
     IconBrandSpotify,
     IconRouter,
-    IconHome
+    IconHome,
+    IconBriefcase
   };
   
   export default IconComponents;

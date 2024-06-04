@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { SavingsHomePageCard } from '../components/HomePage/SavingsHomePageCard';
 import { ExpensesHomePageCard } from '../components/HomePage/ExpensesHomePageCard';
 import { IncomeHomePageCard } from '../components/HomePage/IncomeHomePageCard';
-import ExpenseApi from '../api/ExpenseApi';
 import './HomePageStyle.css';
 
-function Home({ expenses }) {
+function Home({ expenses, incomes }) {
 
   return (
     <div className="home-page">
@@ -14,7 +13,7 @@ function Home({ expenses }) {
           <SavingsHomePageCard />
         </div>
         <div className="half-width-card">
-          <IncomeHomePageCard />
+          <IncomeHomePageCard incomes={incomes} />
         </div>
         <div className="half-width-card">
           <ExpensesHomePageCard expenses={expenses} />

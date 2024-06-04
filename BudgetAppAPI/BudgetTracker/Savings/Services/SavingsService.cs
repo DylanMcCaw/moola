@@ -91,5 +91,41 @@ namespace BudgetTracker.Savings.Services
 
             return savingsPot;
         }
+
+        public async Task<bool> UpdateSavingsPotAsync(int id, SavingsPot updatedSavingsPot)
+        {
+            _logger.LogInformation($"PUT: UpdateSavingsPot called for SavingsPot ID {id}");
+
+            var existingSavingsPot = await _context.SavingsPots.FindAsync(id);
+
+            if (existingSavingsPot == null)
+            {
+                _logger.LogWarning($"SavingsPot with ID {id} not found.");
+                return false;
+            }
+
+            // Update the existing savings pot with the values from updatedSavingsPot
+            existingSavingsPot.UserID = updatedSavingsPot.UserID;
+            existingSavingsPot.Description = updatedSavingsPot.Description;
+            existingSavingsPot.TargetAmount = updatedSavingsPot.TargetAmount;
+            existingSavingsPot.CurrentAmount = updatedSavingsPot.CurrentAmount;
+            existingSavingsPot.DepositFrequency = updatedSavingsPot.DepositFrequency;
+            existingSavingsPot.GoalDate = updatedSavingsPot.GoalDate;
+            existingSavingsPot.Status = updatedSavingsPot.Status;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError(ex, $"Error occurred while updating SavingsPot with ID {id}.");
+                // Handle or log the exception accordingly
+                throw;
+            }
+
+            return true;
+        }
+
     }
 }

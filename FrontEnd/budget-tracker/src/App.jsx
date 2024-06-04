@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Loader } from '@mantine/core'; // Import Loader from Mantine
 import ExpenseApi from './api/ExpenseApi';
+import IncomeApi from './api/IncomeApi';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { MantineProvider } from '@mantine/core';
@@ -12,6 +13,7 @@ import './App.css';
 
 function App() {
   const [expenses, setExpenses] = useState([]);
+  const [incomes, setIncomes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -28,7 +30,20 @@ function App() {
       }
     };
 
+    const fetchIncomes = async () => {
+      try {
+        const userId = 0; // Replace with the actual user ID
+        const data = await IncomeApi.getIncomesByUserId(userId);
+        setIncomes(data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchExpenses();
+    fetchIncomes();
   }, []);
 
   return (
@@ -50,7 +65,7 @@ function App() {
               {error && <div>Error: {error.message}</div>}
               {!loading && !error && (
                 <Routes>
-                  <Route path="/" element={<Home expenses={expenses} />} />
+                  <Route path="/" element={<Home expenses={expenses} incomes={incomes} />} />
                   <Route path="/savingpots" element={<SavingPots />} />
                   {/* 
                   <GuestRoute path="/login" element={<Auth key="login" />} />

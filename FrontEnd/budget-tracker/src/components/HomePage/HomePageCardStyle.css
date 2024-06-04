@@ -111,27 +111,27 @@
 }
 
 /* Add faint lines between rows */
-.expenseTableContainer table tbody tr {
+.tableContainer table tbody tr {
   border-bottom: 1px solid #e0e0e0;
 }
 
-.expenseTableContainer table tbody tr:last-child {
+.tableContainer table tbody tr:last-child {
   border-bottom: none;
 }
 
-.expenseTableContainer table th:first-child,
-.expenseTableContainer table td:first-child {
+.tableContainer table th:first-child,
+.tableContainer table td:first-child {
   width: 1%;  /* Adjust this value as needed */
 }
 
-.expenseTableContainer table th:nth-child(2),
-.expenseTableContainer table td:nth-child(2) {
+.tableContainer table th:nth-child(2),
+.tableContainer table td:nth-child(2) {
   width: 1%;  /* Adjust this value as needed */
 }
 
 /* Reduce padding to minimize spacing */
-.expenseTableContainer table th,
-.expenseTableContainer table td {
+.tableContainer table th,
+.tableContainer table td {
   padding: 5px 5px;  /* Adjust padding as needed */
 }
 
@@ -147,11 +147,11 @@
 }
 
 /* Apply text alignment to header cells */
-.expenseTableContainer table thead th.name-column {
+.tableContainer table thead th.name-column {
   text-align: left;
 }
 
-.expenseTableContainer table thead th.amount-column {
+.tableContainer table thead th.amount-column {
   text-align: right;
 }
 
@@ -171,3 +171,5 @@
 .table-header{
   padding-bottom: 5px;
 }
+
+

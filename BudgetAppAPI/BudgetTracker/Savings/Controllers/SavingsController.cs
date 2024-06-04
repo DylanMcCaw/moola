@@ -1,3 +1,4 @@
+using BudgetTracker.Expenses.Models;
 using BudgetTracker.Savings.Models;
 using BudgetTracker.Savings.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -66,6 +67,21 @@ namespace BudgetTracker.Savings.Controllers
                 return BadRequest();
 
             return CreatedAtAction(nameof(GetSavingsPot), new { id = createdSavingsPot.Id }, createdSavingsPot);
+        }
+
+        // PUT: api/SavingsPot/{id}
+        // Updates an existing Savings Pot by its ID
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateSavingsPot(int id, SavingsPot updatedSavingsPot)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var success = await _savingsService.UpdateSavingsPotAsync(id, updatedSavingsPot);
+            if (!success)
+                return NotFound();
+
+            return NoContent();
         }
     }
 }

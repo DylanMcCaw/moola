@@ -39,7 +39,7 @@ function ExpenseTable({ expenses }) {
     return (
       <tr key={expense.id}>
         <td>
-          <ThemeIcon color={expense.iconColour} size="md" radius="xl">
+          <ThemeIcon  color={expense.iconColour} size="md" radius="xl">
             <IconComponent />
           </ThemeIcon>
         </td>
@@ -124,7 +124,7 @@ export function ExpensesHomePageCard({ expenses }) {
         />
         </div>
       </div>
-      <div className="expenseTableContainer">
+      <div className="tableContainer">
         <ExpenseTable expenses={expenses} />
       </div>
     </Card>
