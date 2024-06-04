@@ -1,4 +1,5 @@
-﻿using BudgetTracker.Savings.Models;
+﻿using BudgetTracker.Expenses.Models;
+using BudgetTracker.Savings.Models;
 
 namespace BudgetTracker.Savings.Services
 {
@@ -34,5 +35,13 @@ namespace BudgetTracker.Savings.Services
         /// <param name="savingsPot">The savings pot to create.</param>
         /// <returns>The newly created savings pot.</returns>
         Task<SavingsPot> CreateSavingsPotAsync(SavingsPot savingsPot);
+
+        /// <summary>
+        /// Updates an existing savings pot.
+        /// </summary>
+        /// <param name="id">The ID of the savings pot to update.</param>
+        /// <param name="updatedSavingsPot">The updated savings pot.</param>
+        /// <returns>True if the savings pot was successfully updated, otherwise false.</returns>
+        Task<bool> UpdateSavingsPotAsync(int id, SavingsPot updatedSavingsPot);
     }
 }

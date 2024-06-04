@@ -1,5 +1,6 @@
 ﻿using BudgetTracker.Common.Services;
 using BudgetTracker.Expenses.Models;
+using BudgetTracker.Incomes.Models;
 using BudgetTracker.Savings.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,5 +15,7 @@ namespace BudgetTracker.Common.Models
             }
             public virtual DbSet<SavingsPot> SavingsPots { get; set; }
             public virtual DbSet<Expense> Expenses { get; set; }
+            public virtual DbSet<Income> Incomes { get; set; }
+
     }
 }
