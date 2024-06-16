@@ -11,6 +11,8 @@ namespace BudgetTracker.Savings.Models
         public required string Description { get; set; }
         public double TargetAmount { get; set; }
         public double CurrentAmount { get; set; }
+        public string? Icon { get; set; }
+        public string? IconColour { get; set; }
         public Frequency DepositFrequency { get; set; }
         public DateTime GoalDate { get; set; }
         public SavingsPotStatus Status { get; set; }

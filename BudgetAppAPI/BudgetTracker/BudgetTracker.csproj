@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="Expenses.Tests\UnitTests\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Savings.Tests\UnitTests\" />
   </ItemGroup>
 

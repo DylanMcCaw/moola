@@ -109,6 +109,8 @@ namespace BudgetTracker.Savings.Services
             existingSavingsPot.Description = updatedSavingsPot.Description;
             existingSavingsPot.TargetAmount = updatedSavingsPot.TargetAmount;
             existingSavingsPot.CurrentAmount = updatedSavingsPot.CurrentAmount;
+            existingSavingsPot.Icon = updatedSavingsPot.Icon;
+            existingSavingsPot.IconColour = updatedSavingsPot.IconColour;
             existingSavingsPot.DepositFrequency = updatedSavingsPot.DepositFrequency;
             existingSavingsPot.GoalDate = updatedSavingsPot.GoalDate;
             existingSavingsPot.Status = updatedSavingsPot.Status;
