@@ -16,7 +16,7 @@ import classes from './NavbarSimpleColored.module.css';
 
 const data = [
   { link: '/', label: 'Home', icon: IconHome },
-  { link: '/savingpots', label: 'Saving Pots', icon: IconPigMoney },
+  { link: '/savingpots', label: 'Savings', icon: IconPigMoney },
   { link: '/income', label: 'Income', icon: IconMoneybag },
   { link: '/expenses', label: 'Expenses', icon: IconWallet },
   { link: '/reminders', label: 'Reminders', icon: IconNotification },
@@ -90,7 +90,7 @@ export function Navbar() {
         <div className={classes.header}>
           <div className={classes.logo}>
             <IconMoodDollar size={28} inverted className={classes.icon} />
-            <span>BudgetTracker</span>
+            <span>Savepal</span>
           </div>
         </div>
         {links}

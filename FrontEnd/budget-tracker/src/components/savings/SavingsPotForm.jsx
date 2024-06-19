@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Container, Grid, TextInput, Select, Button } from '@mantine/core';
-import { DateTimePicker } from '@mantine/dates';
+import { DateInput } from '@mantine/dates';
 
-const SavingsPotForm = () => {
+export function SavingsPotForm () {
   const [formData, setFormData] = useState({
     userId: 1, // Assuming this is statically set for demonstration
     description: '',
@@ -29,10 +29,17 @@ const SavingsPotForm = () => {
     }));
   };
 
-  const depositFrequencyOptions = ['Daily', 'Weekly', 'Monthly', 'Yearly'].map((freq) => ({
-    value: freq,
-    label: freq,
-  }));
+
+  const isFormValid = () => {
+    const { description, targetAmount, goalDate, icon, iconColour } = formData;
+    return (
+      description.trim() !== '' &&
+      targetAmount > 0 &&
+      goalDate !== null &&
+      icon.trim() !== '' &&
+      iconColour.trim() !== ''
+    );
+  };
 
   return (
     <Container size="sm">
@@ -52,36 +59,46 @@ const SavingsPotForm = () => {
               type="number"
               label="Goal Amount (£)"
               value={formData.targetAmount}
-              onChange={(e) => handleInputChange('targetAmount', e.target.value)}
+              onChange={(e) => handleInputChange('targetAmount', parseFloat(e.target.value))}
               required
             />
           </Grid.Col>
           <Grid.Col span={6}>
-            <Select
-              label="Icon"
-              value={formData.icon}
-              onChange={(e) => handleInputChange('icon', e.target.value)}
-              required
-            />
-          </Grid.Col>
-          <Grid.Col span={6}>
-            <Select
-              label="Icon Colour"
-              value={formData.iconColour}
-              onChange={(e) => handleInputChange('iconColour', e.target.value)}
-              required
-            />
-          </Grid.Col>
-          <Grid.Col span={6}>
-            <DateTimePicker
+            <DateInput
               label="Goal Date"
               value={formData.goalDate}
               onChange={(value) => handleInputChange('goalDate', value)}
               required
             />
           </Grid.Col>
+          <Grid.Col span={6}>
+            <Select
+              label="Icon"
+              data={[
+                { value: 'icon1', label: 'Icon 1' },
+                { value: 'icon2', label: 'Icon 2' },
+                // Add more icon options here
+              ]}
+              value={formData.icon}
+              onChange={(value) => handleInputChange('icon', value)}
+              required
+            />
+          </Grid.Col>
+          <Grid.Col span={6}>
+            <Select
+              label="Icon Colour"
+              data={[
+                { value: 'red', label: 'Red' },
+                { value: 'blue', label: 'Blue' },
+                // Add more color options here
+              ]}
+              value={formData.iconColour}
+              onChange={(value) => handleInputChange('iconColour', value)}
+              required
+            />
+          </Grid.Col>
           <Grid.Col span={12}>
-            <Button type="submit" variant="filled" color="blue">
+            <Button type="submit" variant="filled" color="#4333A1" disabled={!isFormValid()}>
               Create Savings Pot
             </Button>
           </Grid.Col>
@@ -90,5 +107,3 @@ const SavingsPotForm = () => {
     </Container>
   );
 };
-
-export default SavingsPotForm;

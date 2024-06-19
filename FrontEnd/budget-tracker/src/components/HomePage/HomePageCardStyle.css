@@ -3,7 +3,7 @@
 }
 
 .large-card {
-  width: 1700px;
+  width: 1200px;
   padding-top: 0px; /* Adjust the top padding */
   position: relative; /* Ensure absolute positioning works correctly */
 }
