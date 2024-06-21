@@ -1,25 +1,40 @@
 import React, { useState } from 'react';
 import { Container, Grid, TextInput, Select, Button } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
+import SavingsApi from '../../api/SavingsApi';
+import { notifications } from '@mantine/notifications';
 
-export function SavingsPotForm () {
+export function SavingsPotForm({ onNewSavingsPot }) {
   const [formData, setFormData] = useState({
-    userId: 1, // Assuming this is statically set for demonstration
+    id: 0,
+    userId: 0, // Assuming this is statically set for demonstration
     description: '',
     targetAmount: 0,
     currentAmount: 0,
     icon: '',
     iconColour: '',
-    depositFrequency: 'Monthly',
+    depositFrequency: 0,
     goalDate: new Date(),
-    status: 'Active',
+    status: 0,
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here (e.g., call API to create savings pot)
-    console.log(formData);
-    // Reset form data or navigate away after submission
+    try {
+      const response = await SavingsApi.createSavingsPot(formData);
+      console.log('Savings pot created successfully:', response);
+      onNewSavingsPot(response); // Update the parent state with the new savings pot
+      notifications.show({
+        title: 'Success notification',
+        message: 'Savings Pot Successfully Created',
+      });
+    } catch (error) {
+      notifications.show({
+        title: 'Error notification',
+        message: 'Error creating savings pot',
+      });
+      console.error('Error creating savings pot:', error);
+    }
   };
 
   const handleInputChange = (key, value) => {
@@ -28,7 +43,6 @@ export function SavingsPotForm () {
       [key]: value,
     }));
   };
-
 
   const isFormValid = () => {
     const { description, targetAmount, goalDate, icon, iconColour } = formData;
@@ -106,4 +120,4 @@ export function SavingsPotForm () {
       </form>
     </Container>
   );
-};
+}

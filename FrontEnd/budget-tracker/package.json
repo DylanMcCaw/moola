@@ -16,6 +16,7 @@
     "@mantine/core": "^7.10.0",
     "@mantine/dates": "^7.10.2",
     "@mantine/hooks": "^7.10.0",
+    "@mantine/notifications": "^7.10.2",
     "@material-tailwind/react": "^2.1.9",
     "@tabler/icons-react": "^3.5.0",
     "axios": "^1.7.2",

@@ -2,18 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { Loader } from '@mantine/core'; // Import Loader from Mantine
 import ExpenseApi from './api/ExpenseApi';
 import IncomeApi from './api/IncomeApi';
+import SavingsApi from './api/SavingsApi'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
 import { Home, SavingPots } from './pages';
 import { Navbar } from './components/NavBar/NavBar';
 import UserMenu from './components/UserMenu'; // Import the UserMenu component
 import '@mantine/core/styles.css';
+import '@mantine/notifications/styles.css';
+
 import './App.css';
 
 function App() {
   const [expenses, setExpenses] = useState([]);
   const [incomes, setIncomes] = useState([]);
+  const [savings, setSavings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -42,12 +47,26 @@ function App() {
       }
     };
 
+    const fetchSavngs = async () => {
+      try {
+        const userId = 0; // Replace with the actual user ID
+        const data = await SavingsApi.getSavingsPotsByUserId(userId);
+        setSavings(data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchExpenses();
     fetchIncomes();
+    fetchSavngs();
   }, []);
 
   return (
     <MantineProvider>
+      <Notifications />
       <Router>
         <div className="app-container">
           <header>
@@ -65,8 +84,8 @@ function App() {
               {error && <div>Error: {error.message}</div>}
               {!loading && !error && (
                 <Routes>
-                  <Route path="/" element={<Home expenses={expenses} incomes={incomes} />} />
-                  <Route path="/savingpots" element={<SavingPots />} />
+                  <Route path="/" element={<Home savings={savings} expenses={expenses} incomes={incomes} />} />
+                  <Route path="/savingpots" element={<SavingPots initialSavings={savings} />} />
                   {/* 
                   <GuestRoute path="/login" element={<Auth key="login" />} />
                   <AuthRoute path="/settings" element={<Settings />} />

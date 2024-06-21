@@ -4,14 +4,14 @@ import { ExpensesHomePageCard } from '../components/HomePage/ExpensesHomePageCar
 import { IncomeHomePageCard } from '../components/HomePage/IncomeHomePageCard';
 import './HomePageStyle.css';
 
-function Home({ expenses, incomes }) {
+function Home({ savings, expenses, incomes }) {
 
   return (
     <div className="home-page">
       <h1 style={{ fontWeight: 'bold', position: 'absolute', top: '60px', left: '850px' }}>Dashboard</h1>
       <div className="cards-container">
         <div className="full-width-card">
-          <SavingsHomePageCard />
+          <SavingsHomePageCard savings={savings} />
         </div>
         <div className="half-width-card">
           <IncomeHomePageCard incomes={incomes} />
