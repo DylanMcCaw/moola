@@ -1,21 +1,9 @@
-import { Text, Card, RingProgress, List, ThemeIcon, rem, Progress } from '@mantine/core';
+import React, { useState } from 'react';
+import { Text, Card, RingProgress, List, ThemeIcon, rem, Progress, Pagination } from '@mantine/core';
 import { IconPigMoney, IconPlane, IconHome } from '@tabler/icons-react';
 import './HomePageCardStyle.css';
 
-function StatText({ label, value, color, highlight }) {
-  return (
-    <div className="depositedText">
-      <Text size="15px">
-        <span style={{ color }}>{highlight}</span> {value}
-      </Text>
-      <Text size="13px" c="dimmed" style={{ paddingTop: '10px' }}>
-        {label}
-      </Text>
-    </div>
-  );
-}
-
-function SavingPotItem({ icon, color, title, amount, goal, progress }) {
+function SavingPotItem({ icon, color, title, amount, goal, progress, onClick }) {
   return (
     <List.Item
       icon={
@@ -23,6 +11,8 @@ function SavingPotItem({ icon, color, title, amount, goal, progress }) {
           {icon}
         </ThemeIcon>
       }
+      className="savingPotItem"
+      onClick={onClick}
     >
       <div className="listItemContent">
         <div className="textItem">
@@ -40,22 +30,35 @@ function SavingPotItem({ icon, color, title, amount, goal, progress }) {
   );
 }
 
+
 export function SavingsHomePageCard({ savings }) {
   const totalSavings = savings.reduce((acc, pot) => acc + pot.currentAmount, 0);
   const totalDeposited = totalSavings + savings.reduce((acc, pot) => acc + pot.withdrawnAmount, 0);
   const totalWithdrawn = savings.reduce((acc, pot) => acc + pot.withdrawnAmount, 0);
   const goalReachedPercentage = (totalSavings / savings.reduce((acc, pot) => acc + pot.targetAmount, 0)) * 100;
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const savingsPerPage = 3;
+
+  // Calculate total number of pages
+  const totalPages = Math.ceil(savings.length / savingsPerPage);
+
+  // Calculate index of the first and last saving pot for the current page
+  const indexOfLastSaving = currentPage * savingsPerPage;
+  const indexOfFirstSaving = indexOfLastSaving - savingsPerPage;
+  const currentSavings = savings.slice(indexOfFirstSaving, indexOfLastSaving);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const handleItemClick = (pot) => {
+    console.log('Saving pot clicked:', pot);
+    // Implement your logic to handle item click here
+  };
+
   return (
     <Card withBorder radius="20" className="large-card">
-      <div className="topRightText">
-        <Text className="smallText" style={{ color: '#10A56D', fontWeight: "bold" }}>
-          ▲ 5% <span style={{ color: "grey", fontSize: "10px" }}>vs last month</span>
-        </Text>
-      </div>
-      <div className="icon">
-        <IconPigMoney size={30} />
-      </div>
       <div className="inner">
         <div className="left-section">
           <div className="stats">
@@ -65,15 +68,11 @@ export function SavingsHomePageCard({ savings }) {
                 <Text size="30px" fw={700}>£{totalSavings.toFixed(2)}</Text>
               </div>
             </div>
-            <div className="depositedWithdrawnContainer">
-              <StatText label="Total Deposited" value={`£${totalDeposited.toFixed(2)}`} color="#10A56D" highlight="▲" />
-              <StatText label="Total Withdrawn" value={`£${totalWithdrawn.toFixed(2)}`} color="#F45656" highlight="▼" />
-            </div>
           </div>
           <div className="savingPotsList">
             <div className='savingPotsListTitle'><Text>Saving Pots:</Text></div>
             <List spacing="lg" size="m" center>
-              {savings.map((pot, index) => (
+              {currentSavings.map((pot, index) => (
                 <SavingPotItem
                   key={index}
                   icon={<IconPlane style={{ width: rem(16), height: rem(16) }} />}
@@ -82,9 +81,19 @@ export function SavingsHomePageCard({ savings }) {
                   amount={`£${pot.currentAmount.toFixed(2)}`}
                   goal={`£${pot.targetAmount.toFixed(2)}`}
                   progress={(pot.currentAmount / pot.targetAmount) * 100}
+                  onClick={() => handleItemClick(pot)}
                 />
               ))}
             </List>
+          </div>
+          <div className="paginationContainer">
+            <Pagination
+              total={totalPages}
+              value={currentPage}
+              onChange={handlePageChange}
+              color='#4333A1'
+              size="sm"
+            />
           </div>
         </div>
         <div className="ringProgress">

@@ -1,14 +1,19 @@
 import { Text, Card } from '@mantine/core';
 import { LineChart } from '@mantine/charts';
-import "./SavingsStyles.css";
 
 export function SavingsGraphCard({ data }) {
   return (
-    <Card withBorder radius="20" className="totalTrendCard">
-      <div className="inner">
-        <div className="left-section">
-          <Text size="xl">Total Trend</Text>
-        </div>
+    <Card 
+      withBorder 
+      radius="20" 
+      style={{
+        padding: '20px',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <div style={{ marginBottom: '33px' }}>
+        <Text size="xl">Total Trend</Text>
       </div>
       <LineChart
         h={300}
@@ -18,6 +23,7 @@ export function SavingsGraphCard({ data }) {
         curveType="linear"
         connectNulls
       />
+      <div style={{ paddingBottom: '25px' }}></div>
     </Card>
   );
 }

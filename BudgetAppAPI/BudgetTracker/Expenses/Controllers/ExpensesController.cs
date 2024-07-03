@@ -22,11 +22,11 @@ namespace BudgetTracker.Expenses.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Expense>> GetExpense(int id)
         {
-            var Expense = await _expenseService.GetExpenseAsync(id);
-            if (Expense == null)
+            var expence = await _expenseService.GetExpenseAsync(id);
+            if (expence == null)
                 return NotFound();
 
-            return Expense;
+            return expence;
         }
 
         // GET: api/Expense/User/{id}
@@ -34,11 +34,11 @@ namespace BudgetTracker.Expenses.Controllers
         [HttpGet("User/{id}")]
         public async Task<ActionResult<IEnumerable<Expense>>> GetUsersExpenses(int id)
         {
-            var Expenses = await _expenseService.GetUsersExpensesAsync(id);
-            if (Expenses == null || !Expenses.Any())
+            var expenses = await _expenseService.GetUsersExpensesAsync(id);
+            if (expenses == null || !expenses.Any())
                 return NotFound();
 
-            return Ok(Expenses);
+            return Ok(expenses);
         }
 
         // DELETE: api/Expense/{id}

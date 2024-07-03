@@ -1,6 +1,7 @@
 using BudgetTracker.Common.Models;
 using BudgetTracker.Common.Services;
 using BudgetTracker.Expenses.Services;
+using BudgetTracker.FinanceCalculator.Services;
 using BudgetTracker.Incomes.Services;
 using BudgetTracker.Savings.Services;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ builder.Services.AddScoped<ISavingsService, SavingsService>();
 builder.Services.AddScoped<IExpensesService, ExpensesService>();
 builder.Services.AddScoped<IIncomeService, IncomeService>();
 builder.Services.AddScoped<IBudgetTrackerDbContext, BudgetTrackerDbContext>();
+builder.Services.AddScoped<IFinanceCalculatorService, FinanceCalculatorService>();
 
 
 builder.Services.AddHttpContextAccessor();

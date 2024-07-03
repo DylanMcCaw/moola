@@ -3,7 +3,7 @@
 }
 
 .large-card {
-  width: 1200px;
+  width: 100%;
   padding-top: 0px; /* Adjust the top padding */
   position: relative; /* Ensure absolute positioning works correctly */
 }
@@ -57,7 +57,7 @@
 }
 
 .ringProgress {
-  margin-top: 25px; /* Adjust the top margin to lower the RingProgress */
+  margin-top: 80px; /* Adjust the top margin to lower the RingProgress */
   padding-left: 100px;
   flex: 1; /* Take up available space */
 }
@@ -90,6 +90,16 @@
 .savingPotsList {
   flex: 1; /* Take up available space */
 }
+
+.savingPotItem {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.savingPotItem:hover {
+  background-color: #f5f5f5; /* Change this color to whatever highlight color you prefer */
+}
+
 
 .listItemContent {
   display: flex;

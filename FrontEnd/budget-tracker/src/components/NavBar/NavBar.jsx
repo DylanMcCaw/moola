@@ -24,7 +24,7 @@ const data = [
     label: 'Tools',
     icon: IconTool,
     links: [
-      { label: 'Savings Calculator', link: '/todo', icon: IconCalculator },
+      { label: 'Finance Calculator', link: '/todo', icon: IconCalculator },
     ],
   },
 ];

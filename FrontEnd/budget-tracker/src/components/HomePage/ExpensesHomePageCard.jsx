@@ -23,7 +23,7 @@ const formatDate = (dateString) => {
 
 function ExpenseTable({ expenses }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const expensesPerPage = 5;
+  const expensesPerPage = 4;
 
   // Calculate total number of pages
   const totalPages = Math.ceil(expenses.length / expensesPerPage);
@@ -96,14 +96,6 @@ export function ExpensesHomePageCard({ expenses }) {
 
   return (
     <Card withBorder radius="20" className="card">
-      <div className="topRightText">
-        <Text className="smallText" style={{ color: '#F45656', fontWeight: "bold" }}>
-          ▲ 17% <span style={{ color: "grey", fontSize: "10px" }}>vs last month</span>
-        </Text>
-      </div>
-      <div className="icon">
-        <IconWallet size={30} />
-      </div>
       <div className="inner">
         <div className="stats">
           <Text size="xl">Total Expenses</Text>

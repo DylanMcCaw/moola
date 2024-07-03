@@ -22,7 +22,7 @@ const formatDate = (dateString) => {
 
 function IncomeTable({ incomes }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const incomesPerPage = 5;
+  const incomesPerPage = 4;
 
   // Calculate total number of pages
   const totalPages = Math.ceil(incomes.length / incomesPerPage);
@@ -95,14 +95,6 @@ export function IncomeHomePageCard({ incomes }) {
 
   return (
     <Card withBorder radius="20" className="card">
-      <div className="topRightText">
-        <Text className="smallText" style={{ color: '#10A56D', fontWeight: "bold" }}>
-          ▲ 4% <span style={{ color: "grey", fontSize: "10px" }}>vs last month</span>
-        </Text>
-      </div>
-      <div className="icon">
-        <IconMoneybag size={30} />
-      </div>
       <div className="inner">
         <div className="stats">
           <Text size="xl">Total Income</Text>
