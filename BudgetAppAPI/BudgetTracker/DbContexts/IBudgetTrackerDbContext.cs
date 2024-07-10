@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using BudgetTracker.Savings.Models;
 using BudgetTracker.Expenses.Models;
 using BudgetTracker.Incomes.Models;
+using BudgetTracker.Savings.Entities;
 
-namespace BudgetTracker.Common.Services
+namespace BudgetTracker.DbContexts
 {
     public interface IBudgetTrackerDbContext : IDisposable
     {

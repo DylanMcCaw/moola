@@ -1,5 +1,5 @@
 ﻿using BudgetTracker.Expenses.Models;
-using BudgetTracker.Savings.Models;
+using BudgetTracker.Savings.Entities;
 
 namespace BudgetTracker.Savings.Services
 {

@@ -1,4 +1,5 @@
-using BudgetTracker.Expenses.Models;
+using AutoMapper;
+using BudgetTracker.Savings.Entities;
 using BudgetTracker.Savings.Models;
 using BudgetTracker.Savings.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +12,15 @@ namespace BudgetTracker.Savings.Controllers
     {
         private readonly ILogger<SavingsController> _logger;
         private readonly ISavingsService _savingsService;
+        private readonly IMapper _mapper;
 
-        public SavingsController(ILogger<SavingsController> logger, ISavingsService savingsService)
+        public SavingsController(ILogger<SavingsController> logger, ISavingsService savingsService, IMapper mapper)
         {
             _logger = logger;
-            _savingsService = savingsService;
+            _savingsService = savingsService ??
+                throw new ArgumentNullException(nameof(savingsService)); ;
+            _mapper = mapper ??
+                throw new ArgumentNullException(nameof(mapper));
         }
 
         // GET: api/Savings/{id}
@@ -57,12 +62,14 @@ namespace BudgetTracker.Savings.Controllers
         // POST: api/Savings
         // Creates a new savings pot
         [HttpPost]
-        public async Task<ActionResult<SavingsPot>> CreateSavingsPot(SavingsPot savingsPot)
+        public async Task<ActionResult<SavingsPot>> CreateSavingsPot(SavingsPotForCreationDto savingsPot)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var createdSavingsPot = await _savingsService.CreateSavingsPotAsync(savingsPot);
+            var savingsPotEntity = _mapper.Map<SavingsPot>(savingsPot);
+
+            var createdSavingsPot = await _savingsService.CreateSavingsPotAsync(savingsPotEntity);
             if (createdSavingsPot == null)
                 return BadRequest();
 
@@ -72,12 +79,14 @@ namespace BudgetTracker.Savings.Controllers
         // PUT: api/SavingsPot/{id}
         // Updates an existing Savings Pot by its ID
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateSavingsPot(int id, SavingsPot updatedSavingsPot)
+        public async Task<IActionResult> UpdateSavingsPot(int id, SavingsPotForUpdate updatedSavingsPot)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var success = await _savingsService.UpdateSavingsPotAsync(id, updatedSavingsPot);
+            var savingsPotEntity = _mapper.Map<SavingsPot>(updatedSavingsPot);
+
+            var success = await _savingsService.UpdateSavingsPotAsync(id, savingsPotEntity);
             if (!success)
                 return NotFound();
 

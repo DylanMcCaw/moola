@@ -1,5 +1,7 @@
-﻿using BudgetTracker.Common.Services;
-using BudgetTracker.Savings.Models;
+﻿
+using BudgetTracker.DbContexts;
+using BudgetTracker.Savings.Entities;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace BudgetTracker.Savings.Services
@@ -111,9 +113,7 @@ namespace BudgetTracker.Savings.Services
             existingSavingsPot.CurrentAmount = updatedSavingsPot.CurrentAmount;
             existingSavingsPot.Icon = updatedSavingsPot.Icon;
             existingSavingsPot.IconColour = updatedSavingsPot.IconColour;
-            existingSavingsPot.DepositFrequency = updatedSavingsPot.DepositFrequency;
             existingSavingsPot.GoalDate = updatedSavingsPot.GoalDate;
-            existingSavingsPot.Status = updatedSavingsPot.Status;
 
             try
             {

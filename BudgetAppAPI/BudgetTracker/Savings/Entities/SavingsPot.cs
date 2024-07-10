@@ -1,20 +1,26 @@
 using System.ComponentModel.DataAnnotations;
 using BudgetTracker.Common.Models;
 
-namespace BudgetTracker.Savings.Models
+namespace BudgetTracker.Savings.Entities
 {
     public class SavingsPot
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public int UserID { get; set; }
-        public required string Description { get; set; }
+        [Required]
+        [MaxLength(50)]
+        public string Description { get; set; }
         public double TargetAmount { get; set; }
         public double CurrentAmount { get; set; }
+        [Required]
         public string? Icon { get; set; }
+        [Required]
         public string? IconColour { get; set; }
-        public Frequency DepositFrequency { get; set; }
+        [Required]
         public DateTime GoalDate { get; set; }
-        public SavingsPotStatus Status { get; set; }
+        [Required]
+        public bool isGoalComplete { get; set; }
     }
 }

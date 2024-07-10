@@ -1,5 +1,4 @@
-using BudgetTracker.Common.Models;
-using BudgetTracker.Common.Services;
+using BudgetTracker.DbContexts;
 using BudgetTracker.Expenses.Services;
 using BudgetTracker.FinanceCalculator.Services;
 using BudgetTracker.Incomes.Services;
@@ -22,8 +21,7 @@ builder.Services.AddScoped<IExpensesService, ExpensesService>();
 builder.Services.AddScoped<IIncomeService, IncomeService>();
 builder.Services.AddScoped<IBudgetTrackerDbContext, BudgetTrackerDbContext>();
 builder.Services.AddScoped<IFinanceCalculatorService, FinanceCalculatorService>();
-
-
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSwaggerGen();
