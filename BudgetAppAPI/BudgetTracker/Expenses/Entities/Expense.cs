@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using BudgetTracker.Common.Models;
 
-namespace BudgetTracker.Incomes.Models
+namespace BudgetTracker.Expenses.Entities
 {
-    public class Income
+    public class Expense
     {
         [Key]
         public int Id { get; set; }
@@ -13,7 +13,7 @@ namespace BudgetTracker.Incomes.Models
         public string? Icon { get; set; }
         public string? IconColour { get; set; }
         public Frequency Frequency { get; set; }
-        public IncomeCategory Category { get; set; }
+        public ExpenseCategory Category { get; set; }
         public DateTime StartDate { get; set; }
     }
 }

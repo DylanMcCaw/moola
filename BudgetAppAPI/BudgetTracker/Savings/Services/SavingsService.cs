@@ -107,10 +107,8 @@ namespace BudgetTracker.Savings.Services
             }
 
             // Update the existing savings pot with the values from updatedSavingsPot
-            existingSavingsPot.UserID = updatedSavingsPot.UserID;
             existingSavingsPot.Description = updatedSavingsPot.Description;
             existingSavingsPot.TargetAmount = updatedSavingsPot.TargetAmount;
-            existingSavingsPot.CurrentAmount = updatedSavingsPot.CurrentAmount;
             existingSavingsPot.Icon = updatedSavingsPot.Icon;
             existingSavingsPot.IconColour = updatedSavingsPot.IconColour;
             existingSavingsPot.GoalDate = updatedSavingsPot.GoalDate;

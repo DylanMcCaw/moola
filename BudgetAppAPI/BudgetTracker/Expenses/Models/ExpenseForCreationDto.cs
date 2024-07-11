@@ -1,19 +1,14 @@
-using System.ComponentModel.DataAnnotations;
-using BudgetTracker.Common.Models;
-
 namespace BudgetTracker.Expenses.Models
 {
-    public class Expense
+    public class ExpenseForCreationDto
     {
-        [Key]
-        public int Id { get; set; }
         public int UserID { get; set; }
         public required string Description { get; set; }
         public float Amount { get; set; }
         public string? Icon { get; set; }
         public string? IconColour { get; set; }
-        public Frequency Frequency { get; set; }
-        public ExpenseCategory Category { get; set; }
+        public int Frequency { get; set; }
+        public int Category { get; set; }
         public DateTime StartDate { get; set; }
     }
 }

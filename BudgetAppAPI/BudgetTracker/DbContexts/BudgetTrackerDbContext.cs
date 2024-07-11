@@ -1,5 +1,5 @@
-﻿using BudgetTracker.Expenses.Models;
-using BudgetTracker.Incomes.Models;
+﻿using BudgetTracker.Expenses.Entities;
+using BudgetTracker.Incomes.Entities;
 using BudgetTracker.Savings.Entities;
 using Microsoft.EntityFrameworkCore;
 

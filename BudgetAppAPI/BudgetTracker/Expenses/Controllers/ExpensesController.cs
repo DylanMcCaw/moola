@@ -1,5 +1,8 @@
+using AutoMapper;
+using BudgetTracker.Expenses.Entities;
 using BudgetTracker.Expenses.Models;
 using BudgetTracker.Expenses.Services;
+using BudgetTracker.Incomes.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetTracker.Expenses.Controllers
@@ -10,11 +13,15 @@ namespace BudgetTracker.Expenses.Controllers
     {
         private readonly ILogger<ExpensesController> _logger;
         private readonly IExpensesService _expenseService;
+        private readonly IMapper _mapper;
 
-        public ExpensesController(ILogger<ExpensesController> logger, IExpensesService ExpenseService)
+        public ExpensesController(ILogger<ExpensesController> logger, IExpensesService expenseService, IMapper mapper)
         {
             _logger = logger;
-            _expenseService = ExpenseService;
+            _expenseService = expenseService ??
+                throw new ArgumentNullException(nameof(expenseService)); ;
+            _mapper = mapper ??
+                throw new ArgumentNullException(nameof(mapper));
         }
 
         // GET: api/Expense/{id}
@@ -56,12 +63,14 @@ namespace BudgetTracker.Expenses.Controllers
         // POST: api/Expense
         // Creates a new Expense 
         [HttpPost]
-        public async Task<ActionResult<Expense>> CreateExpense(Expense Expense)
+        public async Task<ActionResult<Expense>> CreateExpense(ExpenseForCreationDto newExpense)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var createdExpense = await _expenseService.CreateExpenseAsync(Expense);
+            var expenseEntity = _mapper.Map<Expense>(newExpense);
+
+            var createdExpense = await _expenseService.CreateExpenseAsync(expenseEntity);
             if (createdExpense == null)
                 return BadRequest();
 
@@ -71,12 +80,14 @@ namespace BudgetTracker.Expenses.Controllers
         // PUT: api/Expense/{id}
         // Updates an existing Expense by its ID
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateExpense(int id, Expense updatedExpense)
+        public async Task<IActionResult> UpdateExpense(int id, ExpenseForUpdateDto updatedExpense)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var success = await _expenseService.UpdateExpenseAsync(id, updatedExpense);
+            var expenseEntity = _mapper.Map<Expense>(updatedExpense);
+
+            var success = await _expenseService.UpdateExpenseAsync(id, expenseEntity);
             if (!success)
                 return NotFound();
 

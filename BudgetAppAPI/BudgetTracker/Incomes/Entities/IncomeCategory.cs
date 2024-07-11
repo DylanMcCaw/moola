@@ -1,4 +1,4 @@
-﻿namespace BudgetTracker.Incomes.Models
+﻿namespace BudgetTracker.Incomes.Entities
 {
     public enum IncomeCategory
     {

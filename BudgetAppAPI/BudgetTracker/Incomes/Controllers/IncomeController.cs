@@ -1,5 +1,8 @@
+using AutoMapper;
+using BudgetTracker.Incomes.Entities;
 using BudgetTracker.Incomes.Models;
 using BudgetTracker.Incomes.Services;
+using BudgetTracker.Savings.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetTracker.Incomes.Controllers
@@ -10,11 +13,15 @@ namespace BudgetTracker.Incomes.Controllers
     {
         private readonly ILogger<IncomeController> _logger;
         private readonly IIncomeService _incomeService;
+        private readonly IMapper _mapper;
 
-        public IncomeController(ILogger<IncomeController> logger, IIncomeService Incomeervice)
+        public IncomeController(ILogger<IncomeController> logger, IIncomeService incomeService, IMapper mapper)
         {
             _logger = logger;
-            _incomeService = Incomeervice;
+            _incomeService = incomeService ??
+                throw new ArgumentNullException(nameof(incomeService)); ;
+            _mapper = mapper ??
+                throw new ArgumentNullException(nameof(mapper));
         }
 
         // GET: api/Income/{id}
@@ -56,12 +63,14 @@ namespace BudgetTracker.Incomes.Controllers
         // POST: api/Income
         // Creates a new Income 
         [HttpPost]
-        public async Task<ActionResult<Income>> CreateIncome(Income Income)
+        public async Task<ActionResult<Income>> CreateIncome(IncomeForCreationDto newIncome)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var createdIncome = await _incomeService.CreateIncomeAsync(Income);
+            var incomeEntity = _mapper.Map<Income>(newIncome);
+
+            var createdIncome = await _incomeService.CreateIncomeAsync(incomeEntity);
             if (createdIncome == null)
                 return BadRequest();
 
@@ -71,12 +80,14 @@ namespace BudgetTracker.Incomes.Controllers
         // PUT: api/Income/{id}
         // Updates an existing Income by its ID
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateIncome(int id, Income updatedIncome)
+        public async Task<IActionResult> UpdateIncome(int id, IncomeForUpdateDto updatedIncome)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var success = await _incomeService.UpdateIncomeAsync(id, updatedIncome);
+            var incomeEntity = _mapper.Map<Income>(updatedIncome);
+
+            var success = await _incomeService.UpdateIncomeAsync(id, incomeEntity);
             if (!success)
                 return NotFound();
 

@@ -1,4 +1,4 @@
-﻿using BudgetTracker.Expenses.Models;
+﻿using BudgetTracker.Expenses.Entities;
 
 namespace BudgetTracker.Expenses.Services
 {

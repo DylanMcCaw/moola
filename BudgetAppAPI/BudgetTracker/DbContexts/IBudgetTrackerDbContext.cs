@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using BudgetTracker.Expenses.Models;
-using BudgetTracker.Incomes.Models;
 using BudgetTracker.Savings.Entities;
+using BudgetTracker.Incomes.Entities;
+using BudgetTracker.Expenses.Entities;
 
 namespace BudgetTracker.DbContexts
 {

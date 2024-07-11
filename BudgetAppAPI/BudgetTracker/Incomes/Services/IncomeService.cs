@@ -1,5 +1,5 @@
 ﻿using BudgetTracker.DbContexts;
-using BudgetTracker.Incomes.Models;
+using BudgetTracker.Incomes.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BudgetTracker.Incomes.Services
@@ -104,10 +104,7 @@ namespace BudgetTracker.Incomes.Services
             }
 
             // Update the existing Income with the values from updatedIncome
-            existingIncome.UserID = updatedIncome.UserID;
             existingIncome.Description = updatedIncome.Description;
-            existingIncome.Amount = updatedIncome.Amount;
-            existingIncome.Frequency = updatedIncome.Frequency;
             existingIncome.Category = updatedIncome.Category;
             existingIncome.StartDate = updatedIncome.StartDate;
             existingIncome.Icon = updatedIncome.Icon;

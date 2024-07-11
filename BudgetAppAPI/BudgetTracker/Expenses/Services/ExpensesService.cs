@@ -1,5 +1,5 @@
 ﻿using BudgetTracker.DbContexts;
-using BudgetTracker.Expenses.Models;
+using BudgetTracker.Expenses.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BudgetTracker.Expenses.Services
