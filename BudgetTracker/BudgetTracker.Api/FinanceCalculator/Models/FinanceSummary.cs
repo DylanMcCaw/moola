@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel;
-
-namespace BudgetTracker.FinanceCalculator.Models
+﻿namespace BudgetTracker.FinanceCalculator.Models
 {
     public class FinanceSummary
     {

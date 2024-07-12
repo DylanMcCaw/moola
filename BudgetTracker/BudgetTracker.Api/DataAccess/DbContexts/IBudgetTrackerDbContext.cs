@@ -10,7 +10,6 @@ namespace BudgetTracker.DataAccess.DbContexts
         DbSet<Expense> Expenses { get; set; }
         DbSet<Income> Incomes { get; set; }
 
-
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }

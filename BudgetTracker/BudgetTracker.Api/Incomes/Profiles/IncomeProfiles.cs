@@ -3,7 +3,7 @@ using BudgetTracker.DataAccess.Entites;
 
 namespace BudgetTracker.Incomes.Profiles
 {
-    public class IncomeProfiles : Profile
+   public class IncomeProfiles : Profile
     {
         public IncomeProfiles() 
         {

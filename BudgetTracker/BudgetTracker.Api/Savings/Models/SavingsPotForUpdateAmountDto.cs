@@ -1,7 +1,4 @@
-﻿using BudgetTracker.Common.Models;
-using BudgetTracker.DataAccess.Entites;
-
-namespace BudgetTracker.Savings.Models
+﻿namespace BudgetTracker.Savings.Models
 {
     public class SavingsPotForUpdateAmountDto
     {
