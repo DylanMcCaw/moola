@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BudgetTracker.DataAccess.Entites;
 
 namespace BudgetTracker.Expenses.Profiles
 {
@@ -6,9 +7,9 @@ namespace BudgetTracker.Expenses.Profiles
     {
         public ExpenseProfiles() 
         {
-            CreateMap<Entities.Expense, Models.ExpenseForCreationDto>();
-            CreateMap<Models.ExpenseForCreationDto, Entities.Expense>();
-            CreateMap<Models.ExpenseForUpdateDto, Entities.Expense>();
+            CreateMap<Expense, Models.ExpenseForCreationDto>();
+            CreateMap<Models.ExpenseForCreationDto, Expense>();
+            CreateMap<Models.ExpenseForUpdateDto, Expense>();
         }
     }
 }

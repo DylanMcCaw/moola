@@ -1,5 +1,5 @@
 ﻿using BudgetTracker.Common.Models;
-using BudgetTracker.Savings.Entities;
+using BudgetTracker.DataAccess.Entites;
 
 namespace BudgetTracker.Savings.Models
 {

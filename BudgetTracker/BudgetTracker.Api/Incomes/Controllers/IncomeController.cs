@@ -1,5 +1,5 @@
 using AutoMapper;
-using BudgetTracker.Incomes.Entities;
+using BudgetTracker.DataAccess.Entites;
 using BudgetTracker.Incomes.Models;
 using BudgetTracker.Incomes.Services;
 using BudgetTracker.Savings.Services;

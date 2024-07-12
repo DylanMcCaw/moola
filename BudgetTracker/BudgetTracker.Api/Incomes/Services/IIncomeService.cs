@@ -1,4 +1,4 @@
-﻿using BudgetTracker.Incomes.Entities;
+﻿using BudgetTracker.DataAccess.Entites;
 
 namespace BudgetTracker.Incomes.Services
 {

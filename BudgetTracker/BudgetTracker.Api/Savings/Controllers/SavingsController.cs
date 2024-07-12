@@ -1,5 +1,5 @@
 using AutoMapper;
-using BudgetTracker.Savings.Entities;
+using BudgetTracker.DataAccess.Entites;
 using BudgetTracker.Savings.Models;
 using BudgetTracker.Savings.Services;
 using Microsoft.AspNetCore.Mvc;

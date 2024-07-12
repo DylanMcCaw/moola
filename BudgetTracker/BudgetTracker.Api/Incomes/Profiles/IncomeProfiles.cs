@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BudgetTracker.DataAccess.Entites;
 
 namespace BudgetTracker.Incomes.Profiles
 {
@@ -6,9 +7,9 @@ namespace BudgetTracker.Incomes.Profiles
     {
         public IncomeProfiles() 
         {
-            CreateMap<Entities.Income, Models.IncomeForCreationDto>();
-            CreateMap<Models.IncomeForCreationDto, Entities.Income>();
-            CreateMap<Models.IncomeForUpdateDto, Entities.Income>();
+            CreateMap<Income, Models.IncomeForCreationDto>();
+            CreateMap<Models.IncomeForCreationDto, Income>();
+            CreateMap<Models.IncomeForUpdateDto, Income>();
         }
     }
 }
