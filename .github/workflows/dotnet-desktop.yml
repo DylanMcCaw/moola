@@ -22,10 +22,10 @@ jobs:
         dotnet-version: '8.0'
 
     - name: Restore dependencies
-      run: dotnet restore Budget-Tracker/BudgetTracker/BudgetTracker.Api/BudgetTracker.sln
+      run: dotnet restore BudgetTracker/BudgetTracker.Api/BudgetTracker.sln
 
     - name: Build the solution
-      run: dotnet build Budget-Tracker/BudgetTracker/BudgetTracker.Api/BudgetTracker.sln --configuration Release
+      run: dotnet build BudgetTracker/BudgetTracker.Api/BudgetTracker.sln --configuration Release
 
     - name: Run tests
-      run: dotnet test Budget-Tracker/BudgetTracker/BudgetTracker.Api/BudgetTracker.sln --configuration Release --no-build --verbosity normal
+      run: dotnet test BudgetTracker/BudgetTracker.Api/BudgetTracker.sln --configuration Release --no-build --verbosity normal
