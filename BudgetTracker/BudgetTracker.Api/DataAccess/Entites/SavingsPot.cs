@@ -11,7 +11,7 @@ namespace BudgetTracker.DataAccess.Entites
         public int UserID { get; set; }
         [Required]
         [MaxLength(50)]
-        public string Description { get; set; }
+        public required string Description { get; set; }
         public double TargetAmount { get; set; }
         public double CurrentAmount { get; set; }
         [Required]

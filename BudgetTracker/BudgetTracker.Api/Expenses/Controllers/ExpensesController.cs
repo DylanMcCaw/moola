@@ -2,7 +2,6 @@ using AutoMapper;
 using BudgetTracker.DataAccess.Entites;
 using BudgetTracker.Expenses.Models;
 using BudgetTracker.Expenses.Services;
-using BudgetTracker.Incomes.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetTracker.Expenses.Controllers

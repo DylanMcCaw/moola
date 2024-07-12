@@ -1,5 +1,4 @@
-﻿
-using BudgetTracker.DataAccess.DbContexts;
+﻿using BudgetTracker.DataAccess.DbContexts;
 using BudgetTracker.DataAccess.Entites;
 using Microsoft.EntityFrameworkCore;
 

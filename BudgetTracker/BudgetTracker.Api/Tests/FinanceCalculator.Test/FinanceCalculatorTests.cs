@@ -34,7 +34,7 @@ namespace BudgetTracker.Tests.FinanceCalculator.Test
             // Assert
             ClassicAssert.IsNotNull(summary);
             ClassicAssert.IsNotNull(summary.Payments);
-            ClassicAssert.AreEqual(term * 12, summary.Payments.Count); // Including initial payment
+            ClassicAssert.AreEqual(term * 12, summary.Payments?.Count); // Including initial payment
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace BudgetTracker.Tests.FinanceCalculator.Test
             // ClassicAssert
             ClassicAssert.IsNotNull(summary);
             ClassicAssert.IsNotNull(summary.Payments);
-            ClassicAssert.AreEqual(term * 12, summary.Payments.Count); // Including initial payment
+            ClassicAssert.AreEqual(term * 12, summary.Payments?.Count); // Including initial payment
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace BudgetTracker.Tests.FinanceCalculator.Test
             // Assert
             ClassicAssert.IsNotNull(summary);
             ClassicAssert.IsNotNull(summary.Payments);
-            ClassicAssert.AreEqual(term * 12, summary.Payments.Count); // Including initial payment
+            ClassicAssert.AreEqual(term * 12, summary.Payments?.Count); // Including initial payment
         }
 
         [Test]
@@ -91,7 +91,7 @@ namespace BudgetTracker.Tests.FinanceCalculator.Test
             // Assert
             ClassicAssert.IsNotNull(summary);
             ClassicAssert.IsNotNull(summary.Payments);
-            ClassicAssert.AreEqual(term * 12, summary.Payments.Count); // Including initial payment
+            ClassicAssert.AreEqual(term * 12,   summary.Payments?.Count); // Including initial payment
         }
     }
 }

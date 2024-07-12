@@ -1,7 +1,4 @@
-﻿using BudgetTracker.Expenses.Controllers;
-using BudgetTracker.Expenses.Models;
-using BudgetTracker.Expenses.Services;
-using BudgetTracker.FinanceCalculator.Models;
+﻿using BudgetTracker.FinanceCalculator.Models;
 using BudgetTracker.FinanceCalculator.Services;
 using Microsoft.AspNetCore.Mvc;
 
