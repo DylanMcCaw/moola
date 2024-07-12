@@ -1,5 +1,5 @@
-﻿using BudgetTracker.DbContexts;
-using BudgetTracker.Incomes.Entities;
+﻿using BudgetTracker.DataAccess.DbContexts;
+using BudgetTracker.DataAccess.Entites;
 using Microsoft.EntityFrameworkCore;
 
 namespace BudgetTracker.Incomes.Services

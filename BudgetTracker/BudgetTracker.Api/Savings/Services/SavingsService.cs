@@ -1,7 +1,6 @@
 ﻿
-using BudgetTracker.DbContexts;
-using BudgetTracker.Savings.Entities;
-
+using BudgetTracker.DataAccess.DbContexts;
+using BudgetTracker.DataAccess.Entites;
 using Microsoft.EntityFrameworkCore;
 
 namespace BudgetTracker.Savings.Services
