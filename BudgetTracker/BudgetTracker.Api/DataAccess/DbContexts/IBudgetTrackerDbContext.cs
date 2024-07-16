@@ -9,6 +9,8 @@ namespace BudgetTracker.DataAccess.DbContexts
         DbSet<SavingsPot> SavingsPots { get; set; }
         DbSet<Expense> Expenses { get; set; }
         DbSet<Income> Incomes { get; set; }
+        DbSet<User> Users { get; set; }
+
 
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

@@ -2,11 +2,13 @@ using AutoMapper;
 using BudgetTracker.DataAccess.Entites;
 using BudgetTracker.Savings.Models;
 using BudgetTracker.Savings.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetTracker.Savings.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class SavingsController : ControllerBase
     {
