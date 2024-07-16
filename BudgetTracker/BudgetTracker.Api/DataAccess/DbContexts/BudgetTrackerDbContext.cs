@@ -13,6 +13,6 @@ namespace BudgetTracker.DataAccess.DbContexts
         public virtual DbSet<SavingsPot> SavingsPots { get; set; }
         public virtual DbSet<Expense> Expenses { get; set; }
         public virtual DbSet<Income> Incomes { get; set; }
-
+        public virtual DbSet<User> Users { get; set; }
     }
 }
