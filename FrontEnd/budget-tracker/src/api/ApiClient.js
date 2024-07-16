@@ -13,7 +13,11 @@ export const ApiClient = axios.create({
 // Request interceptor to handle request configurations and logging
 ApiClient.interceptors.request.use(
   config => {
-    // You can add custom headers or modify the request configuration here
+    // Add the Authorization header with the JWT token if available
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
     console.log('Starting Request', config);
     return config;
   },
@@ -40,8 +44,13 @@ ApiClient.interceptors.response.use(
       // You can handle specific status codes here if needed
       if (error.response.status === 401) {
         // Handle unauthorized error (e.g., redirect to login)
+        console.warn('Unauthorized access - redirecting to login');
+        // Optionally, you can perform a logout operation or clear the token
+        localStorage.removeItem('token');
+        window.location.href = '/login'; // Redirect to the login page
       } else if (error.response.status === 500) {
         // Handle server error
+        console.error('Server error - please try again later');
       }
     } else if (error.request) {
       // The request was made but no response was received
