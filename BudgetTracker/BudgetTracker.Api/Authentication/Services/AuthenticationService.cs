@@ -35,22 +35,18 @@ namespace BudgetTracker.Authentication.Services
 
             var userEntity = _mapper.Map<User>(registerDto);
             userEntity.PasswordHash = _passwordHasher.HashPassword(userEntity, registerDto.Password);
-
             _context.Users.Add(userEntity);
             await _context.SaveChangesAsync();
-
             return true;
         }
 
         public async Task<string> AuthenticateUserAsync(LoginDto loginDto)
         {
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == loginDto.Email);
-
             if (user == null || _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, loginDto.Password) != PasswordVerificationResult.Success)
             {
                 return null;
             }
-
             return GenerateJwtToken(user);
         }
 
@@ -60,7 +56,12 @@ namespace BudgetTracker.Authentication.Services
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, user.Id.ToString()) }),
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.Name),
+                    new Claim(ClaimTypes.Email, user.Email)
+                }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

@@ -15,7 +15,7 @@ namespace BudgetTracker.Authentication.Controllers
             _authenticationService = authenticationService;
         }
 
-        [HttpPost("register")]
+        [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterDto registerDto)
         {
             var result = await _authenticationService.RegisterUserAsync(registerDto);
@@ -28,7 +28,7 @@ namespace BudgetTracker.Authentication.Controllers
             return Ok();
         }
 
-        [HttpPost("login")]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
             var token = await _authenticationService.AuthenticateUserAsync(loginDto);

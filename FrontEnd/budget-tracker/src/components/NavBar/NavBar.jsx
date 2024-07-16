@@ -29,12 +29,17 @@ const data = [
   },
 ];
 
-export function Navbar() {
+export function Navbar({ isAuthenticated }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
+
+  // If not authenticated, return null (don't render anything)
+  if (!isAuthenticated) {
+    return null;
+  }
 
   const links = data.map((item) => {
     if (item.links) {
