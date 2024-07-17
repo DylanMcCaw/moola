@@ -30,8 +30,19 @@ function SavingPotItem({ icon, color, title, amount, goal, progress, onClick }) 
   );
 }
 
-
 export function SavingsHomePageCard({ savings }) {
+  // Check if savings array is empty
+  if (savings.length === 0) {
+    return (
+      <Card withBorder radius="20" className="large-card">
+        <div className="inner">
+          <Text size="xl" align="center">No Savings Pots Found</Text>
+          <Text size="md" align="center" color="dimmed">Start saving by creating your first savings pot!</Text>
+        </div>
+      </Card>
+    );
+  }
+
   const totalSavings = savings.reduce((acc, pot) => acc + pot.currentAmount, 0);
   const totalDeposited = totalSavings + savings.reduce((acc, pot) => acc + pot.withdrawnAmount, 0);
   const totalWithdrawn = savings.reduce((acc, pot) => acc + pot.withdrawnAmount, 0);

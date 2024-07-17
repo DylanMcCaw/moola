@@ -87,7 +87,7 @@ export function Auth({ setIsAuthenticated }) {
           />
           {isLogin && (
             <Group justify="space-between" mt="lg">
-              <Checkbox label="Remember me" />
+              <Checkbox label="Remember me" color='#4333A1'/>
               <Anchor component="button" size="sm" style={{ color: '#4333A1' }}>
                 Forgot password?
               </Anchor>

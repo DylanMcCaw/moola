@@ -6,5 +6,6 @@ namespace BudgetTracker.Authentication.Services
     {
         Task<bool> RegisterUserAsync(RegisterDto registerDto);
         Task<string> AuthenticateUserAsync(LoginDto loginDto);
+        Task<bool> LogoutUserAsync();
     }
 }

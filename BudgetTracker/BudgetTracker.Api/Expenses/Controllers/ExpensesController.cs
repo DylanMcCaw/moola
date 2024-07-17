@@ -43,10 +43,8 @@ namespace BudgetTracker.Expenses.Controllers
         public async Task<ActionResult<IEnumerable<Expense>>> GetUsersExpenses(int id)
         {
             var expenses = await _expenseService.GetUsersExpensesAsync(id);
-            if (expenses == null || !expenses.Any())
-                return NotFound();
+            return Ok(expenses ?? Enumerable.Empty<Expense>());
 
-            return Ok(expenses);
         }
 
         // DELETE: api/Expense/{id}

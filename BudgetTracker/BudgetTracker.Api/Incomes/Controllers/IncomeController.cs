@@ -20,33 +20,29 @@ namespace BudgetTracker.Incomes.Controllers
         {
             _logger = logger;
             _incomeService = incomeService ??
-                throw new ArgumentNullException(nameof(incomeService)); ;
+                throw new ArgumentNullException(nameof(incomeService));
             _mapper = mapper ??
                 throw new ArgumentNullException(nameof(mapper));
         }
 
         // GET: api/Income/{id}
-        // Retrieves a Income by its ID
+        // Retrieves an Income by its ID
         [HttpGet("{id}")]
         public async Task<ActionResult<Income>> GetIncome(int id)
         {
-            var Income = await _incomeService.GetIncomeAsync(id);
-            if (Income == null)
+            var income = await _incomeService.GetIncomeAsync(id);
+            if (income == null)
                 return NotFound();
-
-            return Income;
+            return income;
         }
 
         // GET: api/Income/User/{id}
-        // Retrieves all Income s belonging to a specific user
+        // Retrieves all Incomes belonging to a specific user
         [HttpGet("User/{id}")]
         public async Task<ActionResult<IEnumerable<Income>>> GetUsersIncome(int id)
         {
-            var Income = await _incomeService.GetUsersIncomeAsync(id);
-            if (Income == null || !Income.Any())
-                return NotFound();
-
-            return Ok(Income);
+            var incomes = await _incomeService.GetUsersIncomeAsync(id);
+            return Ok(incomes ?? Enumerable.Empty<Income>());
         }
 
         // DELETE: api/Income/{id}
@@ -57,7 +53,6 @@ namespace BudgetTracker.Incomes.Controllers
             var success = await _incomeService.DeleteIncomeAsync(id);
             if (!success)
                 return NotFound();
-
             return NoContent();
         }
 
@@ -68,13 +63,10 @@ namespace BudgetTracker.Incomes.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
             var incomeEntity = _mapper.Map<Income>(newIncome);
-
             var createdIncome = await _incomeService.CreateIncomeAsync(incomeEntity);
             if (createdIncome == null)
                 return BadRequest();
-
             return CreatedAtAction(nameof(GetIncome), new { id = createdIncome.Id }, createdIncome);
         }
 
@@ -85,13 +77,10 @@ namespace BudgetTracker.Incomes.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
             var incomeEntity = _mapper.Map<Income>(updatedIncome);
-
             var success = await _incomeService.UpdateIncomeAsync(id, incomeEntity);
             if (!success)
                 return NotFound();
-
             return NoContent();
         }
     }

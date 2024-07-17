@@ -82,6 +82,17 @@ function IncomeTable({ incomes }) {
 }
 
 export function IncomeHomePageCard({ incomes }) {
+  // Check if incomes array is empty
+  if (incomes.length === 0) {
+    return (
+      <Card withBorder radius="20" className="card">
+        <div className="inner">
+          <Text size="xl" align="center">No Income Sources Found</Text>
+          <Text size="md" align="center" color="dimmed">Start by adding your first income source!</Text>
+        </div>
+      </Card>
+    );
+  }
 
   // Calculate the total amount of incomes
   const totalIncomes = incomes.reduce((acc, income) => acc + income.amount, 0);
