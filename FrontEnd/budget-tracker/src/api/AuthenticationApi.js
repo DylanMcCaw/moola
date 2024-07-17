@@ -23,6 +23,16 @@ const AuthenticationApi = {
       throw error;
     }
   },
-};
 
+// POST /api/Authentication/Logout
+logoutUser: async () => {
+  try {
+    const response = await ApiClient.post('/Authentication/Logout');
+    return response.data;
+  } catch (error) {
+    console.error('Error logging out user:', error);
+    throw error;
+  }
+},
+};
 export default AuthenticationApi;

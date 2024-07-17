@@ -17,13 +17,20 @@ namespace BudgetTracker.Authentication.Services
         private readonly IMapper _mapper;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AuthenticationService(BudgetTrackerDbContext context, IMapper mapper, IPasswordHasher<User> passwordHasher, IConfiguration configuration)
+        public AuthenticationService(
+            BudgetTrackerDbContext context,
+            IMapper mapper,
+            IPasswordHasher<User> passwordHasher,
+            IConfiguration configuration,
+            IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _mapper = mapper;
             _passwordHasher = passwordHasher;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<bool> RegisterUserAsync(RegisterDto registerDto)
@@ -47,7 +54,25 @@ namespace BudgetTracker.Authentication.Services
             {
                 return null;
             }
-            return GenerateJwtToken(user);
+
+            var token = GenerateJwtToken(user);
+            SetCurrentUser(user);
+            return token;
+        }
+
+        public async Task<bool> LogoutUserAsync()
+        {
+            try
+            {
+                _httpContextAccessor.HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity());
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error during logout: {ex.Message}");
+                return false;
+            }
         }
 
         private string GenerateJwtToken(User user)
@@ -67,6 +92,30 @@ namespace BudgetTracker.Authentication.Services
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        private void SetCurrentUser(User user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Email, user.Email)
+            };
+
+            var identity = new ClaimsIdentity(claims, "BudgetTracker");
+            _httpContextAccessor.HttpContext.User = new ClaimsPrincipal(identity);
+        }
+
+        public User GetCurrentUser()
+        {
+            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+            {
+                return null;
+            }
+
+            return _context.Users.FirstOrDefault(u => u.Id == int.Parse(userId));
         }
     }
 }

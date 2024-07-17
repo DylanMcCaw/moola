@@ -28,23 +28,21 @@ function AppContent() {
   useEffect(() => {
     const checkAuthStatus = () => {
       const token = localStorage.getItem('token');
-      console.log(token);
       if (token) {
         try {
           const decodedToken = jwtDecode(token);
           setUser({
             id: decodedToken.nameid,
-            name: decodedToken.unique_name, // Adjust these fields based on your JWT structure
+            name: decodedToken.unique_name,
             email: decodedToken.email,
           });
           setIsAuthenticated(true);
         } catch (error) {
           console.error('Invalid token:', error);
-          localStorage.removeItem('token');
-          setIsAuthenticated(false);
+          handleLogout();
         }
       } else {
-        setIsAuthenticated(false);
+        handleLogout();
       }
       setAuthChecked(true);
     };
@@ -53,33 +51,47 @@ function AppContent() {
   }, []);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      const fetchData = async () => {
-        setLoading(true);
-        console.log(user);
-        try {
-          const userId = user.id;
-          const [expensesData, incomesData, savingsData] = await Promise.all([
-            ExpenseApi.getExpensesByUserId(userId),
-            IncomeApi.getIncomesByUserId(userId),
-            SavingsApi.getSavingsPotsByUserId(userId),
-          ]);
-          setExpenses(expensesData);
-          setIncomes(incomesData);
-          setSavings(savingsData);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-          setError(error);
-        } finally {
-          setLoading(false);
-        }
-      };
-
+    if (isAuthenticated && user) {
       fetchData();
     } else {
+      clearUserData();
+    }
+  }, [isAuthenticated, user]);
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const userId = user.id;
+      const [expensesData, incomesData, savingsData] = await Promise.all([
+        ExpenseApi.getExpensesByUserId(userId),
+        IncomeApi.getIncomesByUserId(userId),
+        SavingsApi.getSavingsPotsByUserId(userId),
+      ]);
+      setExpenses(expensesData);
+      setIncomes(incomesData);
+      setSavings(savingsData);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setError(error);
+    } finally {
       setLoading(false);
     }
-  }, [isAuthenticated]);
+  };
+
+  const clearUserData = () => {
+    setExpenses([]);
+    setIncomes([]);
+    setSavings([]);
+    setError(null);
+    setLoading(false);
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setUser(null);
+    localStorage.removeItem('token');
+    clearUserData();
+  };
 
   const ProtectedRoute = ({ children }) => {
     if (!authChecked) return null; // Don't render anything while checking auth
@@ -148,7 +160,12 @@ function AppContent() {
         </div>
         {isAuthenticated && user && (
           <div className="user-menu-container">
-            <UserMenu user={user} setIsAuthenticated={setIsAuthenticated} />
+            <UserMenu 
+              user={user} 
+              setIsAuthenticated={setIsAuthenticated}
+              setUser={setUser}
+              handleLogout={handleLogout}
+            />
           </div>
         )}
       </div>

@@ -43,10 +43,7 @@ namespace BudgetTracker.Savings.Controllers
         public async Task<ActionResult<IEnumerable<SavingsPot>>> GetUsersSavingsPots(int id)
         {
             var savingsPots = await _savingsService.GetUsersSavingsPotsAsync(id);
-            if (savingsPots == null || !savingsPots.Any())
-                return NotFound();
-
-            return Ok(savingsPots);
+            return Ok(savingsPots ?? Enumerable.Empty<SavingsPot>());
         }
 
         // DELETE: api/Savings/{id}

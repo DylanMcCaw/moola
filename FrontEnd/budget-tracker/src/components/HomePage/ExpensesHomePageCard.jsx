@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Text, Card, Table, ThemeIcon, Button } from '@mantine/core';
+import { Text, Card, Table, ThemeIcon, Button, Pagination } from '@mantine/core';
 import { PieChart } from '@mantine/charts';
 import { IconWallet } from '@tabler/icons-react';
 import IconComponents from '../IconComponents';
 import ExpenseCategory from '../expense/ExpenseCategory';
 import './HomePageCardStyle.css';
-import { Pagination } from '@mantine/core';
 
 // Function to format amount as currency
 const formatCurrency = (amount) => {
@@ -69,7 +68,7 @@ function ExpenseTable({ expenses }) {
         </thead>
         <tbody>{rows}</tbody>
       </Table>
- <div className="paginationContainer">
+      <div className="paginationContainer">
         <Pagination
           total={totalPages}
           value={currentPage}
@@ -83,6 +82,17 @@ function ExpenseTable({ expenses }) {
 }
 
 export function ExpensesHomePageCard({ expenses }) {
+  // Check if expenses array is empty
+  if (expenses.length === 0) {
+    return (
+      <Card withBorder radius="20" className="card">
+        <div className="inner">
+          <Text size="xl" align="center">No Expenses Found</Text>
+          <Text size="md" align="center" color="dimmed">Start by adding your first expense!</Text>
+        </div>
+      </Card>
+    );
+  }
 
   // Calculate the total amount of expenses
   const totalExpenses = expenses.reduce((acc, expense) => acc + expense.amount, 0);
