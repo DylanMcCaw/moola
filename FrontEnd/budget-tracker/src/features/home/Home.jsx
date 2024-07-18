@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { SavingsHomePageCard } from '../components/HomePage/SavingsHomePageCard';
-import { ExpensesHomePageCard } from '../components/HomePage/ExpensesHomePageCard';
-import { IncomeHomePageCard } from '../components/HomePage/IncomeHomePageCard';
+import React from 'react';
+import { SavingsHomePageCard } from './components/SavingsHomePageCard';
+import { ExpensesHomePageCard } from './components/ExpensesHomePageCard';
+import { IncomeHomePageCard } from './components/IncomeHomePageCard';
 import { Title } from '@mantine/core';
-import './HomePageStyle.css';
+import './components/HomePageCardStyle.css';
 
 function Home({ savings, expenses, incomes }) {
 

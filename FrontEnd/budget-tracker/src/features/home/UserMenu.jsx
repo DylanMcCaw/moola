@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import { Menu, UnstyledButton, Group, Avatar, Text, rem } from '@mantine/core';
-import AuthenticationApi from '../api/AuthenticationApi';
+import AuthenticationApi from '../../api/AuthenticationApi';
 import { useNavigate } from 'react-router-dom';
 import {
   IconSettings,

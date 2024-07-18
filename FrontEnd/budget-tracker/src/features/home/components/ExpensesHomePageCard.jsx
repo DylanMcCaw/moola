@@ -2,23 +2,11 @@ import React, { useState } from 'react';
 import { Text, Card, Table, ThemeIcon, Button, Pagination } from '@mantine/core';
 import { PieChart } from '@mantine/charts';
 import { IconWallet } from '@tabler/icons-react';
-import IconComponents from '../IconComponents';
-import ExpenseCategory from '../expense/ExpenseCategory';
+import IconComponents from '../../common/IconComponents';
+import ExpenseCategory from '../../expense/components/ExpenseCategory';
+import formatCurrency from '../../../utils/formatCurrency';
+import formatDate from '../../../utils/formatDate';
 import './HomePageCardStyle.css';
-
-// Function to format amount as currency
-const formatCurrency = (amount) => {
-  return new Intl.NumberFormat('en-GB', {
-    style: 'currency',
-    currency: 'GBP'
-  }).format(amount);
-};
-
-// Function to format date to dd/mm/yyyy
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  return new Intl.DateTimeFormat('en-GB').format(date);
-};
 
 function ExpenseTable({ expenses }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -101,7 +89,7 @@ export function ExpensesHomePageCard({ expenses }) {
   const data = expenses.map((expense) => ({
     name: expense.description,
     value: expense.amount,
-    color: expense.iconColour // Use expense.iconColour for color
+    color: expense.iconColour
   }));
 
   return (
@@ -116,7 +104,7 @@ export function ExpensesHomePageCard({ expenses }) {
         <div className="pieChart">
         <PieChart 
           withTooltip
-          tooltipDataSource="description" // Set tooltipDataSource to "name"
+          tooltipDataSource="description"
           mx="auto"  
           data={data} 
           style={{ height: '220px', width: '220px' }}

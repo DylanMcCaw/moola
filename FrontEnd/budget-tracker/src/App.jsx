@@ -3,17 +3,18 @@ import { Loader, MantineProvider } from '@mantine/core';
 import ExpenseApi from './api/ExpenseApi';
 import IncomeApi from './api/IncomeApi';
 import SavingsApi from './api/SavingsApi';
-import { Auth } from './pages/Auth';
+import { Auth } from './features/auth/Auth';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Notifications } from '@mantine/notifications';
-import { Home, SavingPots } from './pages';
-import { Navbar } from './components/NavBar/NavBar';
-import UserMenu from './components/UserMenu';
+import Home from './features/home/Home';
+import SavingPots from './features/savings/SavingPots';
+import { Navbar } from './features/navbar/NavBar';
+import UserMenu from './features/home/UserMenu';
 import { jwtDecode } from 'jwt-decode';
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
 
-import './App.css';
+import './styles/App.css';
 
 function AppContent() {
   const [expenses, setExpenses] = useState([]);

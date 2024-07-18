@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button, Container, Grid, Box, Title } from '@mantine/core';
-import { TotalSavingsCard } from '../components/savings/TotalSavingsCard';
-import { SavingsGraphCard } from '../components/savings/SavingsGraphCard';
-import SavingsPotListCard from '../components/savings/SavingPotsListCard';
-import { SavingsPotForm } from '../components/savings/SavingsPotForm';
+import {TotalSavingsCard} from './components/TotalSavingsCard'
+import { SavingsGraphCard } from './components/SavingsGraphCard';
+import SavingsPotListCard from './components/SavingPotsListCard';
+import { SavingsPotForm } from './components/SavingsPotForm';
 
 function SavingPots({ initialSavings }) {
   const [savings, setSavings] = useState(initialSavings);

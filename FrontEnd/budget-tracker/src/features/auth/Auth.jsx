@@ -12,7 +12,7 @@ import {
   Button,
 } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
-import AuthenticationApi from '../api/AuthenticationApi';
+import AuthenticationApi from '../../api/AuthenticationApi';
 
 export function Auth({ setIsAuthenticated }) {
   const [isLogin, setIsLogin] = useState(true);

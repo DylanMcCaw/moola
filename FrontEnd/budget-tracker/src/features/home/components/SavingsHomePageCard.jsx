@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, Card, RingProgress, List, ThemeIcon, rem, Progress, Pagination } from '@mantine/core';
-import { IconPigMoney, IconPlane, IconHome } from '@tabler/icons-react';
+import { IconPlane } from '@tabler/icons-react';
 import './HomePageCardStyle.css';
 
 function SavingPotItem({ icon, color, title, amount, goal, progress, onClick }) {
@@ -31,7 +31,6 @@ function SavingPotItem({ icon, color, title, amount, goal, progress, onClick }) 
 }
 
 export function SavingsHomePageCard({ savings }) {
-  // Check if savings array is empty
   if (savings.length === 0) {
     return (
       <Card withBorder radius="20" className="large-card">
@@ -42,30 +41,20 @@ export function SavingsHomePageCard({ savings }) {
       </Card>
     );
   }
-
+  
   const totalSavings = savings.reduce((acc, pot) => acc + pot.currentAmount, 0);
-  const totalDeposited = totalSavings + savings.reduce((acc, pot) => acc + pot.withdrawnAmount, 0);
-  const totalWithdrawn = savings.reduce((acc, pot) => acc + pot.withdrawnAmount, 0);
   const goalReachedPercentage = (totalSavings / savings.reduce((acc, pot) => acc + pot.targetAmount, 0)) * 100;
 
   const [currentPage, setCurrentPage] = useState(1);
   const savingsPerPage = 3;
 
-  // Calculate total number of pages
   const totalPages = Math.ceil(savings.length / savingsPerPage);
-
-  // Calculate index of the first and last saving pot for the current page
   const indexOfLastSaving = currentPage * savingsPerPage;
   const indexOfFirstSaving = indexOfLastSaving - savingsPerPage;
   const currentSavings = savings.slice(indexOfFirstSaving, indexOfLastSaving);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
-  };
-
-  const handleItemClick = (pot) => {
-    console.log('Saving pot clicked:', pot);
-    // Implement your logic to handle item click here
   };
 
   return (
@@ -92,7 +81,6 @@ export function SavingsHomePageCard({ savings }) {
                   amount={`£${pot.currentAmount.toFixed(2)}`}
                   goal={`£${pot.targetAmount.toFixed(2)}`}
                   progress={(pot.currentAmount / pot.targetAmount) * 100}
-                  onClick={() => handleItemClick(pot)}
                 />
               ))}
             </List>

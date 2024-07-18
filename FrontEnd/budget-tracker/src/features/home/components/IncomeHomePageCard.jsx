@@ -2,23 +2,11 @@ import React, { useState } from 'react';
 import { Text, Card, Table, ThemeIcon, Pagination } from '@mantine/core';
 import { PieChart } from '@mantine/charts';
 import { IconMoneybag } from '@tabler/icons-react';
-import IconComponents from '../IconComponents';
-import IncomeCategory from '../income/IncomeCategory';
+import IconComponents from '../../common/IconComponents';
+import IncomeCategory from '../../income/components/IncomeCategory';
+import formatCurrency from '../../../utils/formatCurrency';
+import formatDate from '../../../utils/formatDate';
 import './HomePageCardStyle.css';
-
-// Function to format amount as currency
-const formatCurrency = (amount) => {
-  return new Intl.NumberFormat('en-GB', {
-    style: 'currency',
-    currency: 'GBP'
-  }).format(amount);
-};
-
-// Function to format date to dd/mm/yyyy
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  return new Intl.DateTimeFormat('en-GB').format(date);
-};
 
 function IncomeTable({ incomes }) {
   const [currentPage, setCurrentPage] = useState(1);
