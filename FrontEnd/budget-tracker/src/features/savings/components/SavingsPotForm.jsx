@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Grid, TextInput, Select, Button } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
-import SavingsApi from '../../api/SavingsApi';
+import SavingsApi from '../../../api/SavingsApi';
 import { notifications } from '@mantine/notifications';
 
 export function SavingsPotForm({ onNewSavingsPot }) {

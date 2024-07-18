@@ -41,7 +41,7 @@ namespace BudgetTracker.Authentication.Controllers
             return Ok(new { Token = token });
         }
 
-        [HttpPost("logout")]
+        [HttpPost("Logout")]
         public async Task<IActionResult> Logout()
         {
             var result = await _authenticationService.LogoutUserAsync();
