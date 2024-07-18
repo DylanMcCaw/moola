@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Text, Card, RingProgress, List, ThemeIcon, rem, Progress, Pagination } from '@mantine/core';
+import { Text, Card, RingProgress, List, ThemeIcon, rem, Progress, Pagination, Button } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
 import { IconPlane } from '@tabler/icons-react';
 import './HomePageCardStyle.css';
 
@@ -31,19 +32,10 @@ function SavingPotItem({ icon, color, title, amount, goal, progress, onClick }) 
 }
 
 export function SavingsHomePageCard({ savings }) {
-  if (savings.length === 0) {
-    return (
-      <Card withBorder radius="20" className="large-card">
-        <div className="inner">
-          <Text size="xl" align="center">No Savings Pots Found</Text>
-          <Text size="md" align="center" color="dimmed">Start saving by creating your first savings pot!</Text>
-        </div>
-      </Card>
-    );
-  }
-  
   const totalSavings = savings.reduce((acc, pot) => acc + pot.currentAmount, 0);
-  const goalReachedPercentage = (totalSavings / savings.reduce((acc, pot) => acc + pot.targetAmount, 0)) * 100;
+  const goalReachedPercentage = savings.length > 0
+    ? (totalSavings / savings.reduce((acc, pot) => acc + pot.targetAmount, 0)) * 100
+    : 0;
 
   const [currentPage, setCurrentPage] = useState(1);
   const savingsPerPage = 3;
@@ -56,6 +48,12 @@ export function SavingsHomePageCard({ savings }) {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  const navigate = useNavigate();
+
+function handleGoToSavingsClick(){
+  navigate('/savings'); 
+}
 
   return (
     <Card withBorder radius="20" className="large-card">
@@ -71,30 +69,40 @@ export function SavingsHomePageCard({ savings }) {
           </div>
           <div className="savingPotsList">
             <div className='savingPotsListTitle'><Text>Saving Pots:</Text></div>
-            <List spacing="lg" size="m" center>
-              {currentSavings.map((pot, index) => (
-                <SavingPotItem
-                  key={index}
-                  icon={<IconPlane style={{ width: rem(16), height: rem(16) }} />}
-                  color="orange"
-                  title={pot.description}
-                  amount={`£${pot.currentAmount.toFixed(2)}`}
-                  goal={`£${pot.targetAmount.toFixed(2)}`}
-                  progress={(pot.currentAmount / pot.targetAmount) * 100}
-                />
-              ))}
-            </List>
+            {savings.length === 0 ? (
+              <div className="no-savings-content">
+                <Text size="md" color="dimmed" mb="md">Start saving by creating your first savings pot!</Text>
+                <Button color="#4333A1" onClick={handleGoToSavingsClick}>Go To Savings</Button>
+              </div>
+            ) : (
+              <List spacing="lg" size="m" center>
+                {currentSavings.map((pot, index) => (
+                  <SavingPotItem
+                    key={index}
+                    icon={<IconPlane style={{ width: rem(16), height: rem(16) }} />}
+                    color="orange"
+                    title={pot.description}
+                    amount={`£${pot.currentAmount.toFixed(2)}`}
+                    goal={`£${pot.targetAmount.toFixed(2)}`}
+                    progress={(pot.currentAmount / pot.targetAmount) * 100}
+                  />
+                ))}
+              </List>
+            )}
           </div>
-          <div className="paginationContainer">
-            <Pagination
-              total={totalPages}
-              value={currentPage}
-              onChange={handlePageChange}
-              color='#4333A1'
-              size="sm"
-            />
-          </div>
+          {savings.length > 0 && (
+            <div className="paginationContainer">
+              <Pagination
+                total={totalPages}
+                value={currentPage}
+                onChange={handlePageChange}
+                color='#4333A1'
+                size="sm"
+              />
+            </div>
+          )}
         </div>
+        {savings.length > 0 && (
         <div className="ringProgress">
           <RingProgress
             roundCaps
@@ -109,6 +117,7 @@ export function SavingsHomePageCard({ savings }) {
             }
           />
         </div>
+        )}
       </div>
     </Card>
   );

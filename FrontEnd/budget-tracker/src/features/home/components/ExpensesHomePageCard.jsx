@@ -12,21 +12,17 @@ function ExpenseTable({ expenses }) {
   const [currentPage, setCurrentPage] = useState(1);
   const expensesPerPage = 4;
 
-  // Calculate total number of pages
   const totalPages = Math.ceil(expenses.length / expensesPerPage);
-
-  // Calculate index of the first and last expense for the current page
   const indexOfLastExpense = currentPage * expensesPerPage;
   const indexOfFirstExpense = indexOfLastExpense - expensesPerPage;
   const currentExpenses = expenses.slice(indexOfFirstExpense, indexOfLastExpense);
 
   const rows = currentExpenses.map((expense) => {
-    // Check if the icon exists in IconComponents, default to IconWallet if not found
     const IconComponent = IconComponents[expense.icon] || IconWallet;
     return (
       <tr key={expense.id}>
         <td>
-          <ThemeIcon  color={expense.iconColour} size="md" radius="xl">
+          <ThemeIcon color={expense.iconColour} size="md" radius="xl">
             <IconComponent />
           </ThemeIcon>
         </td>
@@ -56,36 +52,24 @@ function ExpenseTable({ expenses }) {
         </thead>
         <tbody>{rows}</tbody>
       </Table>
-      <div className="paginationContainer">
-        <Pagination
-          total={totalPages}
-          value={currentPage}
-          onChange={handlePageChange}
-          color='#4333A1'
-          size="sm"
-        />
-      </div>
+      {expenses.length > 0 && (
+        <div className="paginationContainer">
+          <Pagination
+            total={totalPages}
+            value={currentPage}
+            onChange={handlePageChange}
+            color='#4333A1'
+            size="sm"
+          />
+        </div>
+      )}
     </div>
   );
 }
 
 export function ExpensesHomePageCard({ expenses }) {
-  // Check if expenses array is empty
-  if (expenses.length === 0) {
-    return (
-      <Card withBorder radius="20" className="card">
-        <div className="inner">
-          <Text size="xl" align="center">No Expenses Found</Text>
-          <Text size="md" align="center" color="dimmed">Start by adding your first expense!</Text>
-        </div>
-      </Card>
-    );
-  }
-
-  // Calculate the total amount of expenses
   const totalExpenses = expenses.reduce((acc, expense) => acc + expense.amount, 0);
 
-  // Format data for PieChart
   const data = expenses.map((expense) => ({
     name: expense.description,
     value: expense.amount,
@@ -102,20 +86,32 @@ export function ExpensesHomePageCard({ expenses }) {
           </div>
         </div>
         <div className="pieChart">
-        <PieChart 
-          withTooltip
-          tooltipDataSource="description"
-          mx="auto"  
-          data={data} 
-          style={{ height: '220px', width: '220px' }}
-          label={true}
-          labelPosition="inside"
-          labelOffset={-40}
-        />
+          {expenses.length > 0 ? (
+            <PieChart 
+              withTooltip
+              tooltipDataSource="name"
+              mx="auto"  
+              data={data} 
+              style={{ height: '220px', width: '220px' }}
+              label={true}
+              labelPosition="inside"
+              labelOffset={-40}
+            />
+          ) : (
+            <div>
+            </div>
+          )}
         </div>
       </div>
       <div className="tableContainer">
-        <ExpenseTable expenses={expenses} />
+        {expenses.length === 0 ? (
+          <div className="no-expenses-content">
+            <Text size="md" color="dimmed" mb="md">Start by adding your first expense!</Text>
+            <Button color="#4333A1">Go To Expenses</Button>
+          </div>
+        ) : (
+          <ExpenseTable expenses={expenses} />
+        )}
       </div>
     </Card>
   );

@@ -6,31 +6,29 @@ body {
 
 .app-container {
   display: flex;
-  flex-direction: row; /* Arrange header and content side by side */
+  flex-direction: column;
 }
 
 header {
-  flex: 0 0 auto; /* Prevent header from growing or shrinking */
-}
-
-.content-container {
-  display: flex;
-  flex-direction: column;
-  flex: 1; /* Allow content to expand to fill remaining space */
-  padding-top: 60px; /* Adjust this value according to your Navbar's height */
-}
-
-.main-content {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto; /* Center the content horizontally */
-  padding: 20px;
-  padding-top: 100px;
+  height: 100px;
+  top: 0;
 }
-
 
 .user-menu-container {
   position: absolute;
   top: var(--mantine-spacing-md);
   right: var(--mantine-spacing-md);
+  z-index: 1000;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+}
+
+.navbar {
+  z-index: 1000;
 }

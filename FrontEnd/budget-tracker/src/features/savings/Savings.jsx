@@ -5,6 +5,7 @@ import {TotalSavingsCard} from './components/TotalSavingsCard'
 import { SavingsGraphCard } from './components/SavingsGraphCard';
 import SavingsPotListCard from './components/SavingPotsListCard';
 import { SavingsPotForm } from './components/SavingsPotForm';
+import formatCurrency from '../../utils/formatCurrency';
 
 function SavingPots({ initialSavings }) {
   const [savings, setSavings] = useState(initialSavings);
@@ -39,15 +40,6 @@ function SavingPots({ initialSavings }) {
     goal: `£${pot.targetAmount.toFixed(2)}`,
     progress: ((pot.currentAmount / pot.targetAmount) * 100).toFixed(2),
   }));
-
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-GB', {
-      style: 'currency',
-      currency: 'GBP',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    }).format(amount);
-  };
 
   const handleNewSavingsPot = (newSavingsPot) => {
     setSavings((prevSavings) => [...prevSavings, newSavingsPot]);
