@@ -105,20 +105,43 @@ namespace BudgetTracker.Tests.Savings.Tests.UnitTests
         }
 
         [Test]
-        public async Task UpdateSavingsPotAsync_WithValidId_ReturnsTrue()
+        public async Task UpdateSavingsPotAsync_WithValidId_ReturnsUpdatedSavingsPot()
         {
-            var updatedSavingsPot = new SavingsPot { Id = 1, Description = "Updated Description", TargetAmount = 1500, Icon = "new-icon", IconColour = "blue", GoalDate = DateTime.Now };
+            var updatedSavingsPot = new SavingsPot
+            {
+                Id = 1,
+                Description = "Updated Description",
+                TargetAmount = 1500,
+                Icon = "new-icon",
+                IconColour = "blue",
+                GoalDate = DateTime.Now
+            };
+
             var result = await _savingsService.UpdateSavingsPotAsync(1, updatedSavingsPot);
-            ClassicAssert.IsTrue(result);
+
+            ClassicAssert.IsNotNull(result);
+            ClassicAssert.AreEqual(updatedSavingsPot.Description, result.Description);
+            ClassicAssert.AreEqual(updatedSavingsPot.TargetAmount, result.TargetAmount);
+            ClassicAssert.AreEqual(updatedSavingsPot.Icon, result.Icon);
+            ClassicAssert.AreEqual(updatedSavingsPot.IconColour, result.IconColour);
+            ClassicAssert.AreEqual(updatedSavingsPot.GoalDate, result.GoalDate);
             _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Once);
         }
 
         [Test]
-        public async Task UpdateSavingsPotAsync_WithInvalidId_ReturnsFalse()
+        public void UpdateSavingsPotAsync_WithInvalidId_ThrowsArgumentNullException()
         {
-            var updatedSavingsPot = new SavingsPot { Id = 99, Description = "Updated Description", TargetAmount = 1500, Icon = "new-icon", IconColour = "blue", GoalDate = DateTime.Now };
-            var result = await _savingsService.UpdateSavingsPotAsync(99, updatedSavingsPot);
-            ClassicAssert.IsFalse(result);
+            var updatedSavingsPot = new SavingsPot
+            {
+                Id = 99,
+                Description = "Updated Description",
+                TargetAmount = 1500,
+                Icon = "new-icon",
+                IconColour = "blue",
+                GoalDate = DateTime.Now
+            };
+
+            Assert.ThrowsAsync<ArgumentNullException>(() => _savingsService.UpdateSavingsPotAsync(99, updatedSavingsPot));
             _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Never);
         }
     }

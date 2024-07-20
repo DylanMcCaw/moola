@@ -12,10 +12,12 @@ export function SavingsTransactionsCard() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
-  const totalPages = Math.ceil(transactions.length / itemsPerPage);
+  const sortedTransactions = [...transactions].sort((a, b) => new Date(b.transactionDate) - new Date(a.transactionDate));
+
+  const totalPages = Math.ceil(sortedTransactions.length / itemsPerPage);
   const indexOfLastTransaction = currentPage * itemsPerPage;
   const indexOfFirstTransaction = indexOfLastTransaction - itemsPerPage;
-  const currentTransactions = transactions.slice(indexOfFirstTransaction, indexOfLastTransaction);
+  const currentTransactions = sortedTransactions.slice(indexOfFirstTransaction, indexOfLastTransaction);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -33,7 +35,6 @@ export function SavingsTransactionsCard() {
     const sign = isDeposit ? '+' : '-';
 
     const savingPot = savingPots.find(pot => pot.id === transaction.savingsPotId);
-    console.log(savingPots);
     return (
       <Table.Tr key={transaction.id}>
         <Table.Td>
@@ -63,10 +64,10 @@ export function SavingsTransactionsCard() {
         flexDirection: 'column',
       }}
     >
-      <div style={{ marginBottom: '33px' }}>
+      <div style={{ marginBottom: '10px' }}>
         <Text size="xl">Transactions</Text>
       </div>
-      <Table>
+      <Table style={{ marginBottom: '20px' }}>
         <Table.Thead>
           <Table.Tr>
             <Table.Th>Savings Pot</Table.Th>

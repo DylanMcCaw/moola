@@ -78,18 +78,18 @@ namespace BudgetTracker.Savings.Controllers
         // PUT: api/SavingsPot/{id}
         // Updates an existing Savings Pot by its ID
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateSavingsPot(int id, SavingsPotForUpdate updatedSavingsPot)
+        public async Task<ActionResult<SavingsPot>> UpdateSavingsPot(int id, SavingsPotForUpdate updatedSavingsPot)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var savingsPotEntity = _mapper.Map<SavingsPot>(updatedSavingsPot);
 
-            var success = await _savingsService.UpdateSavingsPotAsync(id, savingsPotEntity);
-            if (!success)
+            var savingsPot = await _savingsService.UpdateSavingsPotAsync(id, savingsPotEntity);
+            if (savingsPot == null)
                 return NotFound();
 
-            return NoContent();
+            return savingsPot;
         }
 
         // POST: api/Savings/Deposit/{id}

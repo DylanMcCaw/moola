@@ -92,7 +92,7 @@ namespace BudgetTracker.Savings.Services
             return savingsPot;
         }
 
-        public async Task<bool> UpdateSavingsPotAsync(int id, SavingsPot updatedSavingsPot)
+        public async Task<SavingsPot> UpdateSavingsPotAsync(int id, SavingsPot updatedSavingsPot)
         {
             _logger.LogInformation($"PUT: UpdateSavingsPot called for SavingsPot ID {id}");
 
@@ -101,7 +101,7 @@ namespace BudgetTracker.Savings.Services
             if (existingSavingsPot == null)
             {
                 _logger.LogWarning($"SavingsPot with ID {id} not found.");
-                return false;
+                throw new ArgumentNullException(nameof(existingSavingsPot));
             }
 
             // Update the existing savings pot with the values from updatedSavingsPot
@@ -122,8 +122,9 @@ namespace BudgetTracker.Savings.Services
                 throw;
             }
 
-            return true;
+            return existingSavingsPot;
         }
+
         public async Task<SavingsPotTransaction> DepositAsync(int savingsPotId, double amount)
         {
             _logger.LogInformation($"POST: DepositAsync called for SavingsPot ID {savingsPotId}");
