@@ -41,7 +41,7 @@ namespace BudgetTracker.Savings.Services
         /// <param name="id">The ID of the savings pot to update.</param>
         /// <param name="updatedSavingsPot">The updated savings pot.</param>
         /// <returns>True if the savings pot was successfully updated, otherwise false.</returns>
-        Task<bool> UpdateSavingsPotAsync(int id, SavingsPot updatedSavingsPot);
+        Task<SavingsPot> UpdateSavingsPotAsync(int id, SavingsPot updatedSavingsPot);
 
 
         /// <summary>

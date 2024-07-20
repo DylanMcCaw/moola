@@ -6,7 +6,7 @@ import { TotalSavingsCard } from './components/TotalSavingsCard'
 import { SavingsTransactionsCard } from './components/SavingsTransactionsCard';
 import SavingsPotListCard from './components/SavingPotsListCard';
 import { SavingsPotForm } from './components/SavingsPotForm';
-import { addSavingsPot } from '../../store/slices/savingsSlice'; // Import the action
+import { addSavingsPot } from '../../store/slices/savingsSlice';
 import formatCurrency from '../../utils/formatCurrency';
 import './components/SavingsStyles.css';
 
@@ -52,7 +52,7 @@ function SavingPots() {
             />
           </div>
           <div className="bottom-cards-container-savings">
-          <div className="half-width-card">
+            <div className="half-width-card">
               <SavingsPotListCard savingPots={savingPots} />
             </div>
             <div className="half-width-card">

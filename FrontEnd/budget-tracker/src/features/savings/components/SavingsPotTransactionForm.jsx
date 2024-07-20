@@ -9,7 +9,7 @@ import { addTransaction } from '../../../store/slices/savingPotTransactionsSlice
 export function SavingsPotTransactionForm({ savingsPotId, onClose, currentAmount }) {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
-    transactionType: 'deposit',
+    transactionType: 'Deposit',
     amount: '',
   });
 
@@ -32,16 +32,16 @@ export function SavingsPotTransactionForm({ savingsPotId, onClose, currentAmount
       let response;
 
       // Perform API call based on transaction type
-      if (transactionType === 'deposit') {
+      if (transactionType === 'Deposit') {
         response = await SavingsApi.depositToSavingsPot(savingsPotId, numericAmount);
-      } else if (transactionType === 'withdraw') {
+      } else if (transactionType === 'Withdraw') {
         response = await SavingsApi.withdrawFromSavingsPot(savingsPotId, numericAmount);
       } else {
         throw new Error('Invalid transaction type');
       }
 
       // Calculate the new amount
-      const newAmount = transactionType === 'deposit'
+      const newAmount = transactionType === 'Deposit'
         ? currentAmount + numericAmount
         : currentAmount - numericAmount;
 
@@ -63,7 +63,7 @@ export function SavingsPotTransactionForm({ savingsPotId, onClose, currentAmount
       // Show success notification
       notifications.show({
         title: 'Success',
-        message: `Savings Pot Successfully ${transactionType === 'deposit' ? 'Deposited' : 'Withdrawn'}`,
+        message: `Savings Pot Successfully ${transactionType === 'Deposit' ? 'Deposited' : 'Withdrawn'}`,
         color: "#4333A1"
       });
 
@@ -73,10 +73,10 @@ export function SavingsPotTransactionForm({ savingsPotId, onClose, currentAmount
       // Show error notification
       notifications.show({
         title: 'Error',
-        message: error.message || `Error ${transactionType === 'deposit' ? 'depositing to' : 'withdrawing from'} savings pot`,
+        message: error.message || `Error ${transactionType === 'Deposit' ? 'depositing to' : 'withdrawing from'} savings pot`,
         color: "red"
       });
-      console.error(`Error ${transactionType === 'deposit' ? 'depositing to' : 'withdrawing from'} savings pot:`, error);
+      console.error(`Error ${transactionType === 'Deposit' ? 'depositing to' : 'withdrawing from'} savings pot:`, error);
     }
   };
 
@@ -100,8 +100,8 @@ export function SavingsPotTransactionForm({ savingsPotId, onClose, currentAmount
             <Select
               label="Transaction Type"
               data={[
-                { value: 'deposit', label: 'Deposit' },
-                { value: 'withdraw', label: 'Withdraw' },
+                { value: 'Deposit', label: 'Deposit' },
+                { value: 'Withdraw', label: 'Withdraw' },
               ]}
               value={formData.transactionType}
               onChange={(value) => handleInputChange('transactionType', value)}
@@ -119,7 +119,7 @@ export function SavingsPotTransactionForm({ savingsPotId, onClose, currentAmount
           </Grid.Col>
           <Grid.Col span={12}>
             <Button type="submit" variant="filled" color="#4333A1" disabled={!isFormValid()}>
-              {formData.transactionType === 'deposit' ? 'Deposit' : 'Withdraw'}
+              {formData.transactionType === 'Deposit' ? 'Deposit' : 'Withdraw'}
             </Button>
           </Grid.Col>
         </Grid>

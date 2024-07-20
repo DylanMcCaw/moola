@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Text, List, ThemeIcon , Progress, Button, Modal } from '@mantine/core';
+import { Text, List, ThemeIcon, Progress, Button, Modal } from '@mantine/core';
 import { IconPlane, IconHome, IconEdit, IconCash } from '@tabler/icons-react';
 import { SavingsPotTransactionForm } from './SavingsPotTransactionForm';
+import { SavingsPotForm } from './SavingsPotForm';
 import "./SavingsStyles.css";
 
 function SavingPotItem({ id, icon, color, title, onEditClick }) {
-  const [opened, setOpened] = useState(false);
+  const [depositOpened, setDepositOpened] = useState(false);
+  const [editOpened, setEditOpened] = useState(false);
   const dispatch = useDispatch();
   
-  // Get the latest data for this specific savings pot from Redux
   const pot = useSelector(state => state.savings.find(pot => pot.id === id));
   
-  console.log(pot);
   const amount = pot ? `£${pot.currentAmount.toFixed(2)}` : '£0.00';
   const goal = pot ? `£${pot.targetAmount.toFixed(2)}` : '£0.00';
   const progress = pot && pot.targetAmount > 0 
@@ -20,11 +20,16 @@ function SavingPotItem({ id, icon, color, title, onEditClick }) {
     : '0.00';
 
   const handleDepositClick = () => {
-    setOpened(true);
+    setDepositOpened(true);
+  };
+
+  const handleEditClick = () => {
+    setEditOpened(true);
   };
 
   const handleClose = () => {
-    setOpened(false);
+    setDepositOpened(false);
+    setEditOpened(false);
   };
 
   return (
@@ -44,7 +49,7 @@ function SavingPotItem({ id, icon, color, title, onEditClick }) {
           </div>
           <div className="buttonContainer">
             <Button size="xs" onClick={handleDepositClick} color='#4333A1'>Deposit/Withdraw</Button>
-            <Button size="xs" variant="outline" color='#4333A1' onClick={onEditClick} leftIcon={<IconEdit size={14} />}>Edit</Button>
+            <Button size="xs" variant="outline" color='#4333A1' onClick={handleEditClick} leftIcon={<IconEdit size={14} />}>Edit</Button>
           </div>
         </div>
         <div className="progressContainer" style={{ width: "600px " }}>
@@ -53,11 +58,19 @@ function SavingPotItem({ id, icon, color, title, onEditClick }) {
         </div>
       </div>
 
-      <Modal opened={opened} onClose={handleClose} title="Deposit/Withdraw Funds" size="lg" centered>
+      <Modal opened={depositOpened} onClose={handleClose} title="Deposit/Withdraw Funds" size="lg" centered>
         <SavingsPotTransactionForm 
           savingsPotId={id} 
           onClose={handleClose} 
           currentAmount={pot ? pot.currentAmount : 0}
+        />
+      </Modal>
+
+      <Modal opened={editOpened} onClose={handleClose} title="Edit Savings Pot" size="lg" centered>
+        <SavingsPotForm 
+          editMode={true}
+          initialData={pot}
+          onClose={handleClose}
         />
       </Modal>
     </List.Item>
