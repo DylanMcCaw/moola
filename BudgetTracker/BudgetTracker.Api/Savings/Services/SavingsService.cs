@@ -124,7 +124,7 @@ namespace BudgetTracker.Savings.Services
 
             return true;
         }
-        public async Task<bool> DepositAsync(int savingsPotId, double amount)
+        public async Task<SavingsPotTransaction> DepositAsync(int savingsPotId, double amount)
         {
             _logger.LogInformation($"POST: DepositAsync called for SavingsPot ID {savingsPotId}");
 
@@ -132,7 +132,7 @@ namespace BudgetTracker.Savings.Services
             if (savingsPot == null)
             {
                 _logger.LogWarning($"Savings pot with ID {savingsPotId} not found.");
-                return false;
+                throw new ArgumentNullException(nameof(savingsPot));
             }
 
             savingsPot.CurrentAmount += amount;
@@ -156,10 +156,10 @@ namespace BudgetTracker.Savings.Services
                 throw;
             }
 
-            return true;
+            return transaction;
         }
 
-        public async Task<bool> WithdrawAsync(int savingsPotId, double amount)
+        public async Task<SavingsPotTransaction> WithdrawAsync(int savingsPotId, double amount)
         {
             _logger.LogInformation($"WITHDRAW: WithdrawAsync called for SavingsPot ID {savingsPotId}");
 
@@ -168,13 +168,13 @@ namespace BudgetTracker.Savings.Services
             if (savingsPot == null)
             {
                 _logger.LogWarning($"SavingsPot with ID {savingsPotId} not found.");
-                return false;
+                throw new ArgumentNullException(nameof(savingsPot));
             }
 
             if (savingsPot.CurrentAmount < amount)
             {
                 _logger.LogWarning($"Insufficient funds in SavingsPot ID {savingsPotId}.");
-                return false;
+                throw new Exception(nameof(savingsPot));
             }
 
             savingsPot.CurrentAmount -= amount;
@@ -199,7 +199,26 @@ namespace BudgetTracker.Savings.Services
                 throw;
             }
 
-            return true;
+            return transaction;
+        }
+
+        public async Task<List<SavingsPotTransaction>> GetSavingsPotTransactionsByUserIdAsync(int userId)
+        {
+            _logger.LogInformation("GET: GetSavingsPotTransactionsByUserId called");
+
+            try
+            {
+                // Retrieve transactions for all savings pots owned by the user
+                return await _context.SavingsPotTransactions
+                    .Include(t => t.SavingsPot)
+                    .Where(t => t.SavingsPot.UserID == userId)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while retrieving transactions for the user's savings pots.");
+                throw;
+            }
         }
 
     }

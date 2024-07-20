@@ -4,10 +4,10 @@ import { Container, Grid, TextInput, Select, Button } from '@mantine/core';
 import SavingsApi from '../../../api/SavingsApi';
 import { notifications } from '@mantine/notifications';
 import { updateSavingsPot } from '../../../store/slices/savingsSlice';
+import { addTransaction } from '../../../store/slices/savingPotTransactionsSlice';
 
 export function SavingsPotTransactionForm({ savingsPotId, onClose, currentAmount }) {
   const dispatch = useDispatch();
-
   const [formData, setFormData] = useState({
     transactionType: 'deposit',
     amount: '',
@@ -15,16 +15,23 @@ export function SavingsPotTransactionForm({ savingsPotId, onClose, currentAmount
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const { transactionType, amount } = formData;
-      const numericAmount = parseFloat(amount);
-      
-      if (isNaN(numericAmount) || numericAmount <= 0) {
-        throw new Error('Invalid amount');
-      }
 
+    const { transactionType, amount } = formData;
+    const numericAmount = parseFloat(amount);
+
+    if (isNaN(numericAmount) || numericAmount <= 0) {
+      notifications.show({
+        title: 'Error',
+        message: 'Invalid amount entered.',
+        color: 'red'
+      });
+      return;
+    }
+
+    try {
       let response;
 
+      // Perform API call based on transaction type
       if (transactionType === 'deposit') {
         response = await SavingsApi.depositToSavingsPot(savingsPotId, numericAmount);
       } else if (transactionType === 'withdraw') {
@@ -33,32 +40,43 @@ export function SavingsPotTransactionForm({ savingsPotId, onClose, currentAmount
         throw new Error('Invalid transaction type');
       }
 
-      console.log(`Savings pot ${transactionType} successful:`, response);
-      
       // Calculate the new amount
-      const newAmount = transactionType === 'deposit' 
-        ? currentAmount + numericAmount 
+      const newAmount = transactionType === 'deposit'
+        ? currentAmount + numericAmount
         : currentAmount - numericAmount;
 
+      // Update the savings pot in Redux
       dispatch(updateSavingsPot({
         id: savingsPotId,
         currentAmount: newAmount,
-        ...response
       }));
 
+      // Dispatch the transaction to the Redux store
+      dispatch(addTransaction({
+        id: response.id,
+        savingsPotId,
+        transactionType,
+        amount: numericAmount,
+        transactionDate: response.transactionDate,
+      }));
+
+      // Show success notification
       notifications.show({
         title: 'Success',
         message: `Savings Pot Successfully ${transactionType === 'deposit' ? 'Deposited' : 'Withdrawn'}`,
         color: "#4333A1"
       });
+
+      // Close the form
       onClose();
     } catch (error) {
+      // Show error notification
       notifications.show({
         title: 'Error',
-        message: error.message || `Error ${formData.transactionType === 'deposit' ? 'depositing to' : 'withdrawing from'} savings pot`,
+        message: error.message || `Error ${transactionType === 'deposit' ? 'depositing to' : 'withdrawing from'} savings pot`,
         color: "red"
       });
-      console.error(`Error ${formData.transactionType === 'deposit' ? 'depositing to' : 'withdrawing from'} savings pot:`, error);
+      console.error(`Error ${transactionType === 'deposit' ? 'depositing to' : 'withdrawing from'} savings pot:`, error);
     }
   };
 
@@ -95,7 +113,7 @@ export function SavingsPotTransactionForm({ savingsPotId, onClose, currentAmount
               type="number"
               label="Amount (£)"
               value={formData.amount}
-              onChange={(e) => handleInputChange('amount', e.target.value)}  // Store as string
+              onChange={(e) => handleInputChange('amount', e.target.value.trim())} // Store trimmed string
               required
             />
           </Grid.Col>

@@ -62,6 +62,8 @@ const SavingsApi = {
       const response = await ApiClient.post(`/Savings/Withdraw/${id}`, {
         amount,
       });
+      console.log("123");
+      console.log(response);
       return response.data;
     } catch (error) {
       console.error('Error withdrawing from savings pot:', error);
@@ -71,6 +73,7 @@ const SavingsApi = {
 
   // POST /api/Savings/Deposit/{id}
   depositToSavingsPot: async (id, amount) => {
+    console.log("test" + amount)
     try {
       const response = await ApiClient.post(`/Savings/Deposit/${id}`, {
         amount,
@@ -81,6 +84,17 @@ const SavingsApi = {
       throw error;
     }
   },
+
+    // GET /api/Savings/User/{userId}/Transactions
+    getSavingsPotTransactionsByUserId: async (userId) => {
+      try {
+        const response = await ApiClient.get(`/Savings/User/${userId}/Transactions`);
+        return response.data;
+      } catch (error) {
+        console.error('Error fetching savings pot transactions by user ID:', error);
+        throw error;
+      }
+    },
 };
 
 export default SavingsApi;
