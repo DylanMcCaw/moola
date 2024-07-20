@@ -1,37 +1,49 @@
 import React, { useState } from 'react';
-import { Text, Card, Table, Pagination } from '@mantine/core';
+import { Text, Card, Table, Pagination, ThemeIcon } from '@mantine/core';
 import { useSelector } from 'react-redux';
+import { IconPlane, IconHome } from '@tabler/icons-react';
 import formatCurrency from '../../../utils/formatCurrency';
 import formatDate from '../../../utils/formatDate';
-import './SavingsStyles.css'; // Ensure you have CSS for pagination and styling
+import './SavingsStyles.css';
 
 export function SavingsTransactionsCard() {
   const transactions = useSelector((state) => state.savingPotTransactions) || [];
+  const savingPots = useSelector((state) => state.savings) || [];
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6; // Number of items per page
+  const itemsPerPage = 6;
 
-  // Calculate total number of pages
   const totalPages = Math.ceil(transactions.length / itemsPerPage);
-
-  // Calculate index of the first and last transaction for the current page
   const indexOfLastTransaction = currentPage * itemsPerPage;
   const indexOfFirstTransaction = indexOfLastTransaction - itemsPerPage;
   const currentTransactions = transactions.slice(indexOfFirstTransaction, indexOfLastTransaction);
 
-  // Handle page change
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  // Define table rows from current transactions with conditional styles
+  const getSavingPotIcon = (icon) => {
+    if (icon === 'icon2') return <IconPlane size={16} />;
+    if (icon === 'icon1') return <IconHome size={16} />;
+    return null;
+  };
+
   const rows = currentTransactions.map((transaction) => {
     const isDeposit = transaction.transactionType === 'Deposit';
     const textColor = isDeposit ? '#10A56D' : '#F45656';
     const sign = isDeposit ? '+' : '-';
 
+    const savingPot = savingPots.find(pot => pot.id === transaction.savingsPotId);
+    console.log(savingPots);
     return (
       <Table.Tr key={transaction.id}>
-        <Table.Td>{transaction.savingsPotId}</Table.Td>
+        <Table.Td>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <ThemeIcon color={savingPot?.iconColour || 'gray'} size={24} radius="xl">
+              {getSavingPotIcon(savingPot?.icon)}
+            </ThemeIcon>
+            <span>{savingPot?.description || 'Unknown'}</span>
+          </div>
+        </Table.Td>
         <Table.Td>{transaction.transactionType}</Table.Td>
         <Table.Td>{formatDate(transaction.transactionDate)}</Table.Td>
         <Table.Td style={{ color: textColor }}>

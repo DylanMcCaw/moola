@@ -36,7 +36,7 @@
   justify-content: space-between;
   width: 100%;
   align-items: stretch;
-  height: 400px; /* Set a fixed height for the container */
+  height: 420px; /* Set a fixed height for the container */
 }
 
 .half-width-card {
