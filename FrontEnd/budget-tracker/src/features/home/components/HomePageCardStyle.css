@@ -1,30 +1,67 @@
-.card {
-  width: 800px;
-}
-
-.large-card {
+/* Layout styles */
+.home-page {
   width: 100%;
-  padding-top: 0px; /* Adjust the top padding */
-  position: relative; /* Ensure absolute positioning works correctly */
+  padding: 20px;
 }
 
-.icon {
-  border-radius: 50px;
-  background-color: #4333A1;
-  color: white;
-  width: 40px;
-  height: 40px;
+.dashboard-title {
+  font-weight: 800;
+  padding-bottom: 20px;
+  text-align: left;  
+  padding-left: 600px;  
+}
+
+.cards-wrapper {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
+  justify-content: flex-end;
+  width: 100%;
 }
 
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%; 
+  max-width: 100%; 
+  padding-left: 600px;
+  padding-right: 300px;
+}
+
+.full-width-card {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.bottom-cards-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: stretch; /* This ensures both cards stretch to the same height */
+}
+
+.half-width-card {
+  width: calc(50% - 10px); /* Keep the width as 50% minus the gap */
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* This makes the card grow to fill its container */
+}
+
+.inner {
+  flex: 0 0 auto; /* Don't allow this to grow or shrink */
+}
+
+.tableContainer {
+  flex: 1; /* Allow this to grow and fill remaining space */
+}
 .inner {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding-top: 5px; /* Adjust the top padding */
+  padding-top: 5px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -32,39 +69,17 @@
 .left-section {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align items at the start of the cross axis */
-  flex: 1; /* Take up available space */
-  padding-right: 20px; /* Add padding to the right */
+  justify-content: flex-start;
+  flex: 1;
+  padding-right: 20px;
 }
 
 .stats {
-  padding-bottom: 20px; /* Add padding to separate stats from savingPotsList */
+  padding-bottom: 20px;
 }
 
 .amountText {
   padding-top: 20px;
-}
-
-.depositedWithdrawnContainer {
-  display: flex;
-  gap: 20px;
-  padding-top: 43px;
-}
-
-.depositedText, .withdrawnText {
-  display: flex;
-  flex-direction: column;
-}
-
-.ringProgress {
-  margin-top: 80px; /* Adjust the top margin to lower the RingProgress */
-  padding-left: 100px;
-  flex: 1; /* Take up available space */
-}
-
-.pieChart {
-  margin-left: 20px;
-  padding-left: 50px;
 }
 
 .topRightText {
@@ -73,45 +88,12 @@
   right: 10px;
 }
 
-.bottomRightButton {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-}
-
-.bottomRightButton button:hover {
-  background-color: #ffffff00;
-}
-
 .savingPotsListTitle {
   padding-bottom: 15px;
 }
 
-.savingPotsList {
-  flex: 1; /* Take up available space */
-}
-
-.savingPotItem {
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.savingPotItem:hover {
-  background-color: #f5f5f5; /* Change this color to whatever highlight color you prefer */
-}
-
-
-.listItemContent {
-  display: flex;
-  flex-direction: column;
-}
-
 .textItem {
   padding-bottom: 5px;
-}
-
-.progressContainer {
-  position: relative;
 }
 
 .progressLabel {
@@ -120,7 +102,7 @@
   right: 0;
 }
 
-/* Add faint lines between rows */
+/* Table styles */
 .tableContainer table tbody tr {
   border-bottom: 1px solid #e0e0e0;
 }
@@ -131,37 +113,25 @@
 
 .tableContainer table th:first-child,
 .tableContainer table td:first-child {
-  width: 1%;  /* Adjust this value as needed */
+  width: 1%;
 }
 
 .tableContainer table th:nth-child(2),
 .tableContainer table td:nth-child(2) {
-  width: 1%;  /* Adjust this value as needed */
+  width: 1%;
 }
 
-/* Reduce padding to minimize spacing */
 .tableContainer table th,
 .tableContainer table td {
-  padding: 5px 5px;  /* Adjust padding as needed */
+  padding: 5px 5px;
 }
 
-/* Align Name column to the left */
 .name-column {
   text-align: left;
-  padding-right: 10px;  /* Adjust this value as needed */
+  padding-right: 10px;
 }
 
-/* Align Amount column to the right */
 .amount-column {
-  text-align: right;
-}
-
-/* Apply text alignment to header cells */
-.tableContainer table thead th.name-column {
-  text-align: left;
-}
-
-.tableContainer table thead th.amount-column {
   text-align: right;
 }
 
@@ -176,10 +146,6 @@
   margin: 0;
   padding: 0;
   display: block;
-}
-
-.table-header{
-  padding-bottom: 5px;
 }
 
 

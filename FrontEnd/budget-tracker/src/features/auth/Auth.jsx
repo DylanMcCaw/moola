@@ -12,6 +12,7 @@ import {
   Button,
 } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
+import { notifications } from '@mantine/notifications';
 import AuthenticationApi from '../../api/AuthenticationApi';
 
 export function Auth({ setIsAuthenticated }) {
@@ -31,9 +32,17 @@ export function Auth({ setIsAuthenticated }) {
         const response = await AuthenticationApi.loginUser({ email, password });
         localStorage.setItem('token', response.token);
         setIsAuthenticated(true);
+        notifications.show({
+          title: 'Successfully Logged In',
+          color: "#4333A1"
+        });
         navigate('/'); // Redirect to home page after successful login
       } else {
         await AuthenticationApi.registerUser({ name, email, password });
+        notifications.show({
+          title: 'Successfully Registered!',
+          color: "#4333A1"
+        });
         setIsLogin(true); // After successful registration, switch to login view
       }
     } catch (error) {

@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
-import { Text, Card, Table, ThemeIcon, Pagination } from '@mantine/core';
+import { Text, Card, Table, ThemeIcon, Pagination, Button } from '@mantine/core';
 import { PieChart } from '@mantine/charts';
 import { IconMoneybag } from '@tabler/icons-react';
 import IconComponents from '../../common/IconComponents';
 import IncomeCategory from '../../income/components/IncomeCategory';
 import formatCurrency from '../../../utils/formatCurrency';
 import formatDate from '../../../utils/formatDate';
+import { useNavigate } from 'react-router-dom';
 import './HomePageCardStyle.css';
 
 function IncomeTable({ incomes }) {
   const [currentPage, setCurrentPage] = useState(1);
   const incomesPerPage = 4;
 
-  // Calculate total number of pages
   const totalPages = Math.ceil(incomes.length / incomesPerPage);
-
-  // Calculate index of the first and last income for the current page
   const indexOfLastIncome = currentPage * incomesPerPage;
   const indexOfFirstIncome = indexOfLastIncome - incomesPerPage;
   const currentIncomes = incomes.slice(indexOfFirstIncome, indexOfLastIncome);
 
   const rows = currentIncomes.map((income) => {
-    // Check if the icon exists in IconComponents, default to IconMoneybag if not found
     const IconComponent = IconComponents[income.icon] || IconMoneybag;
     return (
       <tr key={income.id}>
@@ -56,36 +53,30 @@ function IncomeTable({ incomes }) {
         </thead>
         <tbody>{rows}</tbody>
       </Table>
-      <div className="paginationContainer">
-        <Pagination
-          total={totalPages}
-          value={currentPage}
-          onChange={handlePageChange}
-          color='#4333A1'
-          size="sm"
-        />
-      </div>
+      {incomes.length > 0 && (
+        <div className="paginationContainer">
+          <Pagination
+            total={totalPages}
+            value={currentPage}
+            onChange={handlePageChange}
+            color='#4333A1'
+            size="sm"
+          />
+        </div>
+      )}
     </div>
   );
 }
 
 export function IncomeHomePageCard({ incomes }) {
-  // Check if incomes array is empty
-  if (incomes.length === 0) {
-    return (
-      <Card withBorder radius="20" className="card">
-        <div className="inner">
-          <Text size="xl" align="center">No Income Sources Found</Text>
-          <Text size="md" align="center" color="dimmed">Start by adding your first income source!</Text>
-        </div>
-      </Card>
-    );
-  }
-
-  // Calculate the total amount of incomes
   const totalIncomes = incomes.reduce((acc, income) => acc + income.amount, 0);
 
-  // Format data for PieChart
+  const navigate = useNavigate();
+
+  function handleGoToIncomesClick(){
+    navigate('/income'); 
+  }
+
   const data = incomes.map((income) => ({
     name: income.description,
     value: income.amount,
@@ -102,20 +93,32 @@ export function IncomeHomePageCard({ incomes }) {
           </div>
         </div>
         <div className="pieChart">
-          <PieChart 
-            withTooltip
-            tooltipDataSource="name"
-            mx="auto"  
-            data={data} 
-            style={{ height: '220px', width: '220px' }}
-            label={true}
-            labelPosition="inside"
-            labelOffset={-40}
-          />
+          {incomes.length > 0 ? (
+            <PieChart 
+              withTooltip
+              tooltipDataSource="name"
+              mx="auto"  
+              data={data} 
+              style={{ height: '220px', width: '220px' }}
+              label={true}
+              labelPosition="inside"
+              labelOffset={-40}
+            />
+          ) : (
+            <div>
+            </div>
+          )}
         </div>
       </div>
       <div className="tableContainer">
-        <IncomeTable incomes={incomes} />
+        {incomes.length === 0 ? (
+          <div className="no-incomes-content">
+            <Text size="md" color="dimmed" mb="md">Start by adding your first income source!</Text>
+            <Button color="#4333A1" onClick={handleGoToIncomesClick()}>Go To Incomes</Button>
+          </div>
+        ) : (
+          <IncomeTable incomes={incomes} />
+        )}
       </div>
     </Card>
   );

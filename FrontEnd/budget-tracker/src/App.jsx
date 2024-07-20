@@ -7,7 +7,7 @@ import { Auth } from './features/auth/Auth';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Notifications } from '@mantine/notifications';
 import Home from './features/home/Home';
-import SavingPots from './features/savings/SavingPots';
+import SavingPots from './features/savings/Savings';
 import { Navbar } from './features/navbar/NavBar';
 import UserMenu from './features/home/UserMenu';
 import { jwtDecode } from 'jwt-decode';
@@ -113,7 +113,7 @@ function AppContent() {
   return (
     <Router>
       <div className="app-container">
-        <header>
+        <header className='navbar'>
           <Navbar isAuthenticated={isAuthenticated} />
         </header>
         <div className="content-container">
@@ -137,7 +137,7 @@ function AppContent() {
                 }
               />
               <Route
-                path="/savingpots"
+                path="/savings"
                 element={
                   <ProtectedRoute>
                     {loading ? (

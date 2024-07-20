@@ -27,11 +27,13 @@ export function SavingsPotForm({ onNewSavingsPot }) {
       notifications.show({
         title: 'Success notification',
         message: 'Savings Pot Successfully Created',
+        color: "#4333A1"
       });
     } catch (error) {
       notifications.show({
         title: 'Error notification',
         message: 'Error creating savings pot',
+        color: "#4333A1"
       });
       console.error('Error creating savings pot:', error);
     }
