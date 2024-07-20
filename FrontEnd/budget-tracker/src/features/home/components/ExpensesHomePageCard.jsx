@@ -10,7 +10,7 @@ import './HomePageCardStyle.css';
 
 function ExpenseTable({ expenses }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const expensesPerPage = 4;
+  const expensesPerPage = 3;
 
   const totalPages = Math.ceil(expenses.length / expensesPerPage);
   const indexOfLastExpense = currentPage * expensesPerPage;

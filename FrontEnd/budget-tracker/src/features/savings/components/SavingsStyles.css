@@ -55,5 +55,45 @@
   margin-top: 30px;
   margin-left: 300px;
 }
+.savingPotItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-/* Add any additional styles from the Home page CSS that might be relevant */
+.listItemContent {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.textAndButtons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.textItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.progressContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.progressLabel {
+  margin-right: 8px;
+}
+

@@ -91,5 +91,33 @@ namespace BudgetTracker.Savings.Controllers
 
             return NoContent();
         }
+
+        // POST: api/Savings/Deposit/{id}
+        [HttpPost("Deposit/{id}")]
+        public async Task<IActionResult> Deposit(int id, int amount)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var success = await _savingsService.DepositAsync(id, amount);
+            if (!success)
+                return NotFound();
+
+            return NoContent();
+        }
+
+        // POST: api/Savings/Withdraw/{id}
+        [HttpPost("Withdraw/{id}")]
+        public async Task<IActionResult> Withdraw(int id, int amount)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var success = await _savingsService.WithdrawAsync(id, amount);
+            if (!success)
+                return NotFound();
+
+            return NoContent();
+        }
     }
 }

@@ -11,10 +11,12 @@ namespace BudgetTracker.Tests.Savings.Tests.UnitTests
     [TestFixture]
     public class SavingsServiceTests
     {
+
         private SavingsService _savingsService;
         private Mock<ILogger<SavingsService>> _loggerMock;
         private Mock<IBudgetTrackerDbContext> _contextMock;
         private List<SavingsPot> _savingsPots;
+        private List<SavingsPotTransaction> _savingsPotTransactions;
 
         [SetUp]
         public void SetUp()
@@ -25,8 +27,8 @@ namespace BudgetTracker.Tests.Savings.Tests.UnitTests
             // Set up in-memory data
             _savingsPots = new List<SavingsPot>
             {
-                new SavingsPot { Id = 1, UserID = 1, Description = "Vacation", TargetAmount = 1000 },
-                new SavingsPot { Id = 2, UserID = 1, Description = "Emergency Fund", TargetAmount = 5000 }
+                new SavingsPot { Id = 1, UserID = 1, Description = "Holiday", TargetAmount = 1000, CurrentAmount = 200 },
+                new SavingsPot { Id = 2, UserID = 1, Description = "Emergency Fund", TargetAmount = 5000, CurrentAmount = 500 }
             };
 
             var savingsPotsDbSetMock = new Mock<DbSet<SavingsPot>>();
@@ -39,8 +41,21 @@ namespace BudgetTracker.Tests.Savings.Tests.UnitTests
 
             _contextMock.Setup(c => c.SavingsPots).Returns(savingsPotsDbSetMock.Object);
 
+            _savingsPotTransactions = new List<SavingsPotTransaction>();
+
+            var transactionsDbSetMock = new Mock<DbSet<SavingsPotTransaction>>();
+            transactionsDbSetMock.As<IQueryable<SavingsPotTransaction>>().Setup(m => m.Provider).Returns(_savingsPotTransactions.AsQueryable().Provider);
+            transactionsDbSetMock.As<IQueryable<SavingsPotTransaction>>().Setup(m => m.Expression).Returns(_savingsPotTransactions.AsQueryable().Expression);
+            transactionsDbSetMock.As<IQueryable<SavingsPotTransaction>>().Setup(m => m.ElementType).Returns(_savingsPotTransactions.AsQueryable().ElementType);
+            transactionsDbSetMock.As<IQueryable<SavingsPotTransaction>>().Setup(m => m.GetEnumerator()).Returns(_savingsPotTransactions.AsQueryable().GetEnumerator());
+
+            transactionsDbSetMock.Setup(d => d.Add(It.IsAny<SavingsPotTransaction>())).Callback<SavingsPotTransaction>((spt) => _savingsPotTransactions.Add(spt));
+
+            _contextMock.Setup(c => c.SavingsPotTransactions).Returns(transactionsDbSetMock.Object);
+
             _savingsService = new SavingsService(_loggerMock.Object, _contextMock.Object);
         }
+
 
         [Test]
         public async Task GetSavingsPotAsync_WithValidId_ReturnsSavingsPot()
@@ -103,6 +118,49 @@ namespace BudgetTracker.Tests.Savings.Tests.UnitTests
         {
             var updatedSavingsPot = new SavingsPot { Id = 99, Description = "Updated Description", TargetAmount = 1500, Icon = "new-icon", IconColour = "blue", GoalDate = DateTime.Now };
             var result = await _savingsService.UpdateSavingsPotAsync(99, updatedSavingsPot);
+            ClassicAssert.IsFalse(result);
+            _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Never);
+        }
+
+        [Test]
+        public async Task DepositAsync_WithValidIdAndAmount_ReturnsTrue()
+        {
+            var result = await _savingsService.DepositAsync(1, 100);
+            ClassicAssert.IsTrue(result);
+            ClassicAssert.AreEqual(300, _savingsPots.First(sp => sp.Id == 1).CurrentAmount);
+            _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Once);
+        }
+
+        [Test]
+        public async Task DepositAsync_WithInvalidId_ReturnsFalse()
+        {
+            var result = await _savingsService.DepositAsync(99, 100);
+            ClassicAssert.IsFalse(result);
+            _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Never);
+        }
+
+        [Test]
+        public async Task WithdrawAsync_WithValidIdAndSufficientFunds_ReturnsTrue()
+        {
+            var result = await _savingsService.WithdrawAsync(1, 100);
+            ClassicAssert.IsTrue(result);
+            ClassicAssert.AreEqual(100, _savingsPots.First(sp => sp.Id == 1).CurrentAmount);
+            _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Once);
+        }
+
+        [Test]
+        public async Task WithdrawAsync_WithValidIdAndInsufficientFunds_ReturnsFalse()
+        {
+            var result = await _savingsService.WithdrawAsync(1, 300);
+            ClassicAssert.IsFalse(result);
+            ClassicAssert.AreEqual(200, _savingsPots.First(sp => sp.Id == 1).CurrentAmount);
+            _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Never);
+        }
+
+        [Test]
+        public async Task WithdrawAsync_WithInvalidId_ReturnsFalse()
+        {
+            var result = await _savingsService.WithdrawAsync(99, 100);
             ClassicAssert.IsFalse(result);
             _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Never);
         }

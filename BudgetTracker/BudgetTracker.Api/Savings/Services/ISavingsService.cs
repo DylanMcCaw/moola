@@ -42,5 +42,22 @@ namespace BudgetTracker.Savings.Services
         /// <param name="updatedSavingsPot">The updated savings pot.</param>
         /// <returns>True if the savings pot was successfully updated, otherwise false.</returns>
         Task<bool> UpdateSavingsPotAsync(int id, SavingsPot updatedSavingsPot);
+
+
+        /// <summary>
+        /// Adds a deposit to the specified savings pot.
+        /// </summary>
+        /// <param name="savingsPotId">The ID of the savings pot to deposit to.</param>
+        /// <param name="amount">The amount to deposit.</param>
+        /// <returns>True if the deposit was successfully added, otherwise false.</returns>
+        Task<bool> DepositAsync(int savingsPotId, double amount);
+
+        /// <summary>
+        /// Withdraws an amount from the specified savings pot.
+        /// </summary>
+        /// <param name="savingsPotId">The ID of the savings pot to withdraw from.</param>
+        /// <param name="amount">The amount to withdraw.</param>
+        /// <returns>True if the amount was successfully withdrawn, otherwise false.</returns>
+        Task<bool> WithdrawAsync(int savingsPotId, double amount);
     }
 }

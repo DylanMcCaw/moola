@@ -124,6 +124,83 @@ namespace BudgetTracker.Savings.Services
 
             return true;
         }
+        public async Task<bool> DepositAsync(int savingsPotId, double amount)
+        {
+            _logger.LogInformation($"POST: DepositAsync called for SavingsPot ID {savingsPotId}");
+
+            var savingsPot = await _context.SavingsPots.FindAsync(savingsPotId);
+            if (savingsPot == null)
+            {
+                _logger.LogWarning($"Savings pot with ID {savingsPotId} not found.");
+                return false;
+            }
+
+            savingsPot.CurrentAmount += amount;
+            var transaction = new SavingsPotTransaction
+            {
+                SavingsPotId = savingsPotId,
+                TransactionDate = DateTime.UtcNow,
+                TransactionType = "Deposit",
+                Amount = amount
+            };
+
+            _context.SavingsPotTransactions.Add(transaction);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError(ex, $"Error occurred while processing deposit for SavingsPot ID {savingsPotId}.");
+                throw;
+            }
+
+            return true;
+        }
+
+        public async Task<bool> WithdrawAsync(int savingsPotId, double amount)
+        {
+            _logger.LogInformation($"WITHDRAW: WithdrawAsync called for SavingsPot ID {savingsPotId}");
+
+            var savingsPot = await _context.SavingsPots.FindAsync(savingsPotId);
+
+            if (savingsPot == null)
+            {
+                _logger.LogWarning($"SavingsPot with ID {savingsPotId} not found.");
+                return false;
+            }
+
+            if (savingsPot.CurrentAmount < amount)
+            {
+                _logger.LogWarning($"Insufficient funds in SavingsPot ID {savingsPotId}.");
+                return false;
+            }
+
+            savingsPot.CurrentAmount -= amount;
+
+            var transaction = new SavingsPotTransaction
+            {
+                SavingsPotId = savingsPotId,
+                TransactionDate = DateTime.UtcNow,
+                TransactionType = "Withdraw",
+                Amount = amount
+            };
+
+            _context.SavingsPotTransactions.Add(transaction);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError(ex, $"Error occurred while withdrawing from SavingsPot with ID {savingsPotId}.");
+                throw;
+            }
+
+            return true;
+        }
 
     }
 }
