@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Text, List, ThemeIcon, rem, Progress, Button, Modal } from '@mantine/core';
+import { Text, List, ThemeIcon , Progress, Button, Modal } from '@mantine/core';
 import { IconPlane, IconHome, IconEdit, IconCash } from '@tabler/icons-react';
 import { SavingsPotTransactionForm } from './SavingsPotTransactionForm';
 import "./SavingsStyles.css";

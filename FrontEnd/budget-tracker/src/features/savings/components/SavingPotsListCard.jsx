@@ -6,7 +6,7 @@ import "./SavingsStyles.css";
 
 function SavingsPotListCard({ savingPots }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5; // Number of items per page
+  const itemsPerPage = 4; // Number of items per page
 
   // Calculate total number of pages
   const totalPages = Math.ceil(savingPots.length / itemsPerPage);
