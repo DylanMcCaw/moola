@@ -51,9 +51,9 @@ export function SavingsHomePageCard({ savings }) {
 
   const navigate = useNavigate();
 
-function handleGoToSavingsClick(){
-  navigate('/savings'); 
-}
+  function handleGoToSavingsClick(){
+    navigate('/savings'); 
+  }
 
   return (
     <Card withBorder radius="20" className="large-card">

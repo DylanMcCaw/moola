@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react';
 import { Menu, UnstyledButton, Group, Avatar, Text, rem } from '@mantine/core';
 import AuthenticationApi from '../../api/AuthenticationApi';
 import { useNavigate } from 'react-router-dom';
+import { notifications } from '@mantine/notifications';
 import {
   IconSettings,
   IconLogout,
@@ -43,6 +44,10 @@ const UserMenu = ({ user, setIsAuthenticated }) => {
       await AuthenticationApi.logoutUser(); // Call the logout API
       localStorage.removeItem('token');
       setIsAuthenticated(false);
+      notifications.show({
+        title: 'Successfully Logged Out',
+        color: "#4333A1"
+      });
       navigate('/login');
     } catch (error) {
       console.error('Error during logout:', error);

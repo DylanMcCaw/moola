@@ -35,13 +35,28 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 100%;
+  align-items: stretch; /* This ensures both cards stretch to the same height */
 }
 
 .half-width-card {
-  width: calc(50% - 10px);
+  width: calc(50% - 10px); /* Keep the width as 50% minus the gap */
+  display: flex;
+  flex-direction: column;
 }
 
+.card {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* This makes the card grow to fill its container */
+}
+
+.inner {
+  flex: 0 0 auto; /* Don't allow this to grow or shrink */
+}
+
+.tableContainer {
+  flex: 1; /* Allow this to grow and fill remaining space */
+}
 .inner {
   display: flex;
   align-items: flex-start;
@@ -132,4 +147,5 @@
   padding: 0;
   display: block;
 }
+
 

@@ -74,7 +74,7 @@ export function IncomeHomePageCard({ incomes }) {
   const navigate = useNavigate();
 
   function handleGoToIncomesClick(){
-    navigate('/'); 
+    navigate('/income'); 
   }
 
   const data = incomes.map((income) => ({

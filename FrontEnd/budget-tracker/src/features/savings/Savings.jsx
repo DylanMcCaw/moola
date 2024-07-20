@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, Button, Container, Grid, Box, Title } from '@mantine/core';
-import {TotalSavingsCard} from './components/TotalSavingsCard'
+import { Modal, Button, Title } from '@mantine/core';
+import { TotalSavingsCard } from './components/TotalSavingsCard'
 import { SavingsGraphCard } from './components/SavingsGraphCard';
 import SavingsPotListCard from './components/SavingPotsListCard';
 import { SavingsPotForm } from './components/SavingsPotForm';
 import formatCurrency from '../../utils/formatCurrency';
+import './components/SavingsStyles.css'; // We'll create this CSS file
 
 function SavingPots({ initialSavings }) {
   const [savings, setSavings] = useState(initialSavings);
@@ -47,35 +48,35 @@ function SavingPots({ initialSavings }) {
   };
 
   return (
-    <Container size="xl">
-      <Box mb={30}>
-        <Title order={1} style={{ fontSize: '36px', fontWeight: 800, marginBottom: '1.5rem' }}>
-          Savings
-        </Title>
-        <TotalSavingsCard           
-          totalSavings={formatCurrency(totalSavings)} 
-          totalGoal={formatCurrency(totalGoal)} 
-        />
-      </Box>
-      
-      <Grid gutter="md">
-        <Grid.Col span={6}>
-          <SavingsGraphCard data={savingsDataArray} />
-        </Grid.Col>
-        
-        <Grid.Col span={6}>
-          <SavingsPotListCard savingPots={savingPots} />
-        </Grid.Col>
-      </Grid>
+    <div className="savings-page">
+      <Title className="dashboard-title">Savings</Title>
+      <div className="center-wrapper">
+        <div className="cards-container">
+          <div className="full-width-card">
+            <TotalSavingsCard           
+              totalSavings={formatCurrency(totalSavings)} 
+              totalGoal={formatCurrency(totalGoal)} 
+            />
+          </div>
+          <div className="bottom-cards-container-savings">
+            <div className="half-width-card">
+              <SavingsGraphCard data={savingsDataArray} />
+            </div>
+            <div className="half-width-card">
+              <SavingsPotListCard savingPots={savingPots} />
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <Box mt={30} style={{ display: 'flex', justifyContent: 'center' }}>
+      <div className="create-button-container">
         <Button onClick={open} color='#4333A1'>Create New Savings Pot</Button>
-      </Box>
+      </div>
 
       <Modal opened={opened} onClose={close} title="Create New Savings Pot" size="lg" centered>
         <SavingsPotForm onNewSavingsPot={handleNewSavingsPot} />
       </Modal>
-    </Container>
+    </div>
   );
 }
 
