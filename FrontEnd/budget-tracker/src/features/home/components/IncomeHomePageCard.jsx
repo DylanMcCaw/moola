@@ -11,7 +11,7 @@ import './HomePageCardStyle.css';
 
 function IncomeTable({ incomes }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const incomesPerPage = 4;
+  const incomesPerPage = 3;
 
   const totalPages = Math.ceil(incomes.length / incomesPerPage);
   const indexOfLastIncome = currentPage * incomesPerPage;

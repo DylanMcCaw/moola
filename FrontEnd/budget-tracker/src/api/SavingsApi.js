@@ -56,6 +56,31 @@ const SavingsApi = {
       throw error;
     }
   },
+
+  withdrawFromSavingsPot: async (id, amount) => {
+    try {
+      const response = await ApiClient.post(`/Savings/Withdraw/${id}`, {
+        amount,
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error withdrawing from savings pot:', error);
+      throw error;
+    }
+  },
+
+  // POST /api/Savings/Deposit/{id}
+  depositToSavingsPot: async (id, amount) => {
+    try {
+      const response = await ApiClient.post(`/Savings/Deposit/${id}`, {
+        amount,
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error depositing to savings pot:', error);
+      throw error;
+    }
+  },
 };
 
 export default SavingsApi;

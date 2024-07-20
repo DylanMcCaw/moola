@@ -15,7 +15,8 @@ export const savingsSlice = createSlice({
     updateSavingsPot: (state, action) => {
       const index = state.findIndex(pot => pot.id === action.payload.id);
       if (index !== -1) {
-        state[index] = action.payload;
+        // Merge the existing pot with the new data
+        state[index] = { ...state[index], ...action.payload };
       }
     },
     deleteSavingsPot: (state, action) => {

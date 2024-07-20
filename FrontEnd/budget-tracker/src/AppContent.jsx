@@ -89,7 +89,12 @@ function AppContent() {
         <div className="content-container">
           <main className="main-content">
             <Routes>
-              <Route path="/login" element={<Auth />} />
+              <Route 
+                path="/login" 
+                element={
+                  isAuthenticated ? <Navigate to="/" replace /> : <Auth />
+                } 
+              />
               <Route
                 path="/"
                 element={
