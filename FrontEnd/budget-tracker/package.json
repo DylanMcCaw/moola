@@ -21,6 +21,7 @@
     "@reduxjs/toolkit": "^2.2.6",
     "@tabler/icons-react": "^3.5.0",
     "axios": "^1.7.2",
+    "date-fns": "^3.6.0",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-currency-input-field": "^3.8.0",

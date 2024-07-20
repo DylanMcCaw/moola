@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button, Title } from '@mantine/core';
 import { TotalSavingsCard } from './components/TotalSavingsCard'
-import { SavingsGraphCard } from './components/SavingsGraphCard';
+import { SavingsTransactionsCard } from './components/SavingsTransactionsCard';
 import SavingsPotListCard from './components/SavingPotsListCard';
 import { SavingsPotForm } from './components/SavingsPotForm';
 import { addSavingsPot } from '../../store/slices/savingsSlice'; // Import the action
@@ -15,8 +15,6 @@ function SavingPots() {
   const savings = useSelector((state) => state.savings) || [];
   const [opened, { open, close }] = useDisclosure(false);
 
-  console.log(savings);
-
   const totalSavings = savings.length > 0 
     ? savings.reduce((total, pot) => total + (pot.currentAmount || 0), 0).toFixed(2)
     : "0.00";
@@ -24,26 +22,6 @@ function SavingPots() {
   const totalGoal = savings.length > 0
     ? savings.reduce((total, pot) => total + (pot.targetAmount || 0), 0).toFixed(2)
     : "0.00";
-
-  // Calculate total savings per month
-  const savingsData = savings.reduce((acc, pot) => {
-    if (pot.goalDate) {
-      const date = new Date(pot.goalDate);
-      const monthYear = date.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
-      
-      if (!acc[monthYear]) {
-        acc[monthYear] = 0;
-      }
-      acc[monthYear] += (pot.currentAmount || 0);
-    }
-    return acc;
-  }, {});
-
-  // Convert the savingsData object to an array of objects
-  const savingsDataArray = Object.entries(savingsData).map(([date, Savings]) => ({
-    date,
-    Savings
-  })).sort((a, b) => new Date(a.date) - new Date(b.date));
 
   const savingPots = savings.map((pot) => ({
     id: pot.id,
@@ -74,11 +52,11 @@ function SavingPots() {
             />
           </div>
           <div className="bottom-cards-container-savings">
-            <div className="half-width-card">
-              <SavingsGraphCard data={savingsDataArray} />
+          <div className="half-width-card">
+              <SavingsPotListCard savingPots={savingPots} />
             </div>
             <div className="half-width-card">
-              <SavingsPotListCard savingPots={savingPots} />
+              <SavingsTransactionsCard />
             </div>
           </div>
         </div>

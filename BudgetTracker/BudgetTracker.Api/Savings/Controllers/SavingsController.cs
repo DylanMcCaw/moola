@@ -94,30 +94,38 @@ namespace BudgetTracker.Savings.Controllers
 
         // POST: api/Savings/Deposit/{id}
         [HttpPost("Deposit/{id}")]
-        public async Task<IActionResult> Deposit(int id, int amount)
+        public async Task<ActionResult<SavingsPotTransaction>> Deposit(int id, SavingsPotTransactionDto savingsPotTransactionDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var success = await _savingsService.DepositAsync(id, amount);
-            if (!success)
+            var transaction = await _savingsService.DepositAsync(id, savingsPotTransactionDto.Amount);
+            if (transaction == null)
                 return NotFound();
 
-            return NoContent();
+            return transaction;
         }
 
         // POST: api/Savings/Withdraw/{id}
         [HttpPost("Withdraw/{id}")]
-        public async Task<IActionResult> Withdraw(int id, int amount)
+        public async Task<ActionResult<SavingsPotTransaction>> Withdraw(int id, SavingsPotTransactionDto savingsPotTransactionDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var success = await _savingsService.WithdrawAsync(id, amount);
-            if (!success)
+            var transaction = await _savingsService.WithdrawAsync(id, savingsPotTransactionDto.Amount);
+            if (transaction == null)
                 return NotFound();
 
-            return NoContent();
+            return transaction;
+        }
+
+        // GET: api/Savings/{potId}/Transactions
+        [HttpGet("User/{userId}/Transactions")]
+        public async Task<ActionResult<IEnumerable<SavingsPotTransaction>>> GetSavingsPotTransactionsByUserId(int userId)
+        {
+            var transactions = await _savingsService.GetSavingsPotTransactionsByUserIdAsync(userId);
+            return Ok(transactions ?? Enumerable.Empty<SavingsPotTransaction>());
         }
     }
 }

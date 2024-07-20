@@ -6,6 +6,7 @@ import { setUser, clearUser } from './store/slices/userSlice';
 import { setSavings } from './store/slices/savingsSlice';
 import { setIncomes } from './store/slices/incomesSlice';
 import { setExpenses } from './store/slices/expensesSlice';
+import { setTransactions } from './store/slices/savingPotTransactionsSlice';
 import ExpenseApi from './api/ExpenseApi';
 import IncomeApi from './api/IncomeApi';
 import SavingsApi from './api/SavingsApi';
@@ -55,14 +56,16 @@ function AppContent() {
   const fetchData = async () => {
     try {
       const userId = user.id;
-      const [expensesData, incomesData, savingsData] = await Promise.all([
+      const [expensesData, incomesData, savingsData, transactionsData] = await Promise.all([
         ExpenseApi.getExpensesByUserId(userId),
         IncomeApi.getIncomesByUserId(userId),
         SavingsApi.getSavingsPotsByUserId(userId),
+        SavingsApi.getSavingsPotTransactionsByUserId(userId),
       ]);
       dispatch(setExpenses(expensesData));
       dispatch(setIncomes(incomesData));
       dispatch(setSavings(savingsData));
+      dispatch(setTransactions(transactionsData));
     } catch (error) {
       console.error('Error fetching data:', error);
     }

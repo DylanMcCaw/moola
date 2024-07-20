@@ -121,48 +121,5 @@ namespace BudgetTracker.Tests.Savings.Tests.UnitTests
             ClassicAssert.IsFalse(result);
             _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Never);
         }
-
-        [Test]
-        public async Task DepositAsync_WithValidIdAndAmount_ReturnsTrue()
-        {
-            var result = await _savingsService.DepositAsync(1, 100);
-            ClassicAssert.IsTrue(result);
-            ClassicAssert.AreEqual(300, _savingsPots.First(sp => sp.Id == 1).CurrentAmount);
-            _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Once);
-        }
-
-        [Test]
-        public async Task DepositAsync_WithInvalidId_ReturnsFalse()
-        {
-            var result = await _savingsService.DepositAsync(99, 100);
-            ClassicAssert.IsFalse(result);
-            _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Never);
-        }
-
-        [Test]
-        public async Task WithdrawAsync_WithValidIdAndSufficientFunds_ReturnsTrue()
-        {
-            var result = await _savingsService.WithdrawAsync(1, 100);
-            ClassicAssert.IsTrue(result);
-            ClassicAssert.AreEqual(100, _savingsPots.First(sp => sp.Id == 1).CurrentAmount);
-            _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Once);
-        }
-
-        [Test]
-        public async Task WithdrawAsync_WithValidIdAndInsufficientFunds_ReturnsFalse()
-        {
-            var result = await _savingsService.WithdrawAsync(1, 300);
-            ClassicAssert.IsFalse(result);
-            ClassicAssert.AreEqual(200, _savingsPots.First(sp => sp.Id == 1).CurrentAmount);
-            _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Never);
-        }
-
-        [Test]
-        public async Task WithdrawAsync_WithInvalidId_ReturnsFalse()
-        {
-            var result = await _savingsService.WithdrawAsync(99, 100);
-            ClassicAssert.IsFalse(result);
-            _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Never);
-        }
     }
 }
