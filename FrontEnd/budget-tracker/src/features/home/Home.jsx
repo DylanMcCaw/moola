@@ -4,8 +4,13 @@ import { ExpensesHomePageCard } from './components/ExpensesHomePageCard';
 import { IncomeHomePageCard } from './components/IncomeHomePageCard';
 import { Title } from '@mantine/core';
 import './components/HomePageCardStyle.css';
+import { useSelector } from 'react-redux';
 
-function Home({ savings, expenses, incomes }) {
+function Home() {
+
+  const savings = useSelector((state) => state.savings);
+  const expenses = useSelector((state) => state.expenses);
+  const incomes = useSelector((state) => state.incomes);
   return (
     <div className="home-page">
       <Title className="dashboard-title">Dashboard</Title>

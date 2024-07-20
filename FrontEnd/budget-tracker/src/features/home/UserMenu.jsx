@@ -1,8 +1,10 @@
 import React, { forwardRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Menu, UnstyledButton, Group, Avatar, Text, rem } from '@mantine/core';
 import AuthenticationApi from '../../api/AuthenticationApi';
 import { useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
+import { clearUser } from '../../store/slices/userSlice'; // Import the clearUser action
 import {
   IconSettings,
   IconLogout,
@@ -37,13 +39,16 @@ const UserButton = forwardRef(({ image, name, email, icon, ...others }, ref) => 
   </UnstyledButton>
 ));
 
-const UserMenu = ({ user, setIsAuthenticated }) => {
+const UserMenu = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user.user);
+
   const handleLogout = async () => {
     try {
       await AuthenticationApi.logoutUser(); // Call the logout API
       localStorage.removeItem('token');
-      setIsAuthenticated(false);
+      dispatch(clearUser()); // Dispatch the clearUser action
       notifications.show({
         title: 'Successfully Logged Out',
         color: "#4333A1"
@@ -51,7 +56,11 @@ const UserMenu = ({ user, setIsAuthenticated }) => {
       navigate('/login');
     } catch (error) {
       console.error('Error during logout:', error);
-      // Handle error (e.g., show a notification to the user)
+      notifications.show({
+        title: 'Logout Failed',
+        color: "red",
+        message: 'An error occurred during logout. Please try again.'
+      });
     }
   };
 

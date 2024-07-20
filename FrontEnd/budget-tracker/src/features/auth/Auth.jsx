@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   TextInput,
   PasswordInput,
@@ -14,14 +15,17 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
 import AuthenticationApi from '../../api/AuthenticationApi';
+import { setUser } from '../../store/slices/userSlice';
+import { jwtDecode } from 'jwt-decode';
 
-export function Auth({ setIsAuthenticated }) {
+export function Auth() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,19 +35,24 @@ export function Auth({ setIsAuthenticated }) {
       if (isLogin) {
         const response = await AuthenticationApi.loginUser({ email, password });
         localStorage.setItem('token', response.token);
-        setIsAuthenticated(true);
+        const decodedToken = jwtDecode(response.token);
+        dispatch(setUser({
+          id: decodedToken.nameid,
+          name: decodedToken.unique_name,
+          email: decodedToken.email,
+        }));
         notifications.show({
           title: 'Successfully Logged In',
           color: "#4333A1"
         });
-        navigate('/'); // Redirect to home page after successful login
+        navigate('/');
       } else {
         await AuthenticationApi.registerUser({ name, email, password });
         notifications.show({
           title: 'Successfully Registered!',
           color: "#4333A1"
         });
-        setIsLogin(true); // After successful registration, switch to login view
+        setIsLogin(true);
       }
     } catch (error) {
       setError(error.response?.data?.message || 'An error occurred');

@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Container, Grid, TextInput, Select, Button } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 import SavingsApi from '../../../api/SavingsApi';
 import { notifications } from '@mantine/notifications';
+import { addSavingsPot } from '../../../store/slices/savingsSlice'; // Import the addSavingsPot action
 
-export function SavingsPotForm({ onNewSavingsPot }) {
+export function SavingsPotForm({ onClose }) {
+  const dispatch = useDispatch();
+  const userId = useSelector((state) => state.user.user.id);
+
   const [formData, setFormData] = useState({
     id: 0,
-    userId: 0, // Assuming this is statically set for demonstration
+    userId: userId,
     description: '',
     targetAmount: 0,
     currentAmount: 0,
@@ -23,17 +28,18 @@ export function SavingsPotForm({ onNewSavingsPot }) {
     try {
       const response = await SavingsApi.createSavingsPot(formData);
       console.log('Savings pot created successfully:', response);
-      onNewSavingsPot(response); // Update the parent state with the new savings pot
+      dispatch(addSavingsPot(response)); // Dispatch action to add new savings pot to Redux store
       notifications.show({
         title: 'Success notification',
         message: 'Savings Pot Successfully Created',
         color: "#4333A1"
       });
+      onClose(); // Close the form modal
     } catch (error) {
       notifications.show({
         title: 'Error notification',
         message: 'Error creating savings pot',
-        color: "#4333A1"
+        color: "red"
       });
       console.error('Error creating savings pot:', error);
     }
