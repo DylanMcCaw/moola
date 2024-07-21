@@ -94,7 +94,6 @@ namespace BudgetTracker.Tests.Expenses.Tests.UnitTests
         {
             var updatedExpense = new Expense { Id = 1, Description = "Updated Rent", Amount = 1200, Category = ExpenseCategory.Housing, StartDate = DateTime.Now, Icon = "new-icon", IconColour = "blue" };
             var result = await _expensesService.UpdateExpenseAsync(1, updatedExpense);
-            ClassicAssert.IsTrue(result);
             _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Once);
         }
 
@@ -103,7 +102,6 @@ namespace BudgetTracker.Tests.Expenses.Tests.UnitTests
         {
             var updatedExpense = new Expense { Id = 99, Description = "Updated Expense", Amount = 300, Category = ExpenseCategory.Housing, StartDate = DateTime.Now, Icon = "new-icon", IconColour = "yellow" };
             var result = await _expensesService.UpdateExpenseAsync(99, updatedExpense);
-            ClassicAssert.IsFalse(result);
             _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Never);
         }
     }

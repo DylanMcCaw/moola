@@ -1,0 +1,122 @@
+/* SavingsPots.css */
+.savings-page {
+  width: 100%;
+  padding: 20px;
+}
+
+.dashboard-title {
+  font-weight: 800;
+  padding-bottom: 20px;
+  text-align: left;
+  padding-left: 600px;
+}
+
+.cards-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  padding-left: 600px;
+  padding-right: 300px;
+}
+
+.full-width-card {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.bottom-cards-container-savings {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: stretch;
+  height: 420px; /* Set a fixed height for the container */
+}
+
+.half-width-card {
+  width: calc(50% - 10px);
+  display: flex;
+  flex-direction: column;
+}
+
+.half-width-card > * {
+  flex: 1; /* Make direct children of half-width-card fill the entire height */
+}
+
+.create-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-left: 300px;
+}
+.savingPotItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.listItemContent {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.textAndButtons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.textItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.progressContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.progressLabel {
+  margin-right: 8px;
+}
+
+.pagination {
+  float: right;
+}
+
+.incomeList {
+  padding: 20px;
+}
+
+.income-row {
+  border-bottom: 1px solid #ccc; /* Add a bottom border to each income row */
+}
+
+.income-row td {
+  padding: 10px 0; /* Add padding for better spacing */
+}
+
+.income-row:last-child {
+  border-bottom: none; /* Remove the bottom border for the last row */
+}
+
+.income-row:last-child {
+  border-bottom: none; /* Remove the bottom border for the last row */
+}

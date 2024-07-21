@@ -27,11 +27,14 @@ export const savingsPotTransactionsSlice = createSlice({
     deleteTransaction: (state, action) => {
       return state.filter(transaction => transaction.id !== action.payload);
     },
+    removeTransactionsBySavingsPotId: (state, action) => {
+      return state.filter(transaction => transaction.savingsPotId !== action.payload);
+    },
   },
 });
 
 // Export actions
-export const { setTransactions, addTransaction, updateTransaction, deleteTransaction } = savingsPotTransactionsSlice.actions;
+export const { setTransactions, addTransaction, updateTransaction, deleteTransaction, removeTransactionsBySavingsPotId } = savingsPotTransactionsSlice.actions;
 
 // Export reducer
 export default savingsPotTransactionsSlice.reducer;

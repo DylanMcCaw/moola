@@ -45,6 +45,20 @@ const IncomeApi = {
       throw error;
     }
   },
+
+    // PUT /api/Income/{id}
+    updateIncome: async (id, updatedIncomeData) => {
+      try {
+        const response = await ApiClient.put(`/Income/${id}`, updatedIncomeData);
+        return response.data;
+      } catch (error) {
+        console.error('Error updating income:', error);
+        throw error;
+      }
+    },
 };
+
+
+
 
 export default IncomeApi;

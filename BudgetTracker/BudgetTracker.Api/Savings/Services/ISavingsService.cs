@@ -60,6 +60,18 @@ namespace BudgetTracker.Savings.Services
         /// <returns>True if the amount was successfully withdrawn, otherwise false.</returns>
         Task<SavingsPotTransaction> WithdrawAsync(int savingsPotId, double amount);
 
+        /// <summary>
+        /// Retrieves all savings pot transactions for a specific user.
+        /// </summary>
+        /// <param name="userId">The ID of the user whose transactions are to be retrieved.</param>
+        /// <returns>A list of SavingsPotTransaction objects associated with the specified user.</returns>
         Task<List<SavingsPotTransaction>> GetSavingsPotTransactionsByUserIdAsync(int userId);
+
+        /// <summary>
+        /// Deletes all transactions associated with a specific savings pot.
+        /// </summary>
+        /// <param name="savingsPotId">The ID of the savings pot whose transactions are to be deleted.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
+        Task DeleteSavingsPotTransactionsAsync(int savingsPotId);
     }
 }

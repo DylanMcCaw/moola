@@ -13,6 +13,8 @@ import SavingsApi from './api/SavingsApi';
 import { Auth } from './features/auth/Auth';
 import Home from './features/home/Home';
 import SavingPots from './features/savings/Savings';
+import Income from './features/income/Income';
+import Expense from './features/expense/Expense'
 import { Navbar } from './features/navbar/NavBar';
 import UserMenu from './features/home/UserMenu';
 import './styles/App.css'
@@ -111,6 +113,22 @@ function AppContent() {
                 element={
                   <ProtectedRoute>
                     <SavingPots initialSavings={savings} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/income"
+                element={
+                  <ProtectedRoute>
+                    <Income initialIncomes={incomes} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/expenses"
+                element={
+                  <ProtectedRoute>
+                    <Expense initialExpenses={expenses} />
                   </ProtectedRoute>
                 }
               />

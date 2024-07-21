@@ -1,22 +1,18 @@
 import React, { useState } from 'react';
-import { Text, Card, List, rem, Pagination } from '@mantine/core';
-import { IconPlane, IconHome } from '@tabler/icons-react';
+import { Text, Card, List, rem, Pagination, ActionIcon, Tooltip} from '@mantine/core';
+import { IconPlane, IconHome, IconPlus } from '@tabler/icons-react';
 import SavingPotItem from './SavingsPotItem';
 import "./SavingsStyles.css";
 
-function SavingsPotListCard({ savingPots }) {
+function SavingsPotListCard({ savingPots, onAddClick }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4; // Number of items per page
+  const itemsPerPage = 4;
 
-  // Calculate total number of pages
   const totalPages = Math.ceil(savingPots.length / itemsPerPage);
-
-  // Calculate index of the first and last saving pot for the current page
   const indexOfLastSaving = currentPage * itemsPerPage;
   const indexOfFirstSaving = indexOfLastSaving - itemsPerPage;
   const currentSavings = savingPots.slice(indexOfFirstSaving, indexOfLastSaving);
 
-  // Handle page change
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -32,8 +28,13 @@ function SavingsPotListCard({ savingPots }) {
   return (
     <Card withBorder radius="20" className="large-card">
       <div className="savingPotsList">
-        <div style={{ marginBottom: '20px' }}>
+        <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Text size="xl">Saving Pots</Text>
+          <Tooltip label="Create New Savings Pot" withArrow>
+          <ActionIcon color="#4333A1" variant="outline" onClick={onAddClick}>
+            <IconPlus size="1.125rem" />
+          </ActionIcon>
+          </Tooltip>
         </div>
         <List spacing="lg" size="m" center>
           {currentSavings.map((pot, index) => (

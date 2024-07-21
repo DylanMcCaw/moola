@@ -41,7 +41,7 @@ namespace BudgetTracker.Incomes.Services
         /// </summary>
         /// <param name="id">The ID of the Income to update.</param>
         /// <param name="updatedIncome">The updated Income.</param>
-        /// <returns>True if the Income was successfully updated, otherwise false.</returns>
-        Task<bool> UpdateIncomeAsync(int id, Income updatedIncome);
+        /// <returns>The Income if the Income was successfully updated, otherwise false.</returns>
+        Task<Income> UpdateIncomeAsync(int id, Income updatedIncome);
     }
 }

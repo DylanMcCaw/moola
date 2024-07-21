@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Text, List, ThemeIcon, Progress, Button, Modal } from '@mantine/core';
-import { IconPlane, IconHome, IconEdit, IconCash } from '@tabler/icons-react';
+import { Text, List, ThemeIcon, Progress, Modal, ActionIcon, Tooltip } from '@mantine/core';
+import { IconEdit, IconArrowsSort } from '@tabler/icons-react';
 import { SavingsPotTransactionForm } from './SavingsPotTransactionForm';
 import { SavingsPotForm } from './SavingsPotForm';
 import "./SavingsStyles.css";
@@ -48,8 +48,16 @@ function SavingPotItem({ id, icon, color, title, onEditClick }) {
             <Text className="textItem" c="dimmed" size='13px'>{amount} / {goal}</Text>
           </div>
           <div className="buttonContainer">
-            <Button size="xs" onClick={handleDepositClick} color='#4333A1'>Deposit/Withdraw</Button>
-            <Button size="xs" variant="outline" color='#4333A1' onClick={handleEditClick} leftIcon={<IconEdit size={14} />}>Edit</Button>
+            <Tooltip label="Deposit/Withdraw" withArrow>
+              <ActionIcon size="md" onClick={handleDepositClick} color='#4333A1'>
+                <IconArrowsSort size={16} />
+              </ActionIcon>
+            </Tooltip>
+            <Tooltip label="Edit" withArrow>
+              <ActionIcon size="md" variant="outline" color='#4333A1' onClick={handleEditClick}>
+                <IconEdit size={16} />
+              </ActionIcon>
+            </Tooltip>
           </div>
         </div>
         <div className="progressContainer" style={{ width: "600px " }}>

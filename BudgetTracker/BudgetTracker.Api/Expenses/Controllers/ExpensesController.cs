@@ -79,18 +79,18 @@ namespace BudgetTracker.Expenses.Controllers
         // PUT: api/Expense/{id}
         // Updates an existing Expense by its ID
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateExpense(int id, ExpenseForUpdateDto updatedExpense)
+        public async Task<ActionResult<Expense>> UpdateExpense(int id, ExpenseForUpdateDto updatedExpense)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var expenseEntity = _mapper.Map<Expense>(updatedExpense);
 
-            var success = await _expenseService.UpdateExpenseAsync(id, expenseEntity);
-            if (!success)
+            var expenseResult = await _expenseService.UpdateExpenseAsync(id, expenseEntity);
+            if (expenseResult == null)
                 return NotFound();
 
-            return NoContent();
+            return expenseResult;
         }
     }
 }

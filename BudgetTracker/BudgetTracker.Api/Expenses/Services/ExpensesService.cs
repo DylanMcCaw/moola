@@ -91,7 +91,7 @@ namespace BudgetTracker.Expenses.Services
             return expense;
         }
 
-        public async Task<bool> UpdateExpenseAsync(int id, Expense updatedExpense)
+        public async Task<Expense> UpdateExpenseAsync(int id, Expense updatedExpense)
         {
             _logger.LogInformation($"PUT: UpdateExpense called for Expense ID {id}");
 
@@ -100,7 +100,7 @@ namespace BudgetTracker.Expenses.Services
             if (existingExpense == null)
             {
                 _logger.LogWarning($"Expense with ID {id} not found.");
-                return false;
+                throw new ArgumentNullException(nameof(Expense));
             }
 
             // Update the existing expense with the values from updatedExpense
@@ -124,7 +124,7 @@ namespace BudgetTracker.Expenses.Services
                 throw;
             }
 
-            return true;
+            return existingExpense;
         }
     }
 }
