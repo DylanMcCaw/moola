@@ -183,7 +183,7 @@ export function ExpenseForm({ onClose, editMode = false, initialData = null }) {
             />
           </Grid.Col>
           <Grid.Col span={12}>
-            <Group position="apart">
+            <Group className="modal-buttons" position="apart">
               <Button type="submit" color="#4333A1" disabled={!isFormValid()}>
                 {editMode ? 'Update' : 'Create'} Expense
               </Button>
@@ -203,7 +203,7 @@ export function ExpenseForm({ onClose, editMode = false, initialData = null }) {
         title="Confirm Action"
       >
         <Text>Are you sure you want to {actionType} this Expense?</Text>
-        <Group position="apart" mt="md">
+        <Group className="modal-buttons" position="apart" mt="md">
           <Button onClick={() => setConfirmModalOpen(false)} variant="outline">Cancel</Button>
           <Button onClick={handleConfirm} color={actionType === 'delete' ? 'red' : '#4333A1'}>Confirm</Button>
         </Group>

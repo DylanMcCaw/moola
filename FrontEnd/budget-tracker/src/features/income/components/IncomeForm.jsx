@@ -183,7 +183,7 @@ export function IncomeForm({ onClose, editMode = false, initialData = null }) {
             />
           </Grid.Col>
           <Grid.Col span={12}>
-            <Group position="apart">
+            <Group className="modal-buttons" position="apart">
               <Button type="submit" color="#4333A1" disabled={!isFormValid()}>
                 {editMode ? 'Update' : 'Create'} Income
               </Button>

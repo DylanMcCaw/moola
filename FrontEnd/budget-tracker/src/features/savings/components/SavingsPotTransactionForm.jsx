@@ -118,7 +118,7 @@ export function SavingsPotTransactionForm({ savingsPotId, onClose, currentAmount
             />
           </Grid.Col>
           <Grid.Col span={12}>
-            <Button type="submit" variant="filled" color="#4333A1" disabled={!isFormValid()}>
+            <Button className="modal-buttons" type="submit" variant="filled" color="#4333A1" disabled={!isFormValid()}>
               {formData.transactionType === 'Deposit' ? 'Deposit' : 'Withdraw'}
             </Button>
           </Grid.Col>
