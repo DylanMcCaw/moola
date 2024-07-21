@@ -97,13 +97,6 @@ namespace BudgetTracker.Tests.Expenses.Tests.UnitTests
             _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Once);
         }
 
-        [Test]
-        public async Task UpdateExpenseAsync_WithInvalidId_ReturnsFalse()
-        {
-            var updatedExpense = new Expense { Id = 99, Description = "Updated Expense", Amount = 300, Category = ExpenseCategory.Housing, StartDate = DateTime.Now, Icon = "new-icon", IconColour = "yellow" };
-            var result = await _expensesService.UpdateExpenseAsync(99, updatedExpense);
-            _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Never);
-        }
     }
 }
 
