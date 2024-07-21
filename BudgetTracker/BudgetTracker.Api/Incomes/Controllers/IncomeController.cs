@@ -73,15 +73,15 @@ namespace BudgetTracker.Incomes.Controllers
         // PUT: api/Income/{id}
         // Updates an existing Income by its ID
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateIncome(int id, IncomeForUpdateDto updatedIncome)
+        public async Task<ActionResult<Income>> UpdateIncome(int id, IncomeForUpdateDto updatedIncome)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             var incomeEntity = _mapper.Map<Income>(updatedIncome);
-            var success = await _incomeService.UpdateIncomeAsync(id, incomeEntity);
-            if (!success)
+            var updatedIncomeResult = await _incomeService.UpdateIncomeAsync(id, incomeEntity);
+            if (updatedIncomeResult == null)
                 return NotFound();
-            return NoContent();
+            return updatedIncomeResult;
         }
     }
 }

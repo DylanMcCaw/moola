@@ -45,6 +45,17 @@ const ExpenseApi = {
       throw error;
     }
   },
+
+  // PUT /api/Expense/{id}
+  updateExpense: async (id, updatedExpenseData) => {
+    try {
+      const response = await ApiClient.put(`/Expense/${id}`, updatedExpenseData);
+      return response.data;
+    } catch (error) {
+      console.error('Error updating expense:', error);
+      throw error;
+    }
+  },
 };
 
 export default ExpenseApi;

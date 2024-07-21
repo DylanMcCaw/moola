@@ -15,10 +15,10 @@ import {
 import classes from './NavbarSimpleColored.module.css';
 
 const data = [
-  { link: '/', label: 'Home', icon: IconHome },
+  { link: '/', label: 'Dashboard', icon: IconHome },
   { link: '/savings', label: 'Savings', icon: IconPigMoney },
-  { link: '/income', label: 'Income', icon: IconMoneybag },
   { link: '/expenses', label: 'Expenses', icon: IconWallet },
+  { link: '/income', label: 'Income', icon: IconMoneybag },
   { link: '/reminders', label: 'Reminders', icon: IconNotification },
   {
     label: 'Tools',

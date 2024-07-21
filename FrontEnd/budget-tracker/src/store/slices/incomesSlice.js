@@ -15,7 +15,9 @@ export const incomesSlice = createSlice({
     updateIncome: (state, action) => {
       const index = state.findIndex(income => income.id === action.payload.id);
       if (index !== -1) {
-        state[index] = action.payload;
+        state[index] = { ...state[index], ...action.payload };
+      } else {
+        console.warn(`Income with id ${action.payload.id} not found for update.`);
       }
     },
     deleteIncome: (state, action) => {

@@ -1,13 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Text, Card, Stack, Group, Box } from '@mantine/core';
-import { parseISO, startOfMonth, endOfMonth, isWithinInterval } from 'date-fns';
+import { parseISO, startOfMonth, endOfMonth, isWithinInterval, subMonths } from 'date-fns';
 
-// Helper function to calculate totals for the current month
-const getMonthlyTotals = (transactions) => {
-  const now = new Date();
-  const start = startOfMonth(now);
-  const end = endOfMonth(now);
+// Helper function to calculate totals for a given month
+const getMonthlyTotals = (transactions, date) => {
+  const start = startOfMonth(date);
+  const end = endOfMonth(date);
 
   let totalDeposited = 0;
   let totalWithdrawn = 0;
@@ -15,7 +14,7 @@ const getMonthlyTotals = (transactions) => {
   transactions.forEach(transaction => {
     if (!transaction.transactionDate || !transaction.transactionType) {
       console.error('Invalid transaction data:', transaction);
-      return; // Skip this transaction
+      return;
     }
 
     try {
@@ -33,7 +32,7 @@ const getMonthlyTotals = (transactions) => {
     }
   });
 
-  return { totalDeposited, totalWithdrawn };
+  return totalDeposited - totalWithdrawn;
 };
 
 // Stateless component to display stat text
@@ -52,11 +51,22 @@ function StatText({ label, value, color, highlight }) {
 
 // Main component to display the total savings card
 export function TotalSavingsCard({ totalSavings, totalGoal }) {
-  // Fetch transactions from Redux state
   const transactions = useSelector((state) => state.savingPotTransactions) || [];
 
-  // Calculate totals for the current month
-  const { totalDeposited, totalWithdrawn } = getMonthlyTotals(transactions);
+  const now = new Date();
+  const lastMonth = subMonths(now, 1);
+
+  const currentMonthTotal = getMonthlyTotals(transactions, now);
+  const lastMonthTotal = getMonthlyTotals(transactions, lastMonth);
+
+  const percentageDifference = lastMonthTotal !== 0
+    ? ((currentMonthTotal - lastMonthTotal) / Math.abs(lastMonthTotal)) * 100
+    : 0;
+
+  const isPositive = percentageDifference >= 0;
+  const percentageText = `${Math.abs(percentageDifference).toFixed(1)}%`;
+  const arrow = isPositive ? '▲' : '▼';
+  const color = isPositive ? '#10A56D' : '#F45656';
 
   return (
     <Card 
@@ -71,8 +81,8 @@ export function TotalSavingsCard({ totalSavings, totalGoal }) {
       }}
     >
       <div className="topRightText" style={{ position: 'absolute', top: '20px', right: '20px' }}>
-        <Text className="smallText" style={{ color: '#10A56D', fontWeight: "bold" }}>
-          ▲ 5% <span style={{ color: "grey", fontSize: "10px" }}>vs last month</span>
+        <Text className="smallText" style={{ color: color, fontWeight: "bold" }}>
+          {arrow} {percentageText} <span style={{ color: "grey", fontSize: "10px" }}>vs last month</span>
         </Text>
       </div>
       <Text size="xl">Total Savings</Text>
@@ -84,8 +94,8 @@ export function TotalSavingsCard({ totalSavings, totalGoal }) {
           </Text>
         </Stack>
         <Group position="center" spacing="xl" style={{ marginLeft: '100px', marginTop: '40px', width: '100%', maxWidth: '300px' }}>
-          <StatText label="Total Deposited" value={`£${totalDeposited.toFixed(2)}`} color="#10A56D" highlight="▲" />
-          <StatText label="Total Withdrawn" value={`£${totalWithdrawn.toFixed(2)}`} color="#F45656" highlight="▼" />
+          <StatText label="Total Deposited" value={`£${currentMonthTotal.toFixed(2)}`} color="#10A56D" highlight="▲" />
+          <StatText label="Total Withdrawn" value={`£${Math.abs(currentMonthTotal - lastMonthTotal).toFixed(2)}`} color="#F45656" highlight="▼" />
         </Group>
       </Box>
     </Card>

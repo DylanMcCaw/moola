@@ -52,7 +52,7 @@ namespace BudgetTracker.Savings.Services
 
         public async Task<bool> DeleteSavingsPotAsync(int id)
         {
-            _logger.LogInformation("DELETE: DeleteSavingsPot called");
+            _logger.LogInformation($"DELETE: DeleteSavingsPot called for ID {id}");
 
             var savingsPot = await _context.SavingsPots.FindAsync(id);
 
@@ -62,10 +62,22 @@ namespace BudgetTracker.Savings.Services
                 return false;
             }
 
-            _context.SavingsPots.Remove(savingsPot);
-            await _context.SaveChangesAsync();
+            try
+            {
+                // Delete all transactions associated with this savings pot
+                await DeleteSavingsPotTransactionsAsync(id);
 
-            return true;
+                // Now delete the savings pot itself
+                _context.SavingsPots.Remove(savingsPot);
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error occurred while deleting SavingsPot with ID {id}.");
+                throw;
+            }
         }
 
         public async Task<SavingsPot> CreateSavingsPotAsync(SavingsPot savingsPot)
@@ -218,6 +230,26 @@ namespace BudgetTracker.Savings.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error occurred while retrieving transactions for the user's savings pots.");
+                throw;
+            }
+        }
+
+        public async Task DeleteSavingsPotTransactionsAsync(int savingsPotId)
+        {
+            _logger.LogInformation($"DELETE: Deleting all transactions for SavingsPot ID {savingsPotId}");
+
+            try
+            {
+                var transactions = await _context.SavingsPotTransactions
+                    .Where(t => t.SavingsPotId == savingsPotId)
+                    .ToListAsync();
+
+                _context.SavingsPotTransactions.RemoveRange(transactions);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error occurred while deleting transactions for SavingsPot ID {savingsPotId}.");
                 throw;
             }
         }

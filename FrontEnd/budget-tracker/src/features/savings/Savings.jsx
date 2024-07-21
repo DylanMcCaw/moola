@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, Button, Title } from '@mantine/core';
+import { Modal, Title } from '@mantine/core';
 import { TotalSavingsCard } from './components/TotalSavingsCard'
 import { SavingsTransactionsCard } from './components/SavingsTransactionsCard';
 import SavingsPotListCard from './components/SavingPotsListCard';
@@ -53,17 +53,13 @@ function SavingPots() {
           </div>
           <div className="bottom-cards-container-savings">
             <div className="half-width-card">
-              <SavingsPotListCard savingPots={savingPots} />
+              <SavingsPotListCard savingPots={savingPots} onAddClick={open} />
             </div>
             <div className="half-width-card">
               <SavingsTransactionsCard />
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="create-button-container">
-        <Button onClick={open} color='#4333A1'>Create New Savings Pot</Button>
       </div>
 
       <Modal opened={opened} onClose={close} title="Create New Savings Pot" size="lg" centered>

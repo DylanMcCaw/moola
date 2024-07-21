@@ -3,23 +3,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container, Grid, TextInput, Select, Button, Group, NumberInput, Modal, Text } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 import { parseISO } from 'date-fns';
-import SavingsApi from '../../../api/SavingsApi';
+import IncomeApi from '../../../api/IncomeApi';
 import { notifications } from '@mantine/notifications';
-import { addSavingsPot, updateSavingsPot, deleteSavingsPot } from '../../../store/slices/savingsSlice';
-import { removeTransactionsBySavingsPotId } from '../../../store/slices/savingPotTransactionsSlice'
+import { addIncome, updateIncome, deleteIncome } from '../../../store/slices/incomesSlice';
 
-export function SavingsPotForm({ onClose, editMode = false, initialData = null }) {
+export function IncomeForm({ onClose, editMode = false, initialData = null }) {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.user.id);
 
   const [formData, setFormData] = useState({
-    id: 0,
     userId: userId,
     description: '',
-    targetAmount: 0,
+    amount: 0,
+    category: 0,
     icon: '',
     iconColour: '',
-    goalDate: new Date(),
+    startDate: new Date(),
   });
 
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
@@ -29,7 +28,7 @@ export function SavingsPotForm({ onClose, editMode = false, initialData = null }
     if (editMode && initialData) {
       setFormData({
         ...initialData,
-        goalDate: initialData.goalDate ? parseISO(initialData.goalDate) : new Date(),
+        startDate: initialData.startDate ? parseISO(initialData.startDate) : new Date(),
       });
     }
   }, [editMode, initialData]);
@@ -50,36 +49,33 @@ export function SavingsPotForm({ onClose, editMode = false, initialData = null }
       if (actionType === 'update') {
         const submissionData = {
           ...formData,
-          depositFrequency: parseInt(formData.depositFrequency),
-          goalDate: formData.goalDate.toISOString(),
+          startDate: formData.startDate.toISOString(),
         };
-        const response = await SavingsApi.updateSavingsPot(formData.id, submissionData);
-        dispatch(updateSavingsPot(response));
+        const response = await IncomeApi.updateIncome(formData.id, submissionData);
+        dispatch(updateIncome(response));
         notifications.show({
           title: 'Success',
-          message: 'Savings Pot Successfully Updated',
+          message: 'Income Successfully Updated',
           color: "#4333A1"
         });
       } else if (actionType === 'create') {
         const submissionData = {
           ...formData,
-          depositFrequency: parseInt(formData.depositFrequency),
-          goalDate: formData.goalDate.toISOString(),
+          startDate: formData.startDate.toISOString(),
         };
-        const response = await SavingsApi.createSavingsPot(submissionData);
-        dispatch(addSavingsPot(response));
+        const response = await IncomeApi.createIncome(submissionData);
+        dispatch(addIncome(response));
         notifications.show({
           title: 'Success',
-          message: 'Savings Pot Successfully Created',
+          message: 'Income Successfully Created',
           color: "#4333A1"
         });
       } else if (actionType === 'delete') {
-        await SavingsApi.deleteSavingsPotById(formData.id);
-        dispatch(deleteSavingsPot(formData.id));
-        dispatch(removeTransactionsBySavingsPotId(formData.id));
+        await IncomeApi.deleteIncomeById(formData.id);
+        dispatch(deleteIncome(formData.id));
         notifications.show({
           title: 'Success',
-          message: 'Savings Pot Successfully Deleted',
+          message: 'Income Successfully Deleted',
           color: "#4333A1"
         });
       }
@@ -88,10 +84,10 @@ export function SavingsPotForm({ onClose, editMode = false, initialData = null }
     } catch (error) {
       notifications.show({
         title: 'Error',
-        message: `Error ${actionType}ing savings pot`,
+        message: `Error ${actionType}ing income`,
         color: "red"
       });
-      console.error(`Error ${actionType}ing savings pot:`, error);
+      console.error(`Error ${actionType}ing income:`, error);
     }
   };
 
@@ -103,11 +99,12 @@ export function SavingsPotForm({ onClose, editMode = false, initialData = null }
   };
 
   const isFormValid = () => {
-    const { description, targetAmount, goalDate, icon, iconColour } = formData;
+    const { description, amount, category, startDate, icon, iconColour } = formData;
     return (
       description.trim() !== '' &&
-      targetAmount > 0 &&
-      goalDate instanceof Date &&
+      amount > 0 &&
+      category !== '' &&
+      startDate instanceof Date &&
       icon.trim() !== '' &&
       iconColour.trim() !== ''
     );
@@ -127,9 +124,9 @@ export function SavingsPotForm({ onClose, editMode = false, initialData = null }
           </Grid.Col>
           <Grid.Col span={6}>
             <NumberInput
-              label="Target Amount (£)"
-              value={formData.targetAmount}
-              onChange={(value) => handleInputChange('targetAmount', value)}
+              label="Amount (£)"
+              value={formData.amount}
+              onChange={(value) => handleInputChange('amount', value)}
               min={0}
               precision={2}
               required
@@ -137,10 +134,24 @@ export function SavingsPotForm({ onClose, editMode = false, initialData = null }
           </Grid.Col>
           <Grid.Col span={6}>
             <Select
+              label="Category"
+              data={[
+                { value: '0', label: 'Salary' },
+                { value: '1', label: 'Freelance' },
+                { value: '3', label: 'Investment' },
+                // Add more category options as needed
+              ]}
+              value={formData.category}
+              onChange={(value) => handleInputChange('category', value)}
+              required
+            />
+          </Grid.Col>
+          <Grid.Col span={6}>
+            <Select
               label="Icon"
               data={[
-                { value: 'icon1', label: 'Home' },
-                { value: 'icon2', label: 'Plane' },
+                { value: 'icon1', label: 'Briefcase' },
+                { value: 'icon2', label: 'Money' },
                 // Add more icon options as needed
               ]}
               value={formData.icon}
@@ -165,16 +176,16 @@ export function SavingsPotForm({ onClose, editMode = false, initialData = null }
           </Grid.Col>
           <Grid.Col span={6}>
             <DateInput
-              label="Goal Date"
-              value={formData.goalDate}
-              onChange={(value) => handleInputChange('goalDate', value)}
+              label="Start Date"
+              value={formData.startDate}
+              onChange={(value) => handleInputChange('startDate', value)}
               required
             />
           </Grid.Col>
           <Grid.Col span={12}>
             <Group position="apart">
               <Button type="submit" color="#4333A1" disabled={!isFormValid()}>
-                {editMode ? 'Update' : 'Create'} Savings Pot
+                {editMode ? 'Update' : 'Create'} Income
               </Button>
               {editMode && (
                 <Button variant="outline" color="red" onClick={handleDelete}>
@@ -191,7 +202,7 @@ export function SavingsPotForm({ onClose, editMode = false, initialData = null }
         onClose={() => setConfirmModalOpen(false)}
         title="Confirm Action"
       >
-        <Text>Are you sure you want to {actionType} this savings pot?</Text>
+        <Text>Are you sure you want to {actionType} this income?</Text>
         <Group position="apart" mt="md">
           <Button onClick={() => setConfirmModalOpen(false)} variant="outline">Cancel</Button>
           <Button onClick={handleConfirm} color={actionType === 'delete' ? 'red' : '#4333A1'}>Confirm</Button>

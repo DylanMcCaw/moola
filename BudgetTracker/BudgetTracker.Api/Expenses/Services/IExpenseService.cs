@@ -42,6 +42,6 @@ namespace BudgetTracker.Expenses.Services
         /// <param name="id">The ID of the Expense to update.</param>
         /// <param name="updatedExpense">The updated expense.</param>
         /// <returns>True if the Expense was successfully updated, otherwise false.</returns>
-        Task<bool> UpdateExpenseAsync(int id, Expense updatedExpense);
+        Task<Expense> UpdateExpenseAsync(int id, Expense updatedExpense);
     }
 }

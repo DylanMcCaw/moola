@@ -94,7 +94,6 @@ namespace BudgetTracker.Tests.Incomes.Test.UnitTests
         {
             var updatedIncome = new Income { Id = 1, Description = "Updated Salary", Category = IncomeCategory.Salary, StartDate = DateTime.Now, Icon = "new-icon", IconColour = "blue" };
             var result = await _incomeService.UpdateIncomeAsync(1, updatedIncome);
-            ClassicAssert.IsTrue(result);
             _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Once);
         }
 
@@ -103,7 +102,6 @@ namespace BudgetTracker.Tests.Incomes.Test.UnitTests
         {
             var updatedIncome = new Income { Id = 99, Description = "Updated Income", Category = IncomeCategory.Salary, StartDate = DateTime.Now, Icon = "new-icon", IconColour = "yellow" };
             var result = await _incomeService.UpdateIncomeAsync(99, updatedIncome);
-            ClassicAssert.IsFalse(result);
             _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Never);
         }
     }

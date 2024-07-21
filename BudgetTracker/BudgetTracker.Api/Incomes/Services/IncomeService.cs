@@ -91,7 +91,7 @@ namespace BudgetTracker.Incomes.Services
             return Income;
         }
 
-        public async Task<bool> UpdateIncomeAsync(int id, Income updatedIncome)
+        public async Task<Income> UpdateIncomeAsync(int id, Income updatedIncome)
         {
             _logger.LogInformation($"PUT: UpdateIncome called for Income ID {id}");
 
@@ -100,11 +100,12 @@ namespace BudgetTracker.Incomes.Services
             if (existingIncome == null)
             {
                 _logger.LogWarning($"Income with ID {id} not found.");
-                return false;
+                throw new ArgumentNullException(nameof(Income));
             }
 
             // Update the existing Income with the values from updatedIncome
             existingIncome.Description = updatedIncome.Description;
+            existingIncome.Amount = updatedIncome.Amount;
             existingIncome.Category = updatedIncome.Category;
             existingIncome.StartDate = updatedIncome.StartDate;
             existingIncome.Icon = updatedIncome.Icon;
@@ -121,7 +122,7 @@ namespace BudgetTracker.Incomes.Services
                 throw;
             }
 
-            return true;
+            return existingIncome;
         }
     }
 }
