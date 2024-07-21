@@ -15,14 +15,14 @@ function ExpenseBreakdownCard({ expenses }) {
     <Text size="xl" mb="md">Expense Breakdown</Text>
     {expenses.length > 0 ? (
       <PieChart 
-        withTooltip
-        tooltipDataSource="name"
-        mx="auto"  
-        data={pieChartData} 
-        style={{ height: '220px', width: '220px' }}
-        label={true}
-        labelPosition="inside"
-        labelOffset={-40}
+      mx="auto"  
+      data={pieChartData} 
+      style={{ height: '300px', width: '300px' }}
+      size={220}
+      labelsType="percent" 
+      withLabels
+      labelPosition="outside"
+      withTooltip
       />
     ) : (
       <Text color="dimmed">No Expense data available</Text>

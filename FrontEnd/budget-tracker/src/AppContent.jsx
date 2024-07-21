@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { jwtDecode } from 'jwt-decode';
 import { setUser, clearUser } from './store/slices/userSlice';
 import { setSavings } from './store/slices/savingsSlice';
-import { setIncomes } from './store/slices/incomesSlice';
 import { setExpenses } from './store/slices/expensesSlice';
+import { setIncomes } from './store/slices/incomesSlice';
 import { setTransactions } from './store/slices/savingPotTransactionsSlice';
 import ExpenseApi from './api/ExpenseApi';
 import IncomeApi from './api/IncomeApi';

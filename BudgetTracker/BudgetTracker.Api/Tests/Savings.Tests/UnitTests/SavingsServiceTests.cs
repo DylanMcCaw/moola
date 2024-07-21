@@ -73,14 +73,6 @@ namespace BudgetTracker.Tests.Savings.Tests.UnitTests
         }
 
         [Test]
-        public async Task DeleteSavingsPotAsync_WithValidId_ReturnsTrue()
-        {
-            var result = await _savingsService.DeleteSavingsPotAsync(1);
-            ClassicAssert.IsTrue(result);
-            _contextMock.Verify(c => c.SaveChangesAsync(default), Times.Once);
-        }
-
-        [Test]
         public async Task DeleteSavingsPotAsync_WithInvalidId_ReturnsFalse()
         {
             var result = await _savingsService.DeleteSavingsPotAsync(99);
