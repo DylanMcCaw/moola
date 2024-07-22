@@ -3,6 +3,7 @@ import { Text, Card, RingProgress, List, ThemeIcon, rem, Progress, Pagination, B
 import { useNavigate } from 'react-router-dom';
 import { IconPlane } from '@tabler/icons-react';
 import './HomePageCardStyle.css';
+import formatCurrency from '../../../utils/formatCurrency';
 
 function SavingPotItem({ icon, color, title, amount, goal, progress, onClick }) {
   return (
@@ -33,6 +34,9 @@ function SavingPotItem({ icon, color, title, amount, goal, progress, onClick }) 
 
 export function SavingsHomePageCard({ savings }) {
   const totalSavings = savings.reduce((acc, pot) => acc + pot.currentAmount, 0);
+  const totalGoal = savings.length > 0
+  ? savings.reduce((total, pot) => total + (pot.targetAmount || 0), 0).toFixed(2)
+  : "0.00";
   const goalReachedPercentage = savings.length > 0
     ? (totalSavings / savings.reduce((acc, pot) => acc + pot.targetAmount, 0)) * 100
     : 0;
@@ -63,7 +67,7 @@ export function SavingsHomePageCard({ savings }) {
             <div>
               <Text size="xl">Total Savings</Text>
               <div className="amountText">
-                <Text size="30px" fw={700}>£{totalSavings.toFixed(2)}</Text>
+                <Text size="30px" fw={700}>£{totalSavings.toFixed(2)} <span style={{fontSize:"15px", color:"gray", fontWeight:"normal"}}> / {formatCurrency(totalGoal)} goal</span></Text>
               </div>
             </div>
           </div>
@@ -107,7 +111,7 @@ export function SavingsHomePageCard({ savings }) {
           <RingProgress
             roundCaps
             thickness={15}
-            size={290}
+            size={320}
             sections={[{ value: goalReachedPercentage, color: "#4333A1" }]}
             label={
               <div>

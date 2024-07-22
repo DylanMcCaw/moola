@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Grid, TextInput, Select, Button, Group, NumberInput, Modal, Text } from '@mantine/core';
+import { Container, Grid, TextInput, Select, Button, Group, NumberInput, Modal, Text, ColorInput } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 import { parseISO } from 'date-fns';
 import ExpenseApi from '../../../api/ExpenseApi';
@@ -15,8 +15,8 @@ export function ExpenseForm({ onClose, editMode = false, initialData = null }) {
     userId: userId,
     description: '',
     amount: 0,
-    category: 0,
-    icon: '',
+    category: '0',
+    icon: 'icon1',
     iconColour: '',
     startDate: new Date(),
   });
@@ -29,6 +29,8 @@ export function ExpenseForm({ onClose, editMode = false, initialData = null }) {
       setFormData({
         ...initialData,
         startDate: initialData.startDate ? parseISO(initialData.startDate) : new Date(),
+        icon: initialData.icon ?? 'icon1',
+        category: initialData.category?.toString() ?? '0',  // Convert category to string
       });
     }
   }, [editMode, initialData]);
@@ -119,13 +121,19 @@ export function ExpenseForm({ onClose, editMode = false, initialData = null }) {
               label="Description"
               value={formData.description}
               onChange={(e) => handleInputChange('description', e.target.value)}
+              placeholder='e.g. Mortgage'
               required
             />
           </Grid.Col>
           <Grid.Col span={6}>
             <NumberInput
-              label="Amount (£)"
+              label="Amount"
+              prefix="£"
+              thousandSeparator=","
               value={formData.amount}
+              decimalScale={2}
+              fixedDecimalScale
+              defaultValue={0}
               onChange={(value) => handleInputChange('amount', value)}
               min={0}
               precision={2}
@@ -136,12 +144,18 @@ export function ExpenseForm({ onClose, editMode = false, initialData = null }) {
             <Select
               label="Category"
               data={[
-                { value: '0', label: 'Salary' },
-                { value: '1', label: 'Freelance' },
-                { value: '3', label: 'Investment' },
-                // Add more category options as needed
+                { value: '0', label: 'Housing' },
+                { value: '1', label: 'Transportation' },
+                { value: '2', label: 'Food' },
+                { value: '3', label: 'Healthcare' },
+                { value: '4', label: 'Credit Card' },
+                { value: '5', label: 'Entertainment' },
+                { value: '6', label: 'Personal Care' },
+                { value: '7', label: 'Education' },
+                { value: '8', label: 'Other' }
               ]}
               value={formData.category}
+              allowDeselect={false}
               onChange={(value) => handleInputChange('category', value)}
               required
             />
@@ -155,21 +169,20 @@ export function ExpenseForm({ onClose, editMode = false, initialData = null }) {
                 // Add more icon options as needed
               ]}
               value={formData.icon}
+              allowDeselect={false}
               onChange={(value) => handleInputChange('icon', value)}
               required
             />
           </Grid.Col>
           <Grid.Col span={6}>
-            <Select
+            <ColorInput 
               label="Icon Colour"
-              data={[
-                { value: 'red', label: 'Red' },
-                { value: 'blue', label: 'Blue' },
-                { value: 'green', label: 'Green' },
-                { value: 'yellow', label: 'Yellow' },
-                // Add more color options as needed
-              ]}
+              disallowInput
+              withEyeDropper={false}
+              swatches={['#2e2e2e', '#868e96', '#fa5252', '#e64980', '#be4bdb', '#7950f2', '#4c6ef5', '#228be6', '#15aabf', '#12b886', '#40c057', '#82c91e', '#fab005', '#fd7e14']}
               value={formData.iconColour}
+              placeholder="Icon Colour"
+              allowDeselect={false}
               onChange={(value) => handleInputChange('iconColour', value)}
               required
             />
@@ -201,6 +214,7 @@ export function ExpenseForm({ onClose, editMode = false, initialData = null }) {
         opened={confirmModalOpen}
         onClose={() => setConfirmModalOpen(false)}
         title="Confirm Action"
+        size="lg"
       >
         <Text>Are you sure you want to {actionType} this Expense?</Text>
         <Group className="modal-buttons" position="apart" mt="md">

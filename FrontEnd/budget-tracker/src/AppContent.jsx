@@ -18,6 +18,7 @@ import Expense from './features/expense/Expense'
 import { Navbar } from './features/navbar/NavBar';
 import UserMenu from './features/home/UserMenu';
 import './styles/App.css'
+import DarkModeSwitch from './features/home/components/DarkModeSwitch';
 
 function AppContent() {
   const dispatch = useDispatch();
@@ -141,6 +142,7 @@ function AppContent() {
         </div>
         {isAuthenticated && user && (
           <div className="user-menu-container">
+            <DarkModeSwitch />
             <UserMenu 
               user={user} 
               handleLogout={handleLogout}

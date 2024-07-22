@@ -92,10 +92,10 @@ export function ExpensesHomePageCard({ expenses }) {
               tooltipDataSource="name"
               mx="auto"  
               data={data} 
-              style={{ height: '220px', width: '220px' }}
-              label={true}
-              labelPosition="inside"
-              labelOffset={-40}
+              style={{ height: '220px', width: '250px' }}
+              labelsType="percent" 
+              withLabels
+              labelPosition="outside"
             />
           ) : (
             <div>

@@ -20,6 +20,9 @@ header {
   position: absolute;
   top: var(--mantine-spacing-md);
   right: var(--mantine-spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .loader-container {
@@ -32,4 +35,5 @@ header {
 .modal-buttons {
   float: right;
   padding-top: 20px;
+  padding-bottom: 20px;
 }

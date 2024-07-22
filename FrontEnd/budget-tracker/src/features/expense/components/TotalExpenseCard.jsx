@@ -16,7 +16,7 @@ export function TotalExpenseCard({ totalExpense }) {
         padding: '20px',
       }}
     >
-      <Text size="xl">Total Expense</Text>
+      <Text size="xl">Total Expenses</Text>
       <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
         <Stack align="center" spacing="xs">
           <Text size="50px" fw={700}>{totalExpense}</Text>

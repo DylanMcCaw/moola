@@ -17,7 +17,7 @@ function ExpenseBreakdownCard({ expenses }) {
       <PieChart 
       mx="auto"  
       data={pieChartData} 
-      style={{ height: '300px', width: '300px' }}
+      style={{ height: '300px', width: '350px' }}
       size={220}
       labelsType="percent" 
       withLabels

@@ -94,8 +94,7 @@ export function Navbar({ isAuthenticated }) {
       <div className={classes.navbarMain}>
         <div className={classes.header}>
           <div className={classes.logo}>
-            <IconMoodDollar size={28} inverted className={classes.icon} />
-            <span>Savepal</span>
+            <span>Moolah</span>
           </div>
         </div>
         {links}
