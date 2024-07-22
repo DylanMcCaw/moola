@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Grid, TextInput, Select, Button, Group, NumberInput, Modal, Text } from '@mantine/core';
+import { Container, Grid, TextInput, Select, Button, Group, NumberInput, Modal, Text, ColorInput } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 import { parseISO } from 'date-fns';
 import SavingsApi from '../../../api/SavingsApi';
@@ -17,7 +17,7 @@ export function SavingsPotForm({ onClose, editMode = false, initialData = null }
     userId: userId,
     description: '',
     targetAmount: 0,
-    icon: '',
+    icon: 'icon1',
     iconColour: '',
     goalDate: new Date(),
   });
@@ -122,13 +122,19 @@ export function SavingsPotForm({ onClose, editMode = false, initialData = null }
               label="Description"
               value={formData.description}
               onChange={(e) => handleInputChange('description', e.target.value)}
+              placeholder='e.g. Holiday'
               required
             />
           </Grid.Col>
           <Grid.Col span={6}>
             <NumberInput
-              label="Target Amount (£)"
+              label="Target Amount"
+              prefix="£"
+              thousandSeparator=","
               value={formData.targetAmount}
+              decimalScale={2}
+              fixedDecimalScale
+              defaultValue={0}
               onChange={(value) => handleInputChange('targetAmount', value)}
               min={0}
               precision={2}
@@ -144,24 +150,23 @@ export function SavingsPotForm({ onClose, editMode = false, initialData = null }
                 // Add more icon options as needed
               ]}
               value={formData.icon}
+              allowDeselect={false}
               onChange={(value) => handleInputChange('icon', value)}
               required
             />
           </Grid.Col>
           <Grid.Col span={6}>
-            <Select
-              label="Icon Colour"
-              data={[
-                { value: 'red', label: 'Red' },
-                { value: 'blue', label: 'Blue' },
-                { value: 'green', label: 'Green' },
-                { value: 'yellow', label: 'Yellow' },
-                // Add more color options as needed
-              ]}
-              value={formData.iconColour}
-              onChange={(value) => handleInputChange('iconColour', value)}
-              required
-            />
+          <ColorInput 
+            label="Icon Colour"
+            disallowInput
+            withEyeDropper={false}
+            swatches={['#2e2e2e', '#868e96', '#fa5252', '#e64980', '#be4bdb', '#7950f2', '#4c6ef5', '#228be6', '#15aabf', '#12b886', '#40c057', '#82c91e', '#fab005', '#fd7e14']}
+            value={formData.iconColour}
+            placeholder="Icon Colour"
+            allowDeselect={false}
+            onChange={(value) => handleInputChange('iconColour', value)}
+            required
+          />
           </Grid.Col>
           <Grid.Col span={6}>
             <DateInput

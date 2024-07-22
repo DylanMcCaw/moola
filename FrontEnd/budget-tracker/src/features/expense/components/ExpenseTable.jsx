@@ -62,7 +62,7 @@ function ExpenseTable({ expenses, onAddClick }) {
   return (
     <Card withBorder radius="20" className="card">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <Text size="xl">Total Expense</Text>
+        <Text size="xl">Expenses</Text>
         <Tooltip label="Add New Expense" withArrow>
           <ActionIcon color="#4333A1" variant="outline" onClick={onAddClick}>
             <IconPlus size="1.125rem" />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, Card, Table, Pagination, ThemeIcon } from '@mantine/core';
+import { Text, Card, Table, Pagination, ThemeIcon , Badge} from '@mantine/core';
 import { useSelector } from 'react-redux';
 import { IconPlane, IconHome } from '@tabler/icons-react';
 import formatCurrency from '../../../utils/formatCurrency';
@@ -10,7 +10,7 @@ export function SavingsTransactionsCard() {
   const transactions = useSelector((state) => state.savingPotTransactions) || [];
   const savingPots = useSelector((state) => state.savings) || [];
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 5;
 
   const sortedTransactions = [...transactions].sort((a, b) => new Date(b.transactionDate) - new Date(a.transactionDate));
 
@@ -29,14 +29,14 @@ export function SavingsTransactionsCard() {
     return null;
   };
 
-  const rows = currentTransactions.map((transaction) => {
-    const isDeposit = transaction.transactionType === 'Deposit';
-    const textColor = isDeposit ? '#10A56D' : '#F45656';
-    const sign = isDeposit ? '+' : '-';
 
+  const rows = currentTransactions.map((transaction) => {
     const savingPot = savingPots.find(pot => pot.id === transaction.savingsPotId);
+    const isDeposit = transaction.transactionType === 'Deposit';
+    const sign = isDeposit ? '+' : '-';
     return (
       <Table.Tr key={transaction.id}>
+        <Table.Td>{formatDate(transaction.transactionDate)}</Table.Td>
         <Table.Td>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <ThemeIcon color={savingPot?.iconColour || 'gray'} size={24} radius="xl">
@@ -45,10 +45,11 @@ export function SavingsTransactionsCard() {
             <span>{savingPot?.description || 'Unknown'}</span>
           </div>
         </Table.Td>
-        <Table.Td>{transaction.transactionType}</Table.Td>
-        <Table.Td>{formatDate(transaction.transactionDate)}</Table.Td>
-        <Table.Td style={{ color: textColor }}>
+        <Table.Td>{transaction.transactionType == "Deposit" ? <Badge variant="outline" color="teal">Deposit</Badge> : <Badge variant="outline" color="red">Withdraw</Badge>}</Table.Td>
+        <Table.Td>
+          <span style={{fontWeight:"bold"}}>
           {sign} {formatCurrency(transaction.amount)}
+          </span>
         </Table.Td>
       </Table.Tr>
     );
@@ -67,15 +68,15 @@ export function SavingsTransactionsCard() {
       <div style={{ marginBottom: '10px' }}>
         <Text size="xl">Transactions</Text>
       </div>
-      <Table style={{ marginBottom: '20px' }}>
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th>Savings Pot</Table.Th>
-            <Table.Th>Type</Table.Th>
-            <Table.Th>Date</Table.Th>
-            <Table.Th>Amount</Table.Th>
-          </Table.Tr>
-        </Table.Thead>
+      <Table style={{ marginBottom: '0px' }} verticalSpacing="sm">
+      <thead className='table-header'>
+          <tr>
+          <th className="name-column"><span style={{ color: "grey", fontSize: "12px", paddingLeft:"10px"}}>Date</span></th>
+            <th className="name-column"><span style={{ color: "grey", fontSize: "12px", paddingLeft:"10px"}}>Savings Pot</span></th>
+            <th className="name-column"><span style={{ color: "grey", fontSize: "12px", paddingLeft:"10px"}}>Transaction Type</span></th>
+            <th className="amount-column"><span style={{ color: "grey", fontSize: "12px", paddingLeft:"10px", float:"left"}}>Amount</span></th>
+          </tr>
+        </thead>
         <Table.Tbody>
           {rows}
         </Table.Tbody>

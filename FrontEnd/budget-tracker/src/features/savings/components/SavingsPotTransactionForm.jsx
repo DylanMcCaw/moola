@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Container, Grid, TextInput, Select, Button } from '@mantine/core';
+import { Container, Grid, NumberInput, Select, Button } from '@mantine/core';
 import SavingsApi from '../../../api/SavingsApi';
 import { notifications } from '@mantine/notifications';
 import { updateSavingsPot } from '../../../store/slices/savingsSlice';
@@ -103,17 +103,24 @@ export function SavingsPotTransactionForm({ savingsPotId, onClose, currentAmount
                 { value: 'Deposit', label: 'Deposit' },
                 { value: 'Withdraw', label: 'Withdraw' },
               ]}
+              allowDeselect={false}
               value={formData.transactionType}
               onChange={(value) => handleInputChange('transactionType', value)}
               required
             />
           </Grid.Col>
           <Grid.Col span={12}>
-            <TextInput
-              type="number"
-              label="Amount (£)"
-              value={formData.amount}
-              onChange={(e) => handleInputChange('amount', e.target.value.trim())} // Store trimmed string
+          <NumberInput
+              label="Amount"
+              prefix="£"
+              thousandSeparator=","
+              value={formData.targetAmount}
+              decimalScale={2}
+              fixedDecimalScale
+              defaultValue={0}
+              onChange={(value) => handleInputChange('amount', value)}
+              min={0}
+              precision={2}
               required
             />
           </Grid.Col>

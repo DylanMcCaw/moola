@@ -62,7 +62,7 @@ function IncomeTable({ incomes, onAddClick }) {
   return (
     <Card withBorder radius="20" className="card">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <Text size="xl">Total Income</Text>
+        <Text size="xl">Incomes</Text>
         <Tooltip label="Add New Income" withArrow>
           <ActionIcon color="#4333A1" variant="outline" onClick={onAddClick}>
             <IconPlus size="1.125rem" />
