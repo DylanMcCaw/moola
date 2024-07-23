@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 .navbar {
   height: 100vh; /* Ensure the navbar spans the entire viewport height */
   width: 18.75rem; /* Convert 300px to rem assuming the root font size is 16px (300 / 16 = 18.75) */
@@ -26,12 +26,11 @@
 .logo {
   font-family: 'Poppins', sans-serif;
   display: flex;
-  align-items: center;
   gap: var(--mantine-spacing-sm);
   color: white;
-  font-size: 1.75rem;
+  font-size: 2.25rem;
   font-weight: bold;
-  padding-left: 15px;
+  padding-left: 65px;
 }
 
 .icon {
@@ -42,6 +41,8 @@
   padding-top: var(--mantine-spacing-md);
   margin-top: var(--mantine-spacing-md);
   border-top: 1px solid #4333A1;
+  color: #8680C3;
+  align-self: center;
 }
 
 .version {
@@ -94,8 +95,8 @@
 }
 
 .activeLink {
-  background-color: rgba(255, 255, 255, 0.2); /* Active link background color */
-  color: white; /* Active link text color */
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white; 
 }
 
 .chevron {

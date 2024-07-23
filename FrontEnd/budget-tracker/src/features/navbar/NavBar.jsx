@@ -3,14 +3,14 @@ import { NavLink } from 'react-router-dom';
 import {
   IconPigMoney,
   IconWallet,
-  IconNotification,
-  IconMoodDollar,
+  IconSettings,
   IconHome,
   IconMoneybag,
   IconTool,
   IconCalculator,
   IconChevronDown,
-  IconChevronUp
+  IconChevronUp,
+  IconBrandGithub
 } from '@tabler/icons-react';
 import classes from './NavbarSimpleColored.module.css';
 
@@ -19,7 +19,6 @@ const data = [
   { link: '/savings', label: 'Savings', icon: IconPigMoney },
   { link: '/expenses', label: 'Expenses', icon: IconWallet },
   { link: '/income', label: 'Income', icon: IconMoneybag },
-  { link: '/reminders', label: 'Reminders', icon: IconNotification },
   {
     label: 'Tools',
     icon: IconTool,
@@ -27,6 +26,7 @@ const data = [
       { label: 'Finance Calculator', link: '/todo', icon: IconCalculator },
     ],
   },
+  { link: '/settings', label: 'Settings', icon: IconSettings },
 ];
 
 export function Navbar({ isAuthenticated }) {
@@ -94,13 +94,15 @@ export function Navbar({ isAuthenticated }) {
       <div className={classes.navbarMain}>
         <div className={classes.header}>
           <div className={classes.logo}>
-            <span>Moolah</span>
+            <span>moola</span>
           </div>
         </div>
         {links}
       </div>
 
-      <div className={classes.footer}></div>
+      <div className={classes.footer}>
+      <IconBrandGithub style={{"cursor": "pointer"}} onClick={() => window.location.href = 'https://www.github.com/DylanMcCaw'} />
+      </div>
     </nav>
   );
 }

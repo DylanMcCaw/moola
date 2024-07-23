@@ -45,7 +45,7 @@ function Expense() {
         </div>
       </div>
 
-      <Modal opened={opened} onClose={close} title="Create Expense" size="lg" centered>
+      <Modal opened={opened} onClose={close} title="Create Expense" size="lg" centered radius={20}>
         <ExpenseForm onNewExpense={handleNewExpense} />
       </Modal>
     </div>

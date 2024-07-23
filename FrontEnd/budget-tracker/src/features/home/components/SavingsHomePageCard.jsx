@@ -72,14 +72,14 @@ export function SavingsHomePageCard({ savings }) {
             </div>
           </div>
           <div className="savingPotsList">
-            <div className='savingPotsListTitle'><Text>Saving Pots:</Text></div>
             {savings.length === 0 ? (
-              <div className="no-savings-content">
+              <div className="no-data-content">
                 <Text size="md" color="dimmed" mb="md">Start saving by creating your first savings pot!</Text>
                 <Button color="#4333A1" onClick={handleGoToSavingsClick}>Go To Savings</Button>
               </div>
             ) : (
               <List spacing="lg" size="m" center>
+            <div className='savingPotsListTitle'><Text>Saving Pots:</Text></div>
                 {currentSavings.map((pot, index) => (
                   <SavingPotItem
                     key={index}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Text, Card, Stack, Group, Box } from '@mantine/core';
+import { Text, Card, Stack, Group, Box, Center } from '@mantine/core';
 import { parseISO, startOfMonth, endOfMonth, isWithinInterval, subMonths } from 'date-fns';
 
 // Helper function to calculate totals for a given month
@@ -86,6 +86,7 @@ export function TotalSavingsCard({ totalSavings, totalGoal }) {
         </Text>
       </div>
       <Text size="xl">Total Savings</Text>
+      <Center>
       <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
         <Stack align="center" spacing="xs">
           <Text size="50px" fw={700}>{totalSavings}</Text>
@@ -93,11 +94,11 @@ export function TotalSavingsCard({ totalSavings, totalGoal }) {
             /{totalGoal} goal
           </Text>
         </Stack>
-        <Group position="center" spacing="xl" style={{ marginLeft: '100px', marginTop: '40px', width: '100%', maxWidth: '300px' }}>
-          <StatText label="Total Deposited" value={`£${currentMonthTotal.toFixed(2)}`} color="#10A56D" highlight="▲" />
-          <StatText label="Total Withdrawn" value={`£${Math.abs(currentMonthTotal - lastMonthTotal).toFixed(2)}`} color="#F45656" highlight="▼" />
+        <Group style={{ marginTop: '40px'}}>
+          <Text fw={700}><span style={{color:"#10A56D", fontSize:"15px"}}>▲ £{currentMonthTotal.toFixed(2)}</span><span style={{color:"#F45656", fontSize:"15px"}}>⠀⠀▼ £{Math.abs(currentMonthTotal - lastMonthTotal).toFixed(2)}</span></Text>
         </Group>
       </Box>
+      </Center>
     </Card>
   );
 }

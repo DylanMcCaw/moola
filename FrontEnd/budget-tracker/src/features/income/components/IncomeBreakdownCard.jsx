@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, Card, List, rem, Pagination } from '@mantine/core';
+import { Text, Card, Center, rem, Pagination } from '@mantine/core';
 import "./IncomeStyles.css";
 import { PieChart } from '@mantine/charts';
 
@@ -25,7 +25,9 @@ function IncomeBreakdownCard({ incomes }) {
         withTooltip
       />
     ) : (
-      <Text color="dimmed">No income data available</Text>
+      <Center style={{ height: '100px' , paddingTop:"50px" }}>
+          <Text size="md" color="dimmed">No transactions to display.</Text>
+        </Center>
     )}
   </Card>
   );

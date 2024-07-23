@@ -62,7 +62,7 @@ function SavingPots() {
         </div>
       </div>
 
-      <Modal opened={opened} onClose={close} title="Create New Savings Pot" size="lg" centered>
+      <Modal opened={opened} onClose={close} title="Create New Savings Pot" size="lg" centered radius={20}>
         <SavingsPotForm onNewSavingsPot={handleNewSavingsPot} />
       </Modal>
     </div>

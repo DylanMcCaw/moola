@@ -25,7 +25,7 @@ function ExpenseBreakdownCard({ expenses }) {
       withTooltip
       />
     ) : (
-      <Text color="dimmed">No Expense data available</Text>
+      <Text color="dimmed" style={{alignSelf:"center", paddingTop:"60px"}}>No Expense data available</Text>
     )}
   </Card>
   );

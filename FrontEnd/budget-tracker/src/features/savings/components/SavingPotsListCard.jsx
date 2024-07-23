@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, Card, List, rem, Pagination, ActionIcon, Tooltip} from '@mantine/core';
+import { Text, Card, List, rem, Pagination, ActionIcon, Tooltip, Button, Center } from '@mantine/core';
 import { IconPlane, IconHome, IconPlus } from '@tabler/icons-react';
 import SavingPotItem from './SavingsPotItem';
 import "./SavingsStyles.css";
@@ -30,38 +30,49 @@ function SavingsPotListCard({ savingPots, onAddClick }) {
       <div className="savingPotsList">
         <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Text size="xl">Saving Pots</Text>
-          <Tooltip label="Create New Savings Pot" withArrow>
-          <ActionIcon color="#4333A1" variant="outline" onClick={onAddClick}>
-            <IconPlus size="1.125rem" />
-          </ActionIcon>
-          </Tooltip>
+          {savingPots.length > 0 && (
+            <Tooltip label="Create New Savings Pot" withArrow>
+              <ActionIcon color="#4333A1" variant="outline" onClick={onAddClick}>
+                <IconPlus size="1.125rem" />
+              </ActionIcon>
+            </Tooltip>
+          )}
         </div>
-        <List spacing="lg" size="m" center>
-          {currentSavings.map((pot, index) => (
-            <SavingPotItem
-              id={pot.id}
-              key={index}
-              icon={pot.icon === 'IconPlane' ? <IconPlane style={{ width: rem(16), height: rem(16) }} /> : <IconHome style={{ width: rem(16), height: rem(16) }} />}
-              color={pot.color}
-              title={pot.title}
-              amount={pot.amount}
-              goal={pot.goal}
-              progress={pot.progress}
-              onEditClick={() => handleEditClick(index)}
-              onDepositClick={() => handleDepositClick(index)}
-            />
-          ))}
-        </List>
-        <div className='paginationContainer'>
-          <Pagination
-            total={totalPages}
-            value={currentPage}
-            onChange={handlePageChange}
-            color='#4333A1'
-            size="sm"
-            className="pagination"
-          />
-        </div>
+        {savingPots.length === 0 ? (
+          <Center style={{ height: '100%', flexDirection: 'column', paddingTop:"40px"}}>
+            <Text size="md" color="dimmed" mb="md">Start saving by creating your first savings pot!</Text>
+            <Button color="#4333A1" onClick={onAddClick}>Create Savings Pot</Button>
+          </Center>
+        ) : (
+          <>
+            <List spacing="lg" size="m" center>
+              {currentSavings.map((pot, index) => (
+                <SavingPotItem
+                  id={pot.id}
+                  key={index}
+                  icon={pot.icon === 'IconPlane' ? <IconPlane style={{ width: rem(16), height: rem(16) }} /> : <IconHome style={{ width: rem(16), height: rem(16) }} />}
+                  color={pot.color}
+                  title={pot.title}
+                  amount={pot.amount}
+                  goal={pot.goal}
+                  progress={pot.progress}
+                  onEditClick={() => handleEditClick(index)}
+                  onDepositClick={() => handleDepositClick(index)}
+                />
+              ))}
+            </List>
+            <div className='paginationContainer'>
+              <Pagination
+                total={totalPages}
+                value={currentPage}
+                onChange={handlePageChange}
+                color='#4333A1'
+                size="sm"
+                className="pagination"
+              />
+            </div>
+          </>
+        )}
       </div>
     </Card>
   );

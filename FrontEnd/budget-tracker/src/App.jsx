@@ -6,6 +6,7 @@ import { Notifications } from '@mantine/notifications';
 import AppContent from './AppContent';
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
+import '@mantine/dates/styles.css';
 import './styles/App.css';  // Adjust this path if necessary
 
 function App() {

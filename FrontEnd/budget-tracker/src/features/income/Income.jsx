@@ -45,7 +45,7 @@ function Income() {
         </div>
       </div>
 
-      <Modal opened={opened} onClose={close} title="Create New Income" size="lg" centered>
+      <Modal opened={opened} onClose={close} title="Create New Income" size="lg" centered radius={20}> 
         <IncomeForm onNewIncome={handleNewIncome} />
       </Modal>
     </div>
