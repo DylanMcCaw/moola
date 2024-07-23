@@ -9,7 +9,6 @@ import "./SavingsStyles.css";
 function SavingPotItem({ id, icon, color, title, onEditClick }) {
   const [depositOpened, setDepositOpened] = useState(false);
   const [editOpened, setEditOpened] = useState(false);
-  const dispatch = useDispatch();
   
   const pot = useSelector(state => state.savings.find(pot => pot.id === id));
   
@@ -66,7 +65,7 @@ function SavingPotItem({ id, icon, color, title, onEditClick }) {
         </div>
       </div>
 
-      <Modal opened={depositOpened} onClose={handleClose} title="Deposit/Withdraw Funds" size="lg" centered>
+      <Modal opened={depositOpened} onClose={handleClose} title="Deposit/Withdraw Funds" size="lg" centered radius={20}>
         <SavingsPotTransactionForm 
           savingsPotId={id} 
           onClose={handleClose} 
@@ -74,7 +73,7 @@ function SavingPotItem({ id, icon, color, title, onEditClick }) {
         />
       </Modal>
 
-      <Modal opened={editOpened} onClose={handleClose} title="Edit Savings Pot" size="lg" centered>
+      <Modal opened={editOpened} onClose={handleClose} title="Edit Savings Pot" size="lg" centered radius={20}>
         <SavingsPotForm 
           editMode={true}
           initialData={pot}

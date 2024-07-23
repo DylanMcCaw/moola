@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, Table, ThemeIcon, Pagination, ActionIcon, Modal, Card, Tooltip } from '@mantine/core';
+import { Text, Table, ThemeIcon, Pagination, ActionIcon, Modal, Card, Tooltip, Center, Button } from '@mantine/core';
 import { IconMoneybag, IconEdit, IconPlus } from '@tabler/icons-react';
 import IconComponents from '../../common/IconComponents';
 import ExpenseCategory from '../../expense/components/ExpenseCategory';
@@ -63,36 +63,45 @@ function ExpenseTable({ expenses, onAddClick }) {
     <Card withBorder radius="20" className="card">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
         <Text size="xl">Expenses</Text>
-        <Tooltip label="Add New Expense" withArrow>
-          <ActionIcon color="#4333A1" variant="outline" onClick={onAddClick}>
-            <IconPlus size="1.125rem" />
-          </ActionIcon>
-        </Tooltip>
+        {expenses.length > 0 && (
+          <Tooltip label="Add New Expense" withArrow>
+            <ActionIcon color="#4333A1" variant="outline" onClick={onAddClick}>
+              <IconPlus size="1.125rem" />
+            </ActionIcon>
+          </Tooltip>
+        )}
       </div>
-      <Table>
-        <thead className='table-header'>
-          <tr>
-            <th className="name-column"><span style={{ color: "grey", fontSize: "12px" }}>Expense</span></th>
-            <th></th>
-            <th className="amount-column"><span style={{ color: "grey", fontSize: "12px" }}>Amount</span></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
-      {expenses.length > 0 && (
-        <div className='paginationContainer'>
-          <Pagination
-            total={totalPages}
-            value={currentPage}
-            onChange={handlePageChange}
-            className="pagination"
-            color='#4333A1'
-            size="sm"
-          />
-        </div>
+      {expenses.length === 0 ? (
+        <Center style={{ height: '200px', flexDirection: 'column' }}>
+          <Text size="md" color="dimmed" mb="md">Start tracking your expenses by adding your first expense!</Text>
+          <Button color="#4333A1" onClick={onAddClick}>Create Expense</Button>
+        </Center>
+      ) : (
+        <>
+          <Table>
+            <thead className='table-header'>
+              <tr>
+                <th className="name-column"><span style={{ color: "grey", fontSize: "12px" }}>Expense</span></th>
+                <th></th>
+                <th className="amount-column"><span style={{ color: "grey", fontSize: "12px" }}>Amount</span></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
+          <div className='paginationContainer'>
+            <Pagination
+              total={totalPages}
+              value={currentPage}
+              onChange={handlePageChange}
+              className="pagination"
+              color='#4333A1'
+              size="sm"
+            />
+          </div>
+        </>
       )}
-      <Modal opened={editOpened} onClose={handleClose} title="Edit Expense" size="lg" centered>
+      <Modal opened={editOpened} onClose={handleClose} title="Edit Expense" size="lg" centered radius={20}>
         {selectedExpense && (
           <ExpenseForm 
             editMode={true}

@@ -15,8 +15,8 @@ export function ExpenseForm({ onClose, editMode = false, initialData = null }) {
     userId: userId,
     description: '',
     amount: 0,
-    category: '0',
-    icon: 'icon1',
+    category: '',
+    icon: '',
     iconColour: '',
     startDate: new Date(),
   });
@@ -155,6 +155,7 @@ export function ExpenseForm({ onClose, editMode = false, initialData = null }) {
                 { value: '8', label: 'Other' }
               ]}
               value={formData.category}
+              placeholder='Select a category'
               allowDeselect={false}
               onChange={(value) => handleInputChange('category', value)}
               required
@@ -169,6 +170,7 @@ export function ExpenseForm({ onClose, editMode = false, initialData = null }) {
                 // Add more icon options as needed
               ]}
               value={formData.icon}
+              placeholder='Select an icon'
               allowDeselect={false}
               onChange={(value) => handleInputChange('icon', value)}
               required
@@ -181,7 +183,7 @@ export function ExpenseForm({ onClose, editMode = false, initialData = null }) {
               withEyeDropper={false}
               swatches={['#2e2e2e', '#868e96', '#fa5252', '#e64980', '#be4bdb', '#7950f2', '#4c6ef5', '#228be6', '#15aabf', '#12b886', '#40c057', '#82c91e', '#fab005', '#fd7e14']}
               value={formData.iconColour}
-              placeholder="Icon Colour"
+              placeholder="Select an icon colour"
               allowDeselect={false}
               onChange={(value) => handleInputChange('iconColour', value)}
               required
@@ -215,10 +217,11 @@ export function ExpenseForm({ onClose, editMode = false, initialData = null }) {
         onClose={() => setConfirmModalOpen(false)}
         title="Confirm Action"
         size="lg"
+        radius={20}
       >
         <Text>Are you sure you want to {actionType} this Expense?</Text>
         <Group className="modal-buttons" position="apart" mt="md">
-          <Button onClick={() => setConfirmModalOpen(false)} variant="outline">Cancel</Button>
+          <Button onClick={() => setConfirmModalOpen(false)} variant="outline" color="#4333A1">Cancel</Button>
           <Button onClick={handleConfirm} color={actionType === 'delete' ? 'red' : '#4333A1'}>Confirm</Button>
         </Group>
       </Modal>

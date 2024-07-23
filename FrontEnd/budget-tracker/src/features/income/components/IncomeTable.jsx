@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, Table, ThemeIcon, Pagination, ActionIcon, Tooltip, Modal, Card } from '@mantine/core';
+import { Text, Table, ThemeIcon, Pagination, ActionIcon, Tooltip, Modal, Card, Center, Button } from '@mantine/core';
 import { IconMoneybag, IconEdit, IconPlus } from '@tabler/icons-react';
 import IconComponents from '../../common/IconComponents';
 import IncomeCategory from '../../income/components/IncomeCategory';
@@ -63,36 +63,45 @@ function IncomeTable({ incomes, onAddClick }) {
     <Card withBorder radius="20" className="card">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
         <Text size="xl">Incomes</Text>
-        <Tooltip label="Add New Income" withArrow>
-          <ActionIcon color="#4333A1" variant="outline" onClick={onAddClick}>
-            <IconPlus size="1.125rem" />
-          </ActionIcon>
-        </Tooltip>
+        {incomes.length > 0 && (
+          <Tooltip label="Add New Income" withArrow>
+            <ActionIcon color="#4333A1" variant="outline" onClick={onAddClick}>
+              <IconPlus size="1.125rem" />
+            </ActionIcon>
+          </Tooltip>
+        )}
       </div>
-      <Table>
-        <thead className='table-header'>
-          <tr>
-            <th className="name-column"><span style={{ color: "grey", fontSize: "12px" }}>Income</span></th>
-            <th></th>
-            <th className="amount-column"><span style={{ color: "grey", fontSize: "12px" }}>Amount</span></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
-      {incomes.length > 0 && (
-        <div className='paginationContainer'>
-          <Pagination
-            total={totalPages}
-            value={currentPage}
-            onChange={handlePageChange}
-            className="pagination"
-            color='#4333A1'
-            size="sm"
-          />
-        </div>
+      {incomes.length === 0 ? (
+        <Center style={{ height: '200px', flexDirection: 'column' }}>
+          <Text size="md" color="dimmed" mb="md">Start tracking your incomes by adding your first income!</Text>
+          <Button color="#4333A1" onClick={onAddClick}>Create Income</Button>
+        </Center>
+      ) : (
+        <>
+          <Table>
+            <thead className='table-header'>
+              <tr>
+                <th className="name-column"><span style={{ color: "grey", fontSize: "12px" }}>Income</span></th>
+                <th></th>
+                <th className="amount-column"><span style={{ color: "grey", fontSize: "12px" }}>Amount</span></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
+          <div className='paginationContainer'>
+            <Pagination
+              total={totalPages}
+              value={currentPage}
+              onChange={handlePageChange}
+              className="pagination"
+              color='#4333A1'
+              size="sm"
+            />
+          </div>
+        </>
       )}
-      <Modal opened={editOpened} onClose={handleClose} title="Edit Income" size="lg" centered>
+      <Modal opened={editOpened} onClose={handleClose} title="Edit Income" size="lg" centered radius={20}>
         {selectedIncome && (
           <IncomeForm 
             editMode={true}

@@ -15,6 +15,7 @@ import Home from './features/home/Home';
 import SavingPots from './features/savings/Savings';
 import Income from './features/income/Income';
 import Expense from './features/expense/Expense'
+import Settings from './features/settings/Settings'
 import { Navbar } from './features/navbar/NavBar';
 import UserMenu from './features/home/UserMenu';
 import './styles/App.css'
@@ -133,7 +134,14 @@ function AppContent() {
                   </ProtectedRoute>
                 }
               />
-              {/* Add other protected routes here */}
+              <Route
+                path="/settings"
+                element={
+                  <ProtectedRoute>
+                    <Settings />
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
           </main>
           <footer>

@@ -99,7 +99,7 @@ export function IncomeHomePageCard({ incomes }) {
               tooltipDataSource="name"
               mx="auto"  
               data={data} 
-              style={{ height: '220px', width: '250px' }}
+              style={{ height: '220px', width: '400px' }}
               labelsType="percent" 
               withLabels
               labelPosition="outside"
@@ -112,7 +112,7 @@ export function IncomeHomePageCard({ incomes }) {
       </div>
       <div className="tableContainer">
         {incomes.length === 0 ? (
-          <div className="no-incomes-content">
+          <div className="no-data-content">
             <Text size="md" color="dimmed" mb="md">Start by adding your first income source!</Text>
             <Button color="#4333A1" onClick={handleGoToIncomesClick()}>Go To Incomes</Button>
           </div>

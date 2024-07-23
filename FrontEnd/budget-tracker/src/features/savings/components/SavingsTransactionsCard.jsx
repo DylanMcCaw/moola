@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, Card, Table, Pagination, ThemeIcon , Badge} from '@mantine/core';
+import { Text, Card, Table, Pagination, ThemeIcon, Badge, Center } from '@mantine/core';
 import { useSelector } from 'react-redux';
 import { IconPlane, IconHome } from '@tabler/icons-react';
 import formatCurrency from '../../../utils/formatCurrency';
@@ -29,7 +29,6 @@ export function SavingsTransactionsCard() {
     return null;
   };
 
-
   const rows = currentTransactions.map((transaction) => {
     const savingPot = savingPots.find(pot => pot.id === transaction.savingsPotId);
     const isDeposit = transaction.transactionType === 'Deposit';
@@ -39,7 +38,7 @@ export function SavingsTransactionsCard() {
         <Table.Td>{formatDate(transaction.transactionDate)}</Table.Td>
         <Table.Td>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <ThemeIcon color={savingPot?.iconColour || 'gray'} size={24} radius="xl">
+            <ThemeIcon color={savingPot?.iconColour || 'gray'} size={24} radius="xl">
               {getSavingPotIcon(savingPot?.icon)}
             </ThemeIcon>
             <span>{savingPot?.description || 'Unknown'}</span>
@@ -48,7 +47,7 @@ export function SavingsTransactionsCard() {
         <Table.Td>{transaction.transactionType == "Deposit" ? <Badge variant="outline" color="teal">Deposit</Badge> : <Badge variant="outline" color="red">Withdraw</Badge>}</Table.Td>
         <Table.Td>
           <span style={{fontWeight:"bold"}}>
-          {sign} {formatCurrency(transaction.amount)}
+            {sign} {formatCurrency(transaction.amount)}
           </span>
         </Table.Td>
       </Table.Tr>
@@ -68,29 +67,37 @@ export function SavingsTransactionsCard() {
       <div style={{ marginBottom: '10px' }}>
         <Text size="xl">Transactions</Text>
       </div>
-      <Table style={{ marginBottom: '0px' }} verticalSpacing="sm">
-      <thead className='table-header'>
-          <tr>
-          <th className="name-column"><span style={{ color: "grey", fontSize: "12px", paddingLeft:"10px"}}>Date</span></th>
-            <th className="name-column"><span style={{ color: "grey", fontSize: "12px", paddingLeft:"10px"}}>Savings Pot</span></th>
-            <th className="name-column"><span style={{ color: "grey", fontSize: "12px", paddingLeft:"10px"}}>Transaction Type</span></th>
-            <th className="amount-column"><span style={{ color: "grey", fontSize: "12px", paddingLeft:"10px", float:"left"}}>Amount</span></th>
-          </tr>
-        </thead>
-        <Table.Tbody>
-          {rows}
-        </Table.Tbody>
-      </Table>
-      <div className='paginationContainer'>
-        <Pagination
-          total={totalPages}
-          value={currentPage}
-          onChange={handlePageChange}
-          color='#4333A1'
-          size="sm"
-          className="pagination"
-        />
-      </div>
+      {sortedTransactions.length === 0 ? (
+        <Center style={{ height: '100px' , paddingTop:"50px" }}>
+          <Text size="md" color="dimmed">No transactions to display.</Text>
+        </Center>
+      ) : (
+        <>
+          <Table style={{ marginBottom: '0px' }} verticalSpacing="sm">
+            <thead className='table-header'>
+              <tr>
+                <th className="name-column"><span style={{ color: "grey", fontSize: "12px", paddingLeft:"10px"}}>Date</span></th>
+                <th className="name-column"><span style={{ color: "grey", fontSize: "12px", paddingLeft:"10px"}}>Savings Pot</span></th>
+                <th className="name-column"><span style={{ color: "grey", fontSize: "12px", paddingLeft:"10px"}}>Transaction Type</span></th>
+                <th className="amount-column"><span style={{ color: "grey", fontSize: "12px", paddingLeft:"10px", float:"left"}}>Amount</span></th>
+              </tr>
+            </thead>
+            <Table.Tbody>
+              {rows}
+            </Table.Tbody>
+          </Table>
+          <div className='paginationContainer'>
+            <Pagination
+              total={totalPages}
+              value={currentPage}
+              onChange={handlePageChange}
+              color='#4333A1'
+              size="sm"
+              className="pagination"
+            />
+          </div>
+        </>
+      )}
     </Card>
   );
 }
