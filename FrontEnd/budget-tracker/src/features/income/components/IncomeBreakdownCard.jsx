@@ -11,7 +11,7 @@ function IncomeBreakdownCard({ incomes }) {
       }));
       
   return (
-    <Card withBorder radius="20" className="large-card">
+    <Card withBorder radius="20">
     <Text size="xl" mb="md">Income Breakdown</Text>
     {incomes.length > 0 ? (
       <PieChart 

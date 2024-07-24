@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 .app-container {
   display: flex;
   flex-direction: column;
@@ -40,3 +42,42 @@ header {
 .mantine-DatePickerInput-day[data-selected]{
   background-color: #4333A1 !important;
 }
+
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #FAFAFE;
+  transition: background-color 0.3s ease;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure it covers the full viewport height */
+  background-color: inherit; /* Inherit the background color from the body */
+}
+
+/* Dark mode styles */
+body.dark,
+.app-container.dark {
+  background-color: #1A1B1E;
+  color: #C1C2C5;
+}
+
+.app-container.dark {
+  background-color: #1A1B1E;
+  color: #C1C2C5;
+}
+
+.app-container.dark .navbar {
+  background-color: #1A1B1E;
+}
+
+.app-container.dark .card {
+  background-color: #25262B;
+  color: #C1C2C5;
+}
+
+/* Add more dark mode styles as needed */

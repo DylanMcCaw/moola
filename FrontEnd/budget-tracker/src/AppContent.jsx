@@ -20,6 +20,7 @@ import { Navbar } from './features/navbar/NavBar';
 import UserMenu from './features/home/UserMenu';
 import './styles/App.css'
 import DarkModeSwitch from './features/home/components/DarkModeSwitch';
+import { useMantineColorScheme } from '@mantine/core';
 
 function AppContent() {
   const dispatch = useDispatch();
@@ -27,6 +28,8 @@ function AppContent() {
   const savings = useSelector((state) => state.savings);
   const incomes = useSelector((state) => state.incomes);
   const expenses = useSelector((state) => state.expenses);
+  const { colorScheme } = useMantineColorScheme();
+
 
   useEffect(() => {
     const checkAuthStatus = () => {
@@ -89,9 +92,10 @@ function AppContent() {
 
   return (
     <Router>
+      <div className={`app-container ${colorScheme}`}>
       <div className="app-container">
         <header className='navbar'>
-          <Navbar isAuthenticated={isAuthenticated} />
+          <Navbar isAuthenticated={isAuthenticated} colorScheme={colorScheme} />
         </header>
         <div className="content-container">
           <main className="main-content">
@@ -157,6 +161,7 @@ function AppContent() {
             />
           </div>
         )}
+      </div>
       </div>
     </Router>
   );

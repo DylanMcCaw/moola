@@ -29,7 +29,7 @@ const data = [
   { link: '/settings', label: 'Settings', icon: IconSettings },
 ];
 
-export function Navbar({ isAuthenticated }) {
+export function Navbar({ isAuthenticated, colorScheme  }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -90,7 +90,7 @@ export function Navbar({ isAuthenticated }) {
   });
 
   return (
-    <nav className={classes.navbar}>
+    <nav className={`${classes.navbar} ${colorScheme === 'dark' ? classes.dark : ''}`}>
       <div className={classes.navbarMain}>
         <div className={classes.header}>
           <div className={classes.logo}>
