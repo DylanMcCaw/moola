@@ -69,7 +69,7 @@ export function SavingsHomePageCard({ savings }) {
   };
 
   return (
-    <Card withBorder radius="20" className="large-card">
+    <Card withBorder radius="20">
       <div className="inner">
         <div className="left-section">
           <div className="stats">

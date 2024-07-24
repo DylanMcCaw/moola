@@ -96,7 +96,7 @@ function ExpenseTable({ expenses, onAddClick }) {
   });
   
   return (
-    <Card withBorder radius="20" className="card">
+    <Card withBorder radius="20">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
         <Text size="xl">Expenses</Text>
         {sortedExpenses.length > 0 && (

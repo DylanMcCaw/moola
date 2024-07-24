@@ -43,7 +43,7 @@ function SavingsPotListCard({ savingPots, onAddClick }) {
   };
 
   return (
-    <Card withBorder radius="20" className="large-card">
+    <Card withBorder radius="20">
       <div className="savingPotsList">
         <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Text size="xl">Saving Pots</Text>

@@ -11,7 +11,7 @@ function ExpenseBreakdownCard({ expenses }) {
       }));
       
   return (
-    <Card withBorder radius="20" className="large-card">
+    <Card withBorder radius="20">
     <Text size="xl" mb="md">Expense Breakdown</Text>
     {expenses.length > 0 ? (
       <PieChart 

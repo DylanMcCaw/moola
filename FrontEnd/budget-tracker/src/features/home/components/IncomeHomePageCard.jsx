@@ -94,7 +94,7 @@ export function IncomeHomePageCard({ incomes }) {
   }));
 
   return (
-    <Card withBorder radius="20" className="card">
+    <Card withBorder radius="20">
       <div className="inner">
         <div className="stats">
           <Text size="xl">Total Income</Text>

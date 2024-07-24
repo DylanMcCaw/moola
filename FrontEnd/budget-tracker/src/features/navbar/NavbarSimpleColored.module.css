@@ -1,14 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 .navbar {
-  height: 100vh; /* Ensure the navbar spans the entire viewport height */
-  width: 18.75rem; /* Convert 300px to rem assuming the root font size is 16px (300 / 16 = 18.75) */
+  height: 100vh;
+  width: 18.75rem;
   padding: var(--mantine-spacing-md);
   display: flex;
   flex-direction: column;
   background-color: #4333A1;
-  border-top-right-radius: 40px; /* Rounded corners on the top right */
-  border-bottom-right-radius: 40px; /* Rounded corners on the bottom right */
-  overflow: hidden; /* Ensure content doesn't overflow the rounded corners */
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+/* Dark mode for navbar */
+.dark .navbar {
+  background-color: #1A1B1E;
 }
 
 .navbarMain {
@@ -45,9 +52,20 @@
   align-self: center;
 }
 
+/* Dark mode for footer */
+.dark .footer {
+  border-top-color: #2C2E33;
+  color: #A6A7AB;
+}
+
 .version {
   background-color: #4333A1;
   color: var(--mantine-color-white);
+}
+
+/* Dark mode for version */
+.dark .version {
+  background-color: #2C2E33;
 }
 
 .link {
@@ -61,37 +79,66 @@
   font-weight: 500;
   transition: background-color 0.3s, color 0.3s;
   margin-bottom: 8px;
+}
 
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--mantine-color-white);
-  }
+.link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--mantine-color-white);
+}
 
-  .linkIcon {
-    color: #8680C3;
-    margin-right: var(--mantine-spacing-sm);
-    width: 1.5625rem; /* Convert 25px to rem (25 / 16 = 1.5625) */
-    height: 1.5625rem; /* Convert 25px to rem (25 / 16 = 1.5625) */
-  }
+/* Dark mode for link hover */
+.dark .link:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
 
-  &[data-active='true'] {
-    box-shadow: var(--mantine-shadow-sm);
-    background-color: var(--mantine-color-white);
-    color: #4333A1;
+.link .linkIcon {
+  color: #8680C3;
+  margin-right: var(--mantine-spacing-sm);
+  width: 1.5625rem;
+  height: 1.5625rem;
+}
 
-    .linkIcon {
-      color: #4333A1;
-    }
+/* Dark mode for link icon */
+.dark .link .linkIcon {
+  color: #A6A7AB;
+}
 
-    &:hover {
-      background-color: var(--mantine-color-white);
-      color: #4333A1;
+.link[data-active='true'] {
+  box-shadow: var(--mantine-shadow-sm);
+  background-color: var(--mantine-color-white);
+  color: #4333A1;
+}
 
-      .linkIcon {
-        color: #4333A1;
-      }
-    }
-  }
+.link[data-active='true'] .linkIcon {
+  color: #4333A1;
+}
+
+.link[data-active='true']:hover {
+  background-color: var(--mantine-color-white);
+  color: #4333A1;
+}
+
+.link[data-active='true']:hover .linkIcon {
+  color: #4333A1;
+}
+
+/* Dark mode for active link */
+.dark .link[data-active='true'] {
+  background-color: #25262B;
+  color: #C1C2C5;
+}
+
+.dark .link[data-active='true'] .linkIcon {
+  color: #C1C2C5;
+}
+
+.dark .link[data-active='true']:hover {
+  background-color: #25262B;
+  color: #C1C2C5;
+}
+
+.dark .link[data-active='true']:hover .linkIcon {
+  color: #C1C2C5;
 }
 
 .activeLink {
@@ -99,8 +146,21 @@
   color: white; 
 }
 
+/* Dark mode for active link */
+.dark .activeLink {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 .chevron {
   color: white;
   margin-left: auto;
 }
 
+/* Dark mode for chevron */
+.dark .chevron {
+  color: #C1C2C5;
+}
+
+.dark.navbar {
+  background-color: #242424;
+}

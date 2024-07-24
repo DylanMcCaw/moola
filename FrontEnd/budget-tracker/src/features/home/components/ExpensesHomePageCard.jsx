@@ -58,7 +58,7 @@ function ExpenseTable({ expenses }) {
         </td>
         <td className="name-column">
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span style={{paddingRight:"10px"}}>{expense.description}</span>
+          <span style={{paddingRight:"10px"}}>{expense.description}</span>
             {getDueBadge(dueDate)}
           </div>
           <span className='category-text'>{ExpenseCategory[expense.category]}</span>
@@ -119,7 +119,7 @@ export function ExpensesHomePageCard({ expenses }) {
   }));
 
   return (
-    <Card withBorder radius="20" className="card">
+    <Card withBorder radius="20">
       <div className="inner">
         <div className="stats">
           <Text size="xl">Total Expenses</Text>
