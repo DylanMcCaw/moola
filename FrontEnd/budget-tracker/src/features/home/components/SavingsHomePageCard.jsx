@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, Card, RingProgress, List, ThemeIcon, rem, Progress, Pagination, Button } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
-import { IconPlane } from '@tabler/icons-react';
+import { savingsIconOptions } from '../../common/savingsIconOptions';
 import './HomePageCardStyle.css';
 import formatCurrency from '../../../utils/formatCurrency';
 
@@ -24,7 +24,7 @@ function SavingPotItem({ icon, color, title, amount, goal, progress, onClick }) 
           <Text className="textItem" c="dimmed" size='13px'>{amount} / {goal}</Text>
         </div>
         <div className="progressContainer">
-          <div className="progressLabel"><Text size='13px'>{progress}%</Text></div>
+          <div className="progressLabel"><Text size='13px'>{progress.toFixed(0)}%</Text></div>
           <Progress value={progress} mt="s" color="#4333A1" style={{ width: "600px" }} />
         </div>
       </div>
@@ -35,8 +35,8 @@ function SavingPotItem({ icon, color, title, amount, goal, progress, onClick }) 
 export function SavingsHomePageCard({ savings }) {
   const totalSavings = savings.reduce((acc, pot) => acc + pot.currentAmount, 0);
   const totalGoal = savings.length > 0
-  ? savings.reduce((total, pot) => total + (pot.targetAmount || 0), 0).toFixed(2)
-  : "0.00";
+    ? savings.reduce((total, pot) => total + (pot.targetAmount || 0), 0).toFixed(2)
+    : "0.00";
   const goalReachedPercentage = savings.length > 0
     ? (totalSavings / savings.reduce((acc, pot) => acc + pot.targetAmount, 0)) * 100
     : 0;
@@ -59,6 +59,15 @@ export function SavingsHomePageCard({ savings }) {
     navigate('/savings'); 
   }
 
+  const getIconComponent = (iconName) => {
+    const iconOption = savingsIconOptions.find(option => option.value === iconName);
+    if (iconOption) {
+      const IconComponent = iconOption.icon;
+      return <IconComponent style={{ width: rem(16), height: rem(16) }} />;
+    }
+    return null;
+  };
+
   return (
     <Card withBorder radius="20" className="large-card">
       <div className="inner">
@@ -79,12 +88,12 @@ export function SavingsHomePageCard({ savings }) {
               </div>
             ) : (
               <List spacing="lg" size="m" center>
-            <div className='savingPotsListTitle'><Text>Saving Pots:</Text></div>
+                <div className='savingPotsListTitle'><Text>Saving Pots:</Text></div>
                 {currentSavings.map((pot, index) => (
                   <SavingPotItem
                     key={index}
-                    icon={<IconPlane style={{ width: rem(16), height: rem(16) }} />}
-                    color="orange"
+                    icon={getIconComponent(pot.icon)}
+                    color={pot.iconColour || "gray"}
                     title={pot.description}
                     amount={`£${pot.currentAmount.toFixed(2)}`}
                     goal={`£${pot.targetAmount.toFixed(2)}`}

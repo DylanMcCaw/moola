@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Text, Card, List, rem, Pagination, ActionIcon, Tooltip, Button, Center } from '@mantine/core';
-import { IconPlane, IconHome, IconPlus } from '@tabler/icons-react';
+import { IconPlus, IconPigMoney } from '@tabler/icons-react';
 import SavingPotItem from './SavingsPotItem';
 import "./SavingsStyles.css";
+import { savingsIconOptions } from '../../common/savingsIconOptions';
 
 function SavingsPotListCard({ savingPots, onAddClick }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,6 +24,22 @@ function SavingsPotListCard({ savingPots, onAddClick }) {
 
   const handleDepositClick = (index) => {
     console.log(`Deposit/Withdraw clicked for pot ${index}`);
+  };
+
+  const getIconComponent = (iconName) => {
+    if (!iconName || iconName === false) {
+      // Default icon if no icon name is provided or if false is passed
+      return <IconPigMoney style={{ width: rem(16), height: rem(16) }} />;
+    }
+
+    const iconOption = savingsIconOptions.find(option => option.value === iconName);
+    if (iconOption) {
+      const IconComponent = iconOption.icon;
+      return <IconComponent style={{ width: rem(16), height: rem(16) }} />;
+    }
+
+    // If no matching icon is found, return the default icon
+    return <IconPigMoney style={{ width: rem(16), height: rem(16) }} />;
   };
 
   return (
@@ -50,7 +67,7 @@ function SavingsPotListCard({ savingPots, onAddClick }) {
                 <SavingPotItem
                   id={pot.id}
                   key={index}
-                  icon={pot.icon === 'IconPlane' ? <IconPlane style={{ width: rem(16), height: rem(16) }} /> : <IconHome style={{ width: rem(16), height: rem(16) }} />}
+                  icon={getIconComponent(pot.icon)}
                   color={pot.color}
                   title={pot.title}
                   amount={pot.amount}

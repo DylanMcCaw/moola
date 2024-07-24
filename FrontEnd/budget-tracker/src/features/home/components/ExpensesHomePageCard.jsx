@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
-import { Text, Card, Table, ThemeIcon, Button, Pagination } from '@mantine/core';
+import { Text, Card, Table, ThemeIcon, Button, Pagination, rem } from '@mantine/core';
 import { PieChart } from '@mantine/charts';
-import { IconWallet } from '@tabler/icons-react';
-import IconComponents from '../../common/IconComponents';
+import { useNavigate } from 'react-router-dom';
+import { expenseIconOptions } from '../../common/incomeExpenseIconOptions';
 import ExpenseCategory from '../../expense/components/ExpenseCategory';
 import formatCurrency from '../../../utils/formatCurrency';
 import formatDate from '../../../utils/formatDate';
 import './HomePageCardStyle.css';
+
+function getIconComponent(iconName) {
+  const iconOption = expenseIconOptions.find(option => option.value === iconName);
+  if (iconOption) {
+    const IconComponent = iconOption.icon;
+    return <IconComponent style={{ width: rem(16), height: rem(16) }} />;
+  }
+  return null;
+}
 
 function ExpenseTable({ expenses }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,12 +27,11 @@ function ExpenseTable({ expenses }) {
   const currentExpenses = expenses.slice(indexOfFirstExpense, indexOfLastExpense);
 
   const rows = currentExpenses.map((expense) => {
-    const IconComponent = IconComponents[expense.icon] || IconWallet;
     return (
       <tr key={expense.id}>
         <td>
           <ThemeIcon color={expense.iconColour} size="md" radius="xl">
-            <IconComponent />
+            {getIconComponent(expense.icon)}
           </ThemeIcon>
         </td>
         <td className="name-column">
@@ -69,6 +77,11 @@ function ExpenseTable({ expenses }) {
 
 export function ExpensesHomePageCard({ expenses }) {
   const totalExpenses = expenses.reduce((acc, expense) => acc + expense.amount, 0);
+  const navigate = useNavigate();
+
+  function handleGoToExpensesClick() {
+    navigate('/expenses');
+  }
 
   const data = expenses.map((expense) => ({
     name: expense.description,
@@ -107,7 +120,7 @@ export function ExpensesHomePageCard({ expenses }) {
         {expenses.length === 0 ? (
           <div className="no-data-content">
             <Text size="md" color="dimmed" mb="md">Start by adding your first expense!</Text>
-            <Button color="#4333A1">Go To Expenses</Button>
+            <Button color="#4333A1" onClick={handleGoToExpensesClick}>Go To Expenses</Button>
           </div>
         ) : (
           <ExpenseTable expenses={expenses} />

@@ -32,22 +32,8 @@ const getMonthlyTotals = (transactions, date) => {
     }
   });
 
-  return totalDeposited - totalWithdrawn;
+  return { totalDeposited, totalWithdrawn };
 };
-
-// Stateless component to display stat text
-function StatText({ label, value, color, highlight }) {
-  return (
-    <div className="depositedText" style={{ textAlign: 'left' }}>
-      <Text size="15px">
-        <span style={{ color }}>{highlight}</span> {value}
-      </Text>
-      <Text size="13px" c="dimmed" style={{ paddingTop: '5px' }}>
-        {label}
-      </Text>
-    </div>
-  );
-}
 
 // Main component to display the total savings card
 export function TotalSavingsCard({ totalSavings, totalGoal }) {
@@ -56,8 +42,11 @@ export function TotalSavingsCard({ totalSavings, totalGoal }) {
   const now = new Date();
   const lastMonth = subMonths(now, 1);
 
-  const currentMonthTotal = getMonthlyTotals(transactions, now);
-  const lastMonthTotal = getMonthlyTotals(transactions, lastMonth);
+  const { totalDeposited: currentMonthDeposited, totalWithdrawn: currentMonthWithdrawn } = getMonthlyTotals(transactions, now);
+  const { totalDeposited: lastMonthDeposited, totalWithdrawn: lastMonthWithdrawn } = getMonthlyTotals(transactions, lastMonth);
+
+  const currentMonthTotal = currentMonthDeposited - currentMonthWithdrawn;
+  const lastMonthTotal = lastMonthDeposited - lastMonthWithdrawn;
 
   const percentageDifference = lastMonthTotal !== 0
     ? ((currentMonthTotal - lastMonthTotal) / Math.abs(lastMonthTotal)) * 100
@@ -95,7 +84,7 @@ export function TotalSavingsCard({ totalSavings, totalGoal }) {
           </Text>
         </Stack>
         <Group style={{ marginTop: '40px'}}>
-          <Text fw={700}><span style={{color:"#10A56D", fontSize:"15px"}}>▲ £{currentMonthTotal.toFixed(2)}</span><span style={{color:"#F45656", fontSize:"15px"}}>⠀⠀▼ £{Math.abs(currentMonthTotal - lastMonthTotal).toFixed(2)}</span></Text>
+          <Text fw={700}><span style={{color:"#10A56D", fontSize:"15px"}}>▲ £{currentMonthDeposited.toFixed(2)}</span>⠀⠀<span style={{color:"#F45656", fontSize:"15px"}}>▼ £{currentMonthWithdrawn.toFixed(2)}</span></Text>
         </Group>
       </Box>
       </Center>

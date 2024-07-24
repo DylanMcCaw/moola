@@ -11,7 +11,7 @@ function SavingPotItem({ id, icon, color, title, onEditClick }) {
   const [editOpened, setEditOpened] = useState(false);
   
   const pot = useSelector(state => state.savings.find(pot => pot.id === id));
-  
+  console.log(icon);
   const amount = pot ? `£${pot.currentAmount.toFixed(2)}` : '£0.00';
   const goal = pot ? `£${pot.targetAmount.toFixed(2)}` : '£0.00';
   const progress = pot && pot.targetAmount > 0 

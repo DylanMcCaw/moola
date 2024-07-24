@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, Table, ThemeIcon, Pagination, ActionIcon, Modal, Card, Tooltip, Center, Button } from '@mantine/core';
 import { IconMoneybag, IconEdit, IconPlus } from '@tabler/icons-react';
-import IconComponents from '../../common/IconComponents';
+import { expenseIconOptions } from '../../common/incomeExpenseIconOptions';
 import ExpenseCategory from '../../expense/components/ExpenseCategory';
 import formatCurrency from '../../../utils/formatCurrency';
 import formatDate from '../../../utils/formatDate';
@@ -33,13 +33,18 @@ function ExpenseTable({ expenses, onAddClick }) {
     setSelectedExpense(null);
   };
 
+  const getIconComponent = (iconName) => {
+    const iconOption = expenseIconOptions.find(option => option.value === iconName);
+    return iconOption ? iconOption.icon : null;
+  };
+
   const rows = currentExpenses.map((expense) => {
-    const IconComponent = IconComponents[expense.icon] || IconMoneybag;
+    const IconComponent = getIconComponent(expense.icon);
     return (
       <tr key={expense.id} className="expense-row">
         <td style={{ width: "60px" }}>
           <ThemeIcon color={expense.iconColour} size="md" radius="xl">
-            <IconComponent />
+            {IconComponent && <IconComponent size={16} />}
           </ThemeIcon>
         </td>
         <td className="name-column">
@@ -58,7 +63,6 @@ function ExpenseTable({ expenses, onAddClick }) {
       </tr>
     );
   });
-
   return (
     <Card withBorder radius="20" className="card">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>

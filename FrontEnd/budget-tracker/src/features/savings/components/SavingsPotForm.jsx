@@ -6,7 +6,8 @@ import { parseISO } from 'date-fns';
 import SavingsApi from '../../../api/SavingsApi';
 import { notifications } from '@mantine/notifications';
 import { addSavingsPot, updateSavingsPot, deleteSavingsPot } from '../../../store/slices/savingsSlice';
-import { removeTransactionsBySavingsPotId } from '../../../store/slices/savingPotTransactionsSlice'
+import { removeTransactionsBySavingsPotId } from '../../../store/slices/savingPotTransactionsSlice';
+import { savingsIconOptions } from '../../common/savingsIconOptions';
 
 export function SavingsPotForm({ onClose, editMode = false, initialData = null }) {
   const dispatch = useDispatch();
@@ -144,30 +145,36 @@ export function SavingsPotForm({ onClose, editMode = false, initialData = null }
           <Grid.Col span={6}>
             <Select
               label="Icon"
-              data={[
-                { value: 'icon1', label: 'Home' },
-                { value: 'icon2', label: 'Plane' },
-                // Add more icon options as needed
-              ]}
+              data={savingsIconOptions.map(option => ({
+                value: option.value,
+                label: option.label,
+                icon: <option.icon size={18} />,
+              }))}
               value={formData.icon}
               placeholder='Select an icon'
               allowDeselect={false}
               onChange={(value) => handleInputChange('icon', value)}
               required
+              itemComponent={({ label, icon }) => (
+                <Group noWrap>
+                  {icon}
+                  <span>{label}</span>
+                </Group>
+              )}
             />
           </Grid.Col>
           <Grid.Col span={6}>
-          <ColorInput 
-            label="Icon Colour"
-            disallowInput
-            withEyeDropper={false}
-            swatches={['#2e2e2e', '#868e96', '#fa5252', '#e64980', '#be4bdb', '#7950f2', '#4c6ef5', '#228be6', '#15aabf', '#12b886', '#40c057', '#82c91e', '#fab005', '#fd7e14']}
-            value={formData.iconColour}
-            placeholder="Select an icon colour"
-            allowDeselect={false}
-            onChange={(value) => handleInputChange('iconColour', value)}
-            required
-          />
+            <ColorInput 
+              label="Icon Colour"
+              disallowInput
+              withEyeDropper={false}
+              swatches={['#2e2e2e', '#868e96', '#fa5252', '#e64980', '#be4bdb', '#7950f2', '#4c6ef5', '#228be6', '#15aabf', '#12b886', '#40c057', '#82c91e', '#fab005', '#fd7e14']}
+              value={formData.iconColour}
+              placeholder="Select an icon colour"
+              allowDeselect={false}
+              onChange={(value) => handleInputChange('iconColour', value)}
+              required
+            />
           </Grid.Col>
           <Grid.Col span={6}>
             <DatePickerInput
