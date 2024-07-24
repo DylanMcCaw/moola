@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, Table, ThemeIcon, Pagination, ActionIcon, Tooltip, Modal, Card, Center, Button } from '@mantine/core';
 import { IconMoneybag, IconEdit, IconPlus } from '@tabler/icons-react';
-import IconComponents from '../../common/IconComponents';
+import { incomeIconOptions } from '../../common/incomeExpenseIconOptions';
 import IncomeCategory from '../../income/components/IncomeCategory';
 import formatCurrency from '../../../utils/formatCurrency';
 import formatDate from '../../../utils/formatDate';
@@ -33,13 +33,18 @@ function IncomeTable({ incomes, onAddClick }) {
     setSelectedIncome(null);
   };
 
+  const getIconComponent = (iconName) => {
+    const iconOption = incomeIconOptions.find(option => option.value === iconName);
+    return iconOption ? iconOption.icon : null;
+  };
+
   const rows = currentIncomes.map((income) => {
-    const IconComponent = IconComponents[income.icon] || IconMoneybag;
+    const IconComponent = getIconComponent(income.icon);
     return (
       <tr key={income.id} className="income-row">
         <td style={{ width: "60px" }}>
           <ThemeIcon color={income.iconColour} size="md" radius="xl">
-            <IconComponent />
+            {IconComponent && <IconComponent size={16} />}
           </ThemeIcon>
         </td>
         <td className="name-column">

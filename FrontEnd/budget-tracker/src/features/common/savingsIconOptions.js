@@ -1,0 +1,33 @@
+import {
+    IconHome,
+    IconPlane,
+    IconPigMoney,
+    IconCar,
+    IconBuildingBank,
+    IconGift,
+    IconDeviceGamepad2,
+    IconBookmark,
+    IconHeartFilled,
+    IconSchool,
+    IconSoccerField,
+    IconBriefcase,
+    IconToolsKitchen2,
+    IconDeviceLaptop,
+  } from '@tabler/icons-react';
+  
+  export const savingsIconOptions = [
+    { value: 'IconPigMoney', label: 'Piggy Bank', icon: IconPigMoney },
+    { value: 'IconHome', label: 'Home', icon: IconHome },
+    { value: 'IconPlane', label: 'Travel', icon: IconPlane },
+    { value: 'IconCar', label: 'Car', icon: IconCar },
+    { value: 'IconBuildingBank', label: 'Bank', icon: IconBuildingBank },
+    { value: 'IconGift', label: 'Gift', icon: IconGift },
+    { value: 'IconDeviceGamepad2', label: 'Gaming', icon: IconDeviceGamepad2 },
+    { value: 'IconBookmark', label: 'General Savings', icon: IconBookmark },
+    { value: 'IconHeartFilled', label: 'Wedding', icon: IconHeartFilled },
+    { value: 'IconSchool', label: 'Education', icon: IconSchool },
+    { value: 'IconSoccerField', label: 'Sports', icon: IconSoccerField },
+    { value: 'IconBriefcase', label: 'Business', icon: IconBriefcase },
+    { value: 'IconToolsKitchen2', label: 'Home Appliances', icon: IconToolsKitchen2 },
+    { value: 'IconDeviceLaptop', label: 'Electronics', icon: IconDeviceLaptop },
+  ];

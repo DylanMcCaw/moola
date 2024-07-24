@@ -1,5 +1,6 @@
 import React from 'react';
-import { Title, Card, Text} from '@mantine/core';
+import { Text, Card, Stack, Group, Box, Center, TextInput, Checkbox, Button, Select, Switch, Title} from '@mantine/core';
+import './SettingsStyles.css'
 
 function Settings() {
 
@@ -7,13 +8,12 @@ function Settings() {
     <div className="savings-page">
       <Title className="dashboard-title">Settings</Title>
       <div className="center-wrapper">
-            <div className="cards-container">
-                <div className="full-width-card">
+            <div className="savings-card-container">
                     <Card 
                     withBorder 
                     radius="20" 
                     style={{
-                        height: '250px',
+                        height: '100%',
                         position: 'relative',
                         display: 'flex',
                         flexDirection: 'column',
@@ -21,7 +21,6 @@ function Settings() {
                     }}
                     >
                     </Card>
-                </div>
             </div>
         </div>
     </div>

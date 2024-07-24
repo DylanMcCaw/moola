@@ -1,0 +1,8 @@
+.savings-card-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%; 
+    max-width: 100%; 
+    padding-left: 600px;
+    padding-right: 300px;
+  }

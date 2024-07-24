@@ -25,7 +25,7 @@ function SavingPots() {
 
   const savingPots = savings.map((pot) => ({
     id: pot.id,
-    icon: pot.icon === 'icon1',
+    icon: pot.icon,
     color: pot.iconColour,
     title: pot.description,
     amount: `£${(pot.currentAmount || 0).toFixed(2)}`,

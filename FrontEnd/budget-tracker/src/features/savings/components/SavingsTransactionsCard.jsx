@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, Card, Table, Pagination, ThemeIcon, Badge, Center } from '@mantine/core';
 import { useSelector } from 'react-redux';
-import { IconPlane, IconHome } from '@tabler/icons-react';
+import { savingsIconOptions } from '../../common/savingsIconOptions';
 import formatCurrency from '../../../utils/formatCurrency';
 import formatDate from '../../../utils/formatDate';
 import './SavingsStyles.css';
@@ -23,9 +23,12 @@ export function SavingsTransactionsCard() {
     setCurrentPage(pageNumber);
   };
 
-  const getSavingPotIcon = (icon) => {
-    if (icon === 'icon2') return <IconPlane size={16} />;
-    if (icon === 'icon1') return <IconHome size={16} />;
+  const getSavingPotIcon = (iconName) => {
+    const iconOption = savingsIconOptions.find(option => option.value === iconName);
+    if (iconOption) {
+      const IconComponent = iconOption.icon;
+      return <IconComponent size={16} />;
+    }
     return null;
   };
 
@@ -44,7 +47,7 @@ export function SavingsTransactionsCard() {
             <span>{savingPot?.description || 'Unknown'}</span>
           </div>
         </Table.Td>
-        <Table.Td>{transaction.transactionType == "Deposit" ? <Badge variant="outline" color="teal">Deposit</Badge> : <Badge variant="outline" color="red">Withdraw</Badge>}</Table.Td>
+        <Table.Td>{transaction.transactionType === "Deposit" ? <Badge variant="outline" color="teal">Deposit</Badge> : <Badge variant="outline" color="red">Withdraw</Badge>}</Table.Td>
         <Table.Td>
           <span style={{fontWeight:"bold"}}>
             {sign} {formatCurrency(transaction.amount)}

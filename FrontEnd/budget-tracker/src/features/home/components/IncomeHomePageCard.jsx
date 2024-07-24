@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
-import { Text, Card, Table, ThemeIcon, Pagination, Button } from '@mantine/core';
+import { Text, Card, Table, ThemeIcon, Pagination, Button, rem } from '@mantine/core';
 import { PieChart } from '@mantine/charts';
-import { IconMoneybag } from '@tabler/icons-react';
-import IconComponents from '../../common/IconComponents';
+import { useNavigate } from 'react-router-dom';
+import { incomeIconOptions } from '../../common/incomeExpenseIconOptions';
 import IncomeCategory from '../../income/components/IncomeCategory';
 import formatCurrency from '../../../utils/formatCurrency';
 import formatDate from '../../../utils/formatDate';
-import { useNavigate } from 'react-router-dom';
 import './HomePageCardStyle.css';
+
+function getIconComponent(iconName) {
+  const iconOption = incomeIconOptions.find(option => option.value === iconName);
+  if (iconOption) {
+    const IconComponent = iconOption.icon;
+    return <IconComponent style={{ width: rem(16), height: rem(16) }} />;
+  }
+  return null;
+}
 
 function IncomeTable({ incomes }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,12 +27,11 @@ function IncomeTable({ incomes }) {
   const currentIncomes = incomes.slice(indexOfFirstIncome, indexOfLastIncome);
 
   const rows = currentIncomes.map((income) => {
-    const IconComponent = IconComponents[income.icon] || IconMoneybag;
     return (
       <tr key={income.id}>
         <td style={{width:"60px"}}>
           <ThemeIcon color={income.iconColour} size="md" radius="xl">
-            <IconComponent />
+            {getIconComponent(income.icon)}
           </ThemeIcon>
         </td>
         <td className="name-column">
@@ -70,11 +77,10 @@ function IncomeTable({ incomes }) {
 
 export function IncomeHomePageCard({ incomes }) {
   const totalIncomes = incomes.reduce((acc, income) => acc + income.amount, 0);
-
   const navigate = useNavigate();
 
-  function handleGoToIncomesClick(){
-    navigate('/income'); 
+  function handleGoToIncomesClick() {
+    navigate('/income');
   }
 
   const data = incomes.map((income) => ({
@@ -114,7 +120,7 @@ export function IncomeHomePageCard({ incomes }) {
         {incomes.length === 0 ? (
           <div className="no-data-content">
             <Text size="md" color="dimmed" mb="md">Start by adding your first income source!</Text>
-            <Button color="#4333A1" onClick={handleGoToIncomesClick()}>Go To Incomes</Button>
+            <Button color="#4333A1" onClick={handleGoToIncomesClick}>Go To Incomes</Button>
           </div>
         ) : (
           <IncomeTable incomes={incomes} />

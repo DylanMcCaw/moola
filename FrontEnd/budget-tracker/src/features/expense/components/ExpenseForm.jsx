@@ -6,6 +6,7 @@ import { parseISO } from 'date-fns';
 import ExpenseApi from '../../../api/ExpenseApi';
 import { notifications } from '@mantine/notifications';
 import { addExpense, updateExpense, deleteExpense } from '../../../store/slices/expensesSlice';
+import { expenseIconOptions  } from '../../common/incomeExpenseIconOptions';
 
 export function ExpenseForm({ onClose, editMode = false, initialData = null }) {
   const dispatch = useDispatch();
@@ -164,16 +165,22 @@ export function ExpenseForm({ onClose, editMode = false, initialData = null }) {
           <Grid.Col span={6}>
             <Select
               label="Icon"
-              data={[
-                { value: 'icon1', label: 'Briefcase' },
-                { value: 'icon2', label: 'Money' },
-                // Add more icon options as needed
-              ]}
+              data={expenseIconOptions.map(option => ({
+                value: option.value,
+                label: option.label,
+                icon: <option.icon size={18} />,  // Add icon to the select options
+              }))}
               value={formData.icon}
               placeholder='Select an icon'
               allowDeselect={false}
               onChange={(value) => handleInputChange('icon', value)}
               required
+              itemComponent={({ label, icon }) => (
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  {icon}
+                  <span style={{ marginLeft: '10px' }}>{label}</span>
+                </div>
+              )}
             />
           </Grid.Col>
           <Grid.Col span={6}>

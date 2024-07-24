@@ -6,6 +6,7 @@ import { parseISO } from 'date-fns';
 import IncomeApi from '../../../api/IncomeApi';
 import { notifications } from '@mantine/notifications';
 import { addIncome, updateIncome, deleteIncome } from '../../../store/slices/incomesSlice';
+import { incomeIconOptions  } from '../../common/incomeExpenseIconOptions';
 
 export function IncomeForm({ onClose, editMode = false, initialData = null }) {
   const dispatch = useDispatch();
@@ -163,16 +164,22 @@ export function IncomeForm({ onClose, editMode = false, initialData = null }) {
             <Select
               key={formData.icon}
               label="Icon"
-              data={[
-                { value: 'icon1', label: 'Briefcase' },
-                { value: 'icon2', label: 'Money' },
-                // Add more icon options as needed
-              ]}
+              data={incomeIconOptions.map(option => ({
+                value: option.value,
+                label: option.label,
+                icon: <option.icon size={18} />,  // Add icon to the select options
+              }))}
               value={formData.icon}
               placeholder='Select an icon'
               allowDeselect={false}
               onChange={(value) => handleInputChange('icon', value)}
               required
+              itemComponent={({ label, icon }) => (
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  {icon}
+                  <span style={{ marginLeft: '10px' }}>{label}</span>
+                </div>
+              )}
             />
           </Grid.Col>
           <Grid.Col span={6}>

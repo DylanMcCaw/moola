@@ -104,7 +104,6 @@ namespace BudgetTracker.Expenses.Services
             }
 
             // Update the existing expense with the values from updatedExpense
-            existingExpense.UserID = updatedExpense.UserID;
             existingExpense.Description = updatedExpense.Description;
             existingExpense.Amount = updatedExpense.Amount;
             existingExpense.Frequency = updatedExpense.Frequency;
