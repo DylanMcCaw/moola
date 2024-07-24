@@ -6,6 +6,7 @@ import { incomeIconOptions } from '../../common/incomeExpenseIconOptions';
 import IncomeCategory from '../../income/components/IncomeCategory';
 import formatCurrency from '../../../utils/formatCurrency';
 import formatDate from '../../../utils/formatDate';
+import calculateDueDate from '../../../utils/calculateDueDate';
 import './HomePageCardStyle.css';
 
 function getIconComponent(iconName) {
@@ -21,10 +22,13 @@ function IncomeTable({ incomes }) {
   const [currentPage, setCurrentPage] = useState(1);
   const incomesPerPage = 3;
 
-  const totalPages = Math.ceil(incomes.length / incomesPerPage);
+  // Sort incomes by amount in descending order
+  const sortedIncomes = [...incomes].sort((a, b) => b.amount - a.amount);
+
+  const totalPages = Math.ceil(sortedIncomes.length / incomesPerPage);
   const indexOfLastIncome = currentPage * incomesPerPage;
   const indexOfFirstIncome = indexOfLastIncome - incomesPerPage;
-  const currentIncomes = incomes.slice(indexOfFirstIncome, indexOfLastIncome);
+  const currentIncomes = sortedIncomes.slice(indexOfFirstIncome, indexOfLastIncome);
 
   const rows = currentIncomes.map((income) => {
     return (
@@ -38,7 +42,7 @@ function IncomeTable({ incomes }) {
           {income.description} <span className='category-text'>{IncomeCategory[income.category]}</span>
         </td>
         <td className="amount-column">
-          {formatCurrency(income.amount)} <span className='category-text'>{formatDate(income.startDate)}</span>
+          {formatCurrency(income.amount)} <span className='category-text'>{formatDate(calculateDueDate(income.startDate))}</span>
         </td>
       </tr>
     );
@@ -60,7 +64,7 @@ function IncomeTable({ incomes }) {
         </thead>
         <tbody>{rows}</tbody>
       </Table>
-      {incomes.length > 0 && (
+      {sortedIncomes.length > 0 && (
         <div className="paginationContainer">
           <Pagination
             total={totalPages}

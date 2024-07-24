@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Text, Card, Table, ThemeIcon, Button, Pagination, rem } from '@mantine/core';
+import { Text, Card, Table, ThemeIcon, Button, Pagination, rem, Badge } from '@mantine/core';
 import { PieChart } from '@mantine/charts';
 import { useNavigate } from 'react-router-dom';
 import { expenseIconOptions } from '../../common/incomeExpenseIconOptions';
 import ExpenseCategory from '../../expense/components/ExpenseCategory';
 import formatCurrency from '../../../utils/formatCurrency';
 import formatDate from '../../../utils/formatDate';
+import calculateDueDate from '../../../utils/calculateDueDate';
 import './HomePageCardStyle.css';
 
 function getIconComponent(iconName) {
@@ -17,16 +18,37 @@ function getIconComponent(iconName) {
   return null;
 }
 
+const getDueBadge = (date) => {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const threeDaysFromNow = new Date(now.setDate(now.getDate() + 3));
+  
+  if (date.getDate() === today.getDate()) {
+    return <Badge variant="outline" color="red" size="xs" style={{ marginRight: '4px' }}>Due Today</Badge>;
+  } else if (date <= threeDaysFromNow) {
+    return <Badge variant="outline" color="red" size="xs" style={{ marginRight: '4px' }}>Due Soon</Badge>;
+  }
+  return null;
+};
+
 function ExpenseTable({ expenses }) {
   const [currentPage, setCurrentPage] = useState(1);
   const expensesPerPage = 3;
 
-  const totalPages = Math.ceil(expenses.length / expensesPerPage);
+  // Sort expenses by due date
+  const sortedExpenses = [...expenses].sort((a, b) => {
+    const dateA = calculateDueDate(a.startDate);
+    const dateB = calculateDueDate(b.startDate);
+    return dateA - dateB;
+  });
+
+  const totalPages = Math.ceil(sortedExpenses.length / expensesPerPage);
   const indexOfLastExpense = currentPage * expensesPerPage;
   const indexOfFirstExpense = indexOfLastExpense - expensesPerPage;
-  const currentExpenses = expenses.slice(indexOfFirstExpense, indexOfLastExpense);
+  const currentExpenses = sortedExpenses.slice(indexOfFirstExpense, indexOfLastExpense);
 
   const rows = currentExpenses.map((expense) => {
+    const dueDate = calculateDueDate(expense.startDate);
     return (
       <tr key={expense.id}>
         <td>
@@ -35,10 +57,17 @@ function ExpenseTable({ expenses }) {
           </ThemeIcon>
         </td>
         <td className="name-column">
-          {expense.description} <span className='category-text'>{ExpenseCategory[expense.category]}</span>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <span style={{paddingRight:"10px"}}>{expense.description}</span>
+            {getDueBadge(dueDate)}
+          </div>
+          <span className='category-text'>{ExpenseCategory[expense.category]}</span>
         </td>
         <td className="amount-column">
-          {formatCurrency(expense.amount)} <span className='category-text'>{formatDate(expense.startDate)}</span>
+          {formatCurrency(expense.amount)} 
+          <span className='category-text'>
+            {formatDate(dueDate)}
+          </span>
         </td>
       </tr>
     );
@@ -60,7 +89,7 @@ function ExpenseTable({ expenses }) {
         </thead>
         <tbody>{rows}</tbody>
       </Table>
-      {expenses.length > 0 && (
+      {sortedExpenses.length > 0 && (
         <div className="paginationContainer">
           <Pagination
             total={totalPages}
