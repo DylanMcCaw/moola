@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Text, Table, ThemeIcon, Pagination, ActionIcon, Modal, Card, Tooltip, Center, Button } from '@mantine/core';
+import { Text, Table, ThemeIcon, Pagination, ActionIcon, Modal, Card, Tooltip, Center, Button, Badge } from '@mantine/core';
 import { IconMoneybag, IconEdit, IconPlus } from '@tabler/icons-react';
 import { expenseIconOptions } from '../../common/incomeExpenseIconOptions';
 import ExpenseCategory from '../../expense/components/ExpenseCategory';
 import formatCurrency from '../../../utils/formatCurrency';
 import formatDate from '../../../utils/formatDate';
+import calculateDueDate from '../../../utils/calculateDueDate';
 import { ExpenseForm } from './ExpenseForm'; 
 import './ExpenseStyles.css'
 
@@ -14,10 +15,18 @@ function ExpenseTable({ expenses, onAddClick }) {
   const [selectedExpense, setSelectedExpense] = useState(null);
 
   const expensesPerPage = 3;
-  const totalPages = Math.ceil(expenses.length / expensesPerPage);
+
+  // Sort expenses by due date
+  const sortedExpenses = [...expenses].sort((a, b) => {
+    const dateA = calculateDueDate(a.startDate);
+    const dateB = calculateDueDate(b.startDate);
+    return dateA - dateB;
+  });
+
+  const totalPages = Math.ceil(sortedExpenses.length / expensesPerPage);
   const indexOfLastExpense = currentPage * expensesPerPage;
   const indexOfFirstExpense = indexOfLastExpense - expensesPerPage;
-  const currentExpenses = expenses.slice(indexOfFirstExpense, indexOfLastExpense);
+  const currentExpenses = sortedExpenses.slice(indexOfFirstExpense, indexOfLastExpense);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -38,8 +47,23 @@ function ExpenseTable({ expenses, onAddClick }) {
     return iconOption ? iconOption.icon : null;
   };
 
+  const getDueBadge = (date) => {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const threeDaysFromNow = new Date(now.setDate(now.getDate() + 3));
+    
+    if (date.getDate() === today.getDate()) {
+      return <Badge variant="outline" color="red" size="xs" style={{ marginRight: '4px' }}>Due Today</Badge>;
+    } else if (date <= threeDaysFromNow) {
+      return <Badge variant="outline" color="red" size="xs" style={{ marginRight: '4px' }}>Due Soon</Badge>;
+    }
+    return null;
+  };
+
   const rows = currentExpenses.map((expense) => {
     const IconComponent = getIconComponent(expense.icon);
+    const dueDate = calculateDueDate(expense.startDate);
+    const formattedDueDate = formatDate(dueDate);
     return (
       <tr key={expense.id} className="expense-row">
         <td style={{ width: "60px" }}>
@@ -48,10 +72,17 @@ function ExpenseTable({ expenses, onAddClick }) {
           </ThemeIcon>
         </td>
         <td className="name-column">
-          {expense.description} <span className='category-text'>{ExpenseCategory[expense.category]}</span>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <span style={{paddingRight:"10px"}}>{expense.description}</span>
+            {getDueBadge(dueDate)}
+          </div>
+          <span className='category-text'>{ExpenseCategory[expense.category]}</span>
         </td>
         <td className="amount-column">
-          {formatCurrency(expense.amount)} <span className='category-text'>{formatDate(expense.startDate)}</span>
+          {formatCurrency(expense.amount)} 
+          <span className='category-text'>
+            {formattedDueDate}
+          </span>
         </td>
         <td style={{ width: "60px", paddingLeft:"20px"}}>
           <Tooltip label="Edit" withArrow>
@@ -63,11 +94,12 @@ function ExpenseTable({ expenses, onAddClick }) {
       </tr>
     );
   });
+  
   return (
     <Card withBorder radius="20" className="card">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
         <Text size="xl">Expenses</Text>
-        {expenses.length > 0 && (
+        {sortedExpenses.length > 0 && (
           <Tooltip label="Add New Expense" withArrow>
             <ActionIcon color="#4333A1" variant="outline" onClick={onAddClick}>
               <IconPlus size="1.125rem" />
@@ -75,7 +107,7 @@ function ExpenseTable({ expenses, onAddClick }) {
           </Tooltip>
         )}
       </div>
-      {expenses.length === 0 ? (
+      {sortedExpenses.length === 0 ? (
         <Center style={{ height: '200px', flexDirection: 'column' }}>
           <Text size="md" color="dimmed" mb="md">Start tracking your expenses by adding your first expense!</Text>
           <Button color="#4333A1" onClick={onAddClick}>Create Expense</Button>

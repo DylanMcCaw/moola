@@ -5,6 +5,7 @@ import { incomeIconOptions } from '../../common/incomeExpenseIconOptions';
 import IncomeCategory from '../../income/components/IncomeCategory';
 import formatCurrency from '../../../utils/formatCurrency';
 import formatDate from '../../../utils/formatDate';
+import calculateDueDate from '../../../utils/calculateDueDate';
 import { IncomeForm } from './IncomeForm';
 import './IncomeStyles.css'
 
@@ -14,10 +15,14 @@ function IncomeTable({ incomes, onAddClick }) {
   const [selectedIncome, setSelectedIncome] = useState(null);
 
   const incomesPerPage = 3;
-  const totalPages = Math.ceil(incomes.length / incomesPerPage);
+
+  // Sort incomes by amount in descending order
+  const sortedIncomes = [...incomes].sort((a, b) => b.amount - a.amount);
+
+  const totalPages = Math.ceil(sortedIncomes.length / incomesPerPage);
   const indexOfLastIncome = currentPage * incomesPerPage;
   const indexOfFirstIncome = indexOfLastIncome - incomesPerPage;
-  const currentIncomes = incomes.slice(indexOfFirstIncome, indexOfLastIncome);
+  const currentIncomes = sortedIncomes.slice(indexOfFirstIncome, indexOfLastIncome);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -51,7 +56,7 @@ function IncomeTable({ incomes, onAddClick }) {
           {income.description} <span className='category-text'>{IncomeCategory[income.category]}</span>
         </td>
         <td className="amount-column">
-          {formatCurrency(income.amount)} <span className='category-text'>{formatDate(income.startDate)}</span>
+          {formatCurrency(income.amount)} <span className='category-text'>{formatDate(calculateDueDate(income.startDate))}</span>
         </td>
         <td style={{ width: "60px", paddingLeft:"20px"}}>
           <Tooltip label="Edit" withArrow>
@@ -68,7 +73,7 @@ function IncomeTable({ incomes, onAddClick }) {
     <Card withBorder radius="20" className="card">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
         <Text size="xl">Incomes</Text>
-        {incomes.length > 0 && (
+        {sortedIncomes.length > 0 && (
           <Tooltip label="Add New Income" withArrow>
             <ActionIcon color="#4333A1" variant="outline" onClick={onAddClick}>
               <IconPlus size="1.125rem" />
@@ -76,7 +81,7 @@ function IncomeTable({ incomes, onAddClick }) {
           </Tooltip>
         )}
       </div>
-      {incomes.length === 0 ? (
+      {sortedIncomes.length === 0 ? (
         <Center style={{ height: '200px', flexDirection: 'column' }}>
           <Text size="md" color="dimmed" mb="md">Start tracking your incomes by adding your first income!</Text>
           <Button color="#4333A1" onClick={onAddClick}>Create Income</Button>
