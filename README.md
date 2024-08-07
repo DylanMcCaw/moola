@@ -1,6 +1,6 @@
 # moola - Personal Finance Tracker
 
-Moola is a personal finance tracker web application designed to help you manage your finances effectively. It consists of a .NET REST API backend, a SQL Server database using Entity Framework, and a Vite React frontend.
+moola is a personal finance tracker web application designed to help you manage your finances effectively. It consists of a .NET REST API backend, a SQL Server database using Entity Framework, and a Vite React frontend.
 
 ![Moola Screenshot](https://github.com/DylanMcCaw/moola/blob/main/FrontEnd/budget-tracker/public/moola-home-screenshot.png)
 
